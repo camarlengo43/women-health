@@ -24,7 +24,7 @@ export function generateArticleJsonLd(params: {
     dateModified: params.dateModified,
     image: params.image,
     author: params.authorName
-      ? { '@type': 'Person', name: params.authorName }
+      ? { '@type': 'Organization', name: params.authorName }
       : undefined,
     publisher: {
       '@type': 'Organization',

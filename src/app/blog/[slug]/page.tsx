@@ -18,7 +18,7 @@ import {
   JsonLd,
 } from '@/components/shared'
 import { TableOfContents, ArticleCard } from '@/features/blog'
-import { Clock, Calendar, ExternalLink, BookOpen, CheckCircle2 } from 'lucide-react'
+import { Clock, Calendar, ExternalLink, BookOpen, CheckCircle2, Stethoscope } from 'lucide-react'
 
 interface PostPageProps {
   params: Promise<{ slug: string }>
@@ -275,14 +275,8 @@ export default async function BlogPostPage({ params }: PostPageProps) {
               {/* Author Box */}
               {post.author && (
                 <div className="mt-8 p-6 rounded-2xl bg-card border border-border shadow-xs flex flex-col sm:flex-row gap-5 items-start sm:items-center">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-accent/30 shadow-xs">
-                    <Image
-                      src="/images/authors/equipo-editorial.jpg"
-                      alt={post.author.name}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-accent/15 via-accent/10 to-primary-sage/20 border border-accent/25 flex items-center justify-center shrink-0 shadow-xs text-accent">
+                    <Stethoscope className="w-7 h-7 sm:w-8 sm:h-8 text-accent" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">

@@ -14,7 +14,7 @@ export interface JsonLdArticle {
   dateModified?: string
   image?: string
   author?: {
-    '@type': 'Person'
+    '@type': 'Organization' | 'Person'
     name: string
   }
   publisher: {

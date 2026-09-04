@@ -24,11 +24,6 @@ const images = [
   { name: 'ejercicio-ciclo-menstrual.jpg', id: 'photo-1518611012118-696072aa579a' }
 ];
 
-const authorImages = [
-  { name: 'equipo-editorial.jpg', id: 'photo-1573497019940-1c28c88b4f3e' },
-  { name: 'dra-carmen-navarro.jpg', id: 'photo-1559839734-2b71ea197ec2' }
-];
-
 async function download() {
   for (const img of images) {
     const url = 'https://images.unsplash.com/' + img.id + '?w=1200&auto=format&fit=crop&q=80';
@@ -38,15 +33,7 @@ async function download() {
     fs.writeFileSync(path.join(targetDir, img.name), buffer);
     console.log('Downloaded ' + img.name + ' (' + buffer.length + ' bytes)');
   }
-  for (const img of authorImages) {
-    const url = 'https://images.unsplash.com/' + img.id + '?w=400&auto=format&fit=crop&q=80';
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('Failed to download ' + img.name + ': ' + res.status);
-    const buffer = Buffer.from(await res.arrayBuffer());
-    fs.writeFileSync(path.join(authorDir, img.name), buffer);
-    console.log('Downloaded author ' + img.name + ' (' + buffer.length + ' bytes)');
-  }
-  console.log('All images downloaded successfully!');
+  console.log('All blog images downloaded successfully!');
 }
 
 download().catch(err => {
