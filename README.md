@@ -199,3 +199,5 @@ vercel --prod
 ## 9. Licencia y Créditos
 
 Proyecto desarrollado bajo estrictos estándares de ingeniería de software, accesibilidad web y divulgación sanitaria. Todos los derechos de contenidos y diseño editorial reservados.
+
+
