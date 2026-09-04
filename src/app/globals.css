@@ -1,0 +1,283 @@
+@import "tailwindcss";
+
+/* ============================
+   DESIGN SYSTEM — VidaMujer
+   ============================ */
+
+@theme {
+  /* --- Color Palette --- */
+  --color-background: #FAFAF8;
+  --color-foreground: #1A1A1A;
+  --color-muted: #F5F3EF;
+  --color-muted-foreground: #6B6560;
+  --color-accent: #8B6E5A;
+  --color-accent-warm: #C4956A;
+  --color-accent-sage: #7A8B6F;
+  --color-accent-mauve: #9B7A8F;
+  --color-accent-clay: #B8846A;
+  --color-accent-teal: #6B9A9A;
+  --color-border: #E8E4DE;
+  --color-ring: #8B6E5A;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A1A;
+  --color-accent-foreground: #FFFFFF;
+
+  /* --- Category Colors --- */
+  --color-cat-menstrual: #9B7A8F;
+  --color-cat-menstrual-light: #F3EDF1;
+  --color-cat-perimenopausia: #C4956A;
+  --color-cat-perimenopausia-light: #FBF3EB;
+  --color-cat-menopausia: #B8846A;
+  --color-cat-menopausia-light: #F9F0EB;
+  --color-cat-embarazo: #7A8B6F;
+  --color-cat-embarazo-light: #EFF3ED;
+  --color-cat-bienestar: #6B9A9A;
+  --color-cat-bienestar-light: #EBF4F4;
+
+  /* --- Typography Scale --- */
+  --font-family-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+}
+
+/* ============================
+   BASE STYLES
+   ============================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-body);
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  line-height: 1.7;
+}
+
+/* --- Skip to content (Accessibility) --- */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--color-foreground);
+  color: var(--color-background);
+  border-radius: 0 0 8px 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================
+   TYPOGRAPHY
+   ============================ */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-family-heading);
+  color: var(--color-foreground);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* ============================
+   ARTICLE PROSE
+   ============================ */
+
+.prose {
+  font-family: var(--font-family-body);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--color-foreground);
+  max-width: 680px;
+}
+
+.prose h2 {
+  font-family: var(--font-family-heading);
+  font-size: 1.625rem;
+  font-weight: 600;
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.375em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prose h3 {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: 0.625em;
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-warm);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--color-accent-clay);
+  text-decoration-color: var(--color-accent-clay);
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-bottom: 0.375em;
+}
+
+.prose li::marker {
+  color: var(--color-accent);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding: 1em 1.25em;
+  margin: 1.5em 0;
+  background: var(--color-muted);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--color-muted-foreground);
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5em 0;
+}
+
+.prose img {
+  border-radius: 12px;
+  margin: 2em 0;
+}
+
+/* --- Callout boxes --- */
+.callout {
+  padding: 1.25em 1.5em;
+  border-radius: 12px;
+  margin: 1.75em 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.callout-info {
+  background: var(--color-cat-bienestar-light);
+  border-left: 3px solid var(--color-accent-teal);
+}
+
+.callout-warning {
+  background: var(--color-cat-perimenopausia-light);
+  border-left: 3px solid var(--color-accent-warm);
+}
+
+.callout-medical {
+  background: var(--color-muted);
+  border-left: 3px solid var(--color-accent);
+}
+
+/* ============================
+   ANIMATIONS
+   ============================ */
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Scroll-driven progressive reveal */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================
+   FOCUS STYLES (Accessibility)
+   ============================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================
+   RESPONSIVE ARTICLE
+   ============================ */
+
+@media (max-width: 640px) {
+  .prose {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .prose h2 {
+    font-size: 1.375rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+  }
+}
