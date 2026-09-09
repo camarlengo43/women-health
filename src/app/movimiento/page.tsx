@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
-  title: 'Movimiento y ejercicio',
-  description: 'Descubre ejercicio para fuerza, cardio, movilidad, salud ósea y equilibrio en cada etapa.',
+  title: 'Ejercicio en perimenopausia y menopausia: fuerza, cardio y huesos',
+  description: 'Guías de movimiento para mujeres: fuerza, cardio, movilidad, equilibrio, salud ósea, suelo pélvico y ejercicio adaptado a perimenopausia y menopausia.',
   alternates: { canonical: '/movimiento' },
+  openGraph: {
+    title: 'Ejercicio en perimenopausia y menopausia: fuerza, cardio y huesos',
+    description: 'Guías de movimiento: fuerza, cardio, movilidad, equilibrio, salud ósea, suelo pélvico y ejercicio por etapa.',
+    url: '/movimiento',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ejercicio en perimenopausia y menopausia: fuerza, cardio y huesos',
+    description: 'Guías de movimiento: fuerza, cardio, movilidad, equilibrio, salud ósea, suelo pélvico y ejercicio por etapa.',
+  },
 }
 
 const topics = [
@@ -66,6 +77,8 @@ export default function MovimientoPage() {
       eyebrow="Movimiento"
       title="Muévete según tu etapa"
       intro="El ejercicio puede apoyar la salud ósea, la energía, el sueño y el bienestar general. Elige una guía según tu objetivo o tu etapa."
+      description="Guías de movimiento para mujeres: fuerza, cardio, movilidad, equilibrio, salud ósea, suelo pélvico y ejercicio adaptado a perimenopausia y menopausia."
+      canonical="/movimiento"
       items={topics}
       breadcrumbLabel="Movimiento"
       relatedTools={[

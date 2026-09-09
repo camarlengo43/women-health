@@ -389,8 +389,8 @@ export function RoutineGenerator() {
         </ul>
 
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-          Propuesta general con fines educativos. No es una prescripción individual ni sustituye
-          la valoración de un profesional del ejercicio o de la salud, especialmente si hay
+          Propuesta general orientativa. No sustituye una valoración profesional ni constituye una prescripción individual.
+          Con fines educativos: no sustituye la valoración de un profesional del ejercicio o de la salud, especialmente si hay
           lesiones, dolor persistente o enfermedades crónicas.
         </p>
       </aside>

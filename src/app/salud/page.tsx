@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
-  title: 'Salud femenina por temas',
-  description: 'Menstruación, hormonas, síntomas, salud sexual, sueño, salud ósea y salud mental en una sola pantalla.',
+  title: 'Salud femenina por temas: ciclo, hormonas, sueño y huesos',
+  description: 'Explora salud femenina por temas: menstruación, hormonas, síntomas frecuentes, salud sexual, sueño, salud ósea y salud mental, con guías enlazadas.',
   alternates: { canonical: '/salud' },
+  openGraph: {
+    title: 'Salud femenina por temas: ciclo, hormonas, sueño y huesos',
+    description: 'Menstruación, hormonas, síntomas, salud sexual, sueño, salud ósea y salud mental en un solo punto de partida.',
+    url: '/salud',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Salud femenina por temas: ciclo, hormonas, sueño y huesos',
+    description: 'Menstruación, hormonas, síntomas, salud sexual, sueño, salud ósea y salud mental en un solo punto de partida.',
+  },
 }
 
 const items = [
@@ -51,6 +62,8 @@ export default function SaludPage() {
       eyebrow="Salud por temas"
       title="Salud"
       intro="Explora los grandes temas de salud femenina. Cada tarjeta lleva a su guía o recurso correspondiente."
+      description="Explora salud femenina por temas: menstruación, hormonas, síntomas frecuentes, salud sexual, sueño, salud ósea y salud mental."
+      canonical="/salud"
       items={items}
       breadcrumbLabel="Salud"
     />

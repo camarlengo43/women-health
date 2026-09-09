@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Breadcrumbs } from '@/components/layout'
+import { siteConfig } from '@/config'
+import { generateBreadcrumbJsonLd } from '@/lib/seo'
+import { JsonLd } from './JsonLd'
 import { RelatedArticles, RelatedTools, type RelatedLink } from './Related'
 
 export interface HubItem {
@@ -18,6 +21,8 @@ export function HubLayout({
   eyebrow,
   title,
   intro,
+  description,
+  canonical,
   items,
   breadcrumbLabel,
   relatedTools,
@@ -26,13 +31,46 @@ export function HubLayout({
   eyebrow: string
   title: string
   intro: string
+  description?: string
+  canonical?: string
   items: HubItem[]
   breadcrumbLabel: string
   relatedTools?: RelatedLink[]
   relatedArticles?: RelatedLink[]
 }) {
+  const pageUrl = canonical
+    ? canonical.startsWith('http')
+      ? canonical
+      : `${siteConfig.url}${canonical}`
+    : undefined
+
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 lg:px-8">
+      {pageUrl && (
+        <>
+          <JsonLd
+            data={{
+              '@context': 'https://schema.org',
+              '@type': 'CollectionPage',
+              name: title,
+              description: description ?? intro,
+              url: pageUrl,
+              isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.url },
+              publisher: {
+                '@type': 'Organization',
+                name: siteConfig.name,
+                logo: `${siteConfig.url}/logo.png`,
+              },
+            }}
+          />
+          <JsonLd
+            data={generateBreadcrumbJsonLd([
+              { name: 'Inicio', url: siteConfig.url },
+              { name: breadcrumbLabel, url: pageUrl },
+            ])}
+          />
+        </>
+      )}
       <div className="mb-8">
         <Breadcrumbs items={[{ label: breadcrumbLabel }]} />
       </div>

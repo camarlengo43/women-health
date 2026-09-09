@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
-  title: '¿Es normal?',
-  description: 'Respuestas breves, claras y útiles sobre cambios frecuentes del ciclo, la menopausia y la salud femenina.',
+  title: '¿Es normal? Respuestas sobre ciclo, regla, sofocos y sueño',
+  description: 'Respuestas prudentes a dudas frecuentes: ciclos irregulares, sofocos a los 40, despertares nocturnos, cambios en la regla y sangrado abundante. Qué observar y cuándo consultar.',
   alternates: { canonical: '/es-normal' },
+  openGraph: {
+    title: '¿Es normal? Respuestas sobre ciclo, regla, sofocos y sueño',
+    description: 'Respuestas prudentes a dudas frecuentes: ciclos irregulares, sofocos a los 40, despertares nocturnos, cambios en la regla y sangrado abundante.',
+    url: '/es-normal',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '¿Es normal? Respuestas sobre ciclo, regla, sofocos y sueño',
+    description: 'Respuestas prudentes a dudas frecuentes: ciclos irregulares, sofocos a los 40, despertares nocturnos, cambios en la regla y sangrado abundante.',
+  },
 }
 
 const items = [
@@ -33,6 +44,11 @@ const items = [
     href: '/es-normal/sangrado-abundante',
     description: 'Cuándo merece consulta.',
   },
+  {
+    title: '¿Es normal tener la regla cada 24 días?',
+    href: '/es-normal/regla-cada-24-dias',
+    description: 'Ciclos cortos y sus matices.',
+  },
 ]
 
 export default function EsNormalPage() {
@@ -41,6 +57,8 @@ export default function EsNormalPage() {
       eyebrow="Información útil"
       title="¿Es normal?"
       intro="Respuestas sencillas para dudas habituales. Elige una pregunta para ver la respuesta completa, qué observar y cuándo consultar."
+      description="Respuestas prudentes a dudas frecuentes: ciclos irregulares, sofocos a los 40, despertares nocturnos, cambios en la regla y sangrado abundante."
+      canonical="/es-normal"
       items={items}
       breadcrumbLabel="¿Es normal?"
       relatedTools={[

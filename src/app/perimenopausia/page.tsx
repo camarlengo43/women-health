@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
-  title: 'Perimenopausia',
-  description: 'Guías útiles sobre qué es la perimenopausia, los síntomas frecuentes, los cambios menstruales y cuándo consultar.',
+  title: 'Perimenopausia: qué es, síntomas, ciclo y cuándo consultar',
+  description: 'Guía clara sobre la perimenopausia: qué es, síntomas frecuentes, cambios menstruales, sofocos, sueño y señales para consultar. Con herramientas orientativas.',
   alternates: { canonical: '/perimenopausia' },
+  openGraph: {
+    title: 'Perimenopausia: qué es, síntomas, ciclo y cuándo consultar',
+    description: 'Guía clara sobre la perimenopausia: qué es, síntomas frecuentes, cambios menstruales, sofocos, sueño y señales para consultar.',
+    url: '/perimenopausia',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Perimenopausia: qué es, síntomas, ciclo y cuándo consultar',
+    description: 'Guía clara sobre la perimenopausia: qué es, síntomas frecuentes, cambios menstruales, sofocos, sueño y señales para consultar.',
+  },
 }
 
 const topics = [
@@ -86,6 +97,8 @@ export default function PerimenopausePage() {
       eyebrow="Etapa de transición"
       title="Perimenopausia"
       intro="La perimenopausia es la etapa que precede a la menopausia y puede acompañarse de cambios en el ciclo, el sueño, los sofocos y el bienestar general. Elige una guía para profundizar en cada tema."
+      description="Guía clara sobre la perimenopausia: qué es, síntomas frecuentes, cambios menstruales, sofocos, sueño y señales para consultar."
+      canonical="/perimenopausia"
       items={topics}
       breadcrumbLabel="Perimenopausia"
       relatedTools={[

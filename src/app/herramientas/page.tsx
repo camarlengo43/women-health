@@ -2,11 +2,25 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Activity, HeartPulse, Sparkles, Calculator } from 'lucide-react'
 import { Breadcrumbs } from '@/components/layout'
+import { JsonLd } from '@/components/shared'
+import { siteConfig } from '@/config'
+import { generateBreadcrumbJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Herramientas gratuitas',
-  description: 'Calculadoras, tests y recursos prácticos para entender mejor tu ciclo, la perimenopausia y tus hábitos.',
+  title: 'Herramientas gratuitas: ciclo, ovulación, embarazo y rutinas',
+  description: 'Calculadoras de ciclo, ovulación, embarazo y fecha de parto, test orientativo de perimenopausia y generador de rutinas. Todo en tu navegador, sin registro.',
   alternates: { canonical: '/herramientas' },
+  openGraph: {
+    title: 'Herramientas gratuitas: ciclo, ovulación, embarazo y rutinas',
+    description: 'Calculadoras, test orientativo de perimenopausia y generador de rutinas. Todo en tu navegador, sin registro.',
+    url: '/herramientas',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Herramientas gratuitas: ciclo, ovulación, embarazo y rutinas',
+    description: 'Calculadoras, test orientativo de perimenopausia y generador de rutinas. Todo en tu navegador, sin registro.',
+  },
 }
 
 const tools = [
@@ -51,6 +65,26 @@ const tools = [
 export default function HerramientasPage() {
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 lg:px-8">
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Herramientas gratuitas de salud femenina',
+          description: 'Calculadoras de ciclo, ovulación, embarazo y fecha de parto, test orientativo de perimenopausia y generador de rutinas.',
+          url: `${siteConfig.url}/herramientas`,
+          publisher: {
+            '@type': 'Organization',
+            name: siteConfig.name,
+            logo: `${siteConfig.url}/logo.png`,
+          },
+        }}
+      />
+      <JsonLd
+        data={generateBreadcrumbJsonLd([
+          { name: 'Inicio', url: siteConfig.url },
+          { name: 'Herramientas', url: `${siteConfig.url}/herramientas` },
+        ])}
+      />
       <div className="mb-8">
         <Breadcrumbs items={[{ label: 'Herramientas' }]} />
       </div>

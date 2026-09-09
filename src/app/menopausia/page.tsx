@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
-  title: 'Menopausia',
-  description: 'Guías útiles sobre menopausia, síntomas, sueño, salud ósea, ejercicio y cómo cuidarse con más información.',
+  title: 'Menopausia: síntomas, sueño, huesos, corazón y ejercicio',
+  description: 'Guía sobre la menopausia: síntomas, sofocos, sueño, salud ósea, osteoporosis, peso, salud cardiovascular y ejercicio adaptado a esta etapa.',
   alternates: { canonical: '/menopausia' },
+  openGraph: {
+    title: 'Menopausia: síntomas, sueño, huesos, corazón y ejercicio',
+    description: 'Guía sobre la menopausia: síntomas, sofocos, sueño, salud ósea, osteoporosis, peso, salud cardiovascular y ejercicio adaptado.',
+    url: '/menopausia',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Menopausia: síntomas, sueño, huesos, corazón y ejercicio',
+    description: 'Guía sobre la menopausia: síntomas, sofocos, sueño, salud ósea, osteoporosis, peso, salud cardiovascular y ejercicio adaptado.',
+  },
 }
 
 const items = [
@@ -61,6 +72,8 @@ export default function MenopausiaPage() {
       eyebrow="Etapa de vida"
       title="Menopausia"
       intro="La menopausia es una etapa natural que puede ir acompañada de cambios en el sueño, los sofocos, la salud ósea y la energía. Elige una guía para profundizar en cada tema."
+      description="Guía sobre la menopausia: síntomas, sofocos, sueño, salud ósea, osteoporosis, peso, salud cardiovascular y ejercicio adaptado a esta etapa."
+      canonical="/menopausia"
       items={items}
       breadcrumbLabel="Menopausia"
       relatedTools={[

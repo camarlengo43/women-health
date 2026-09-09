@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import { Header, Footer } from '@/components/layout'
-import { Analytics } from '@/components/shared'
+import { Analytics, JsonLd } from '@/components/shared'
+import { generateOrganizationJsonLd, generateWebSiteJsonLd } from '@/lib/seo'
 import { siteConfig } from '@/config'
 import './globals.css'
 
@@ -83,6 +84,8 @@ export default function RootLayout({
       className={`${playfairDisplay.variable} ${inter.variable}`}
     >
       <body className="min-h-screen flex flex-col">
+        <JsonLd data={generateOrganizationJsonLd()} />
+        <JsonLd data={generateWebSiteJsonLd()} />
         <Analytics />
         <Header />
         <main id="main-content" className="flex-1">

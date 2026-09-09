@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
-  title: 'Etapas de la vida',
-  description: 'Adolescencia, edad reproductiva, embarazo, posparto, perimenopausia, menopausia y postmenopausia explicadas en una sola pantalla.',
+  title: 'Etapas de la vida de la mujer: adolescencia, embarazo y menopausia',
+  description: 'Guías por etapa: adolescencia, edad reproductiva, embarazo, posparto, perimenopausia, menopausia y postmenopausia, con salud, movimiento y herramientas.',
   alternates: { canonical: '/etapas' },
+  openGraph: {
+    title: 'Etapas de la vida de la mujer: adolescencia, embarazo y menopausia',
+    description: 'Guías por etapa: adolescencia, edad reproductiva, embarazo, posparto, perimenopausia, menopausia y postmenopausia.',
+    url: '/etapas',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Etapas de la vida de la mujer: adolescencia, embarazo y menopausia',
+    description: 'Guías por etapa: adolescencia, edad reproductiva, embarazo, posparto, perimenopausia, menopausia y postmenopausia.',
+  },
 }
 
 const items = [
@@ -51,6 +62,8 @@ export default function EtapasPage() {
       eyebrow="Todas las etapas"
       title="Etapas de la vida"
       intro="Cada etapa tiene su propia guía: elige la tuya para ver contenidos, síntomas, movimiento y herramientas relacionadas."
+      description="Guías por etapa: adolescencia, edad reproductiva, embarazo, posparto, perimenopausia, menopausia y postmenopausia."
+      canonical="/etapas"
       items={items}
       breadcrumbLabel="Etapas"
       relatedTools={[

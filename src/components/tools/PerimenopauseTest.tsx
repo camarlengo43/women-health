@@ -11,17 +11,14 @@ const questions = [
 ]
 
 export function PerimenopauseTest() {
-  const [answers, setAnswers] = useState<Record<string, boolean>>({})
+  const [answers, setAnswers] = useState<Record<number, boolean>>({})
 
-  const score = useMemo(
-    () => questions.filter((_, index) => answers[index]).length,
+  const checkedIndexes = useMemo(
+    () => questions.map((_, index) => index).filter((index) => answers[index] === true),
     [answers],
   )
-
-  const answeredCount = useMemo(
-    () => questions.filter((_, index) => index in answers).length,
-    [answers],
-  )
+  const score = checkedIndexes.length
+  const answeredCount = score
 
   const result = useMemo(() => {
     if (score === 0) {
@@ -48,7 +45,10 @@ export function PerimenopauseTest() {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-4">
+      <fieldset className="space-y-4">
+        <legend className="mb-1 text-sm font-medium text-foreground">
+          Marca las afirmaciones que describan lo que has notado
+        </legend>
         {questions.map((question, index) => (
           <label
             key={question}
@@ -63,7 +63,7 @@ export function PerimenopauseTest() {
             <span className="text-sm leading-relaxed text-foreground">{question}</span>
           </label>
         ))}
-      </div>
+      </fieldset>
 
       <div className="rounded-2xl border border-border bg-muted/30 p-5" aria-live="polite" aria-atomic="true">
         <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Resultado orientativo</p>

@@ -33,6 +33,10 @@ export default function PoliticaEditorialPage() {
         <p>“Revisado” significa que el texto ha sido contrastado frente a fuentes de referencia y que el contenido ha sido revisado por criterios de calidad editorial, no que una persona concreta ha avalado un tratamiento individual.</p>
         <h2>Fuentes prioritarias</h2>
         <p>Se priorizan guías clínicas y societarias de referencia, así como publicaciones de organismos sanitarios de reconocido prestigio.</p>
+        <h2>Límites del contenido</h2>
+        <p>Nuestro contenido tiene límites claros: ofrece información general y educativa, no recomendaciones personalizadas. No incluye diagnósticos, no indica dosis ni pautas de tratamiento, y no sustituye la historia clínica, la exploración ni las pruebas que solo un profesional puede valorar.</p>
+        <h2>Información frente a consejo médico</h2>
+        <p>La información describe lo que suele ocurrir y lo que la evidencia dice en general; el consejo médico decide qué hacer en un caso concreto. VidaMujer ofrece lo primero para ayudarte a entender y a preparar una consulta, pero la decisión sobre tu salud se toma siempre con un profesional que conozca tu situación.</p>
       </div>
     </div>
   )

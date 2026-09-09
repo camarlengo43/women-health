@@ -6,7 +6,7 @@ export const siteConfig = {
   locale: 'es_ES',
   language: 'es',
   creator: 'VidaMujer',
-  ogImage: '/og-default.jpg',
+  ogImage: '/logo.png',
   medicalDisclaimer:
     'La información publicada en VidaMujer tiene carácter divulgativo y educativo. No sustituye en ningún caso la valoración, el diagnóstico ni el tratamiento de un profesional sanitario. Ante cualquier duda sobre tu salud, consulta siempre con tu médico o profesional de referencia.',
   contentCredibility:
