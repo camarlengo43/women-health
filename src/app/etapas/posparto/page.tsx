@@ -1,21 +1,22 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Breadcrumbs } from '@/components/layout'
 import { siteConfig } from '@/config'
 import { generateArticleJsonLd, generateBreadcrumbJsonLd } from '@/lib/seo'
+import { buildPageMetadata } from '@/lib/page-seo'
 import { JsonLd } from '@/components/shared/JsonLd'
 import { MedicalDisclaimer } from '@/components/shared/MedicalDisclaimer'
 import { RelatedArticles } from '@/components/shared/Related'
 import { ArticleMeta, AuthorCard, ReviewerCard } from '@/components/shared/Eeat'
 import { PospartoInteractive } from '@/components/posparto/PospartoInteractive'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Posparto y recuperación',
   description:
     'Recuperación física, descanso fragmentado, apoyo emocional y retorno progresivo al movimiento tras el parto. Contenido general y contextual según parto vaginal o cesárea.',
-  alternates: { canonical: '/etapas/posparto' },
-}
+  path: '/etapas/posparto',
+  type: 'article',
+})
 
 const pageUrl = `${siteConfig.url}/etapas/posparto`
 

@@ -160,7 +160,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
             <div className="flex items-center gap-1.5 text-xs text-accent-sage font-medium bg-cat-embarazo-light px-2.5 py-1 rounded-full">
               <CheckCircle2 className="w-3.5 h-3.5 text-accent-sage" />
-              <span>Revisión médica basada en evidencia</span>
+              <span>Información basada en evidencia</span>
             </div>
           </div>
         </header>
@@ -296,7 +296,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
                         {post.author.name}
                       </h3>
                       <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent">
-                        Comité Científico
+                        Equipo editorial
                       </span>
                     </div>
                     <p className="text-xs text-accent font-medium mb-1.5">

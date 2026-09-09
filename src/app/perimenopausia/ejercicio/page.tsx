@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Ejercicio y perimenopausia',
   description: 'Cómo usar el ejercicio para apoyar la energía, la salud ósea, el sueño y el bienestar durante la perimenopausia.',
-  alternates: { canonical: '/perimenopausia/ejercicio' },
-}
+  path: '/perimenopausia/ejercicio',
+  type: 'article',
+})
 
 export default function PerimenopausiaEjercicioPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/ejercicio"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Ejercicio' }]}
       eyebrow="Movimiento y bienestar"
       title="Ejercicio y perimenopausia"

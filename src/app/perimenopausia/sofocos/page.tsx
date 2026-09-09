@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Sofocos y sudores nocturnos en la perimenopausia',
   description: 'Qué son los sofocos, por qué aparecen en la perimenopausia y cómo entenderlos con más claridad.',
-  alternates: { canonical: '/perimenopausia/sofocos' },
-}
+  path: '/perimenopausia/sofocos',
+  type: 'article',
+})
 
 export default function PerimenopausiaSofocosPage() {
   return (

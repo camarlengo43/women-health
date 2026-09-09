@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Aumento de peso y menopausia',
   description: 'Qué puede explicar un cambio en el peso durante la menopausia y cómo entenderlo con claridad.',
-  alternates: { canonical: '/menopausia/aumento-peso' },
-}
+  path: '/menopausia/aumento-peso',
+  type: 'article',
+})
 
 export default function MenopausiaAumentoPesoPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/aumento-peso"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Aumento de peso' }]}
       eyebrow="Cambios metabólicos"
       title="Aumento de peso y menopausia"

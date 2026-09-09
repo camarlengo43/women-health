@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Ejercicio en la perimenopausia',
   description: 'Guía práctica sobre ejercicio, fuerza, sueño y bienestar durante la perimenopausia.',
-  alternates: { canonical: '/movimiento/ejercicio-perimenopausia' },
-}
+  path: '/movimiento/ejercicio-perimenopausia',
+  type: 'article',
+})
 
 export default function EjercicioPerimenopausiaPage() {
   return (

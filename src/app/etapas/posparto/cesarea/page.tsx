@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Recuperación después de una cesárea',
   description:
     'Recuperación tras cesárea: cuidado de la incisión, movilidad progresiva, actividad física gradual, señales de alarma y cuándo consultar. Información general orientativa.',
-  alternates: { canonical: '/etapas/posparto/cesarea' },
-}
+  path: '/etapas/posparto/cesarea',
+  type: 'article',
+})
 
 export default function CesareaPage() {
   return (

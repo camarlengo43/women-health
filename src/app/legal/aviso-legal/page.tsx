@@ -1,15 +1,13 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { siteConfig } from '@/config'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Aviso Legal y Descargo de Responsabilidad Médica',
   description:
     'Condiciones de uso, propiedad intelectual y descargo formal de responsabilidad médica de VidaMujer.',
-  alternates: {
-    canonical: '/legal/aviso-legal',
-  },
-}
+  path: '/legal/aviso-legal',
+})
 
 export default function LegalNoticePage() {
   return (

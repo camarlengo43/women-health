@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Síntomas de la perimenopausia',
   description: 'Conoce los síntomas más habituales de la perimenopausia: sofocos, sueño, cambios de humor, ciclos irregulares y más.',
-  alternates: { canonical: '/perimenopausia/sintomas' },
-}
+  path: '/perimenopausia/sintomas',
+  type: 'article',
+})
 
 export default function PerimenopausiaSintomasPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/sintomas"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Síntomas' }]}
       eyebrow="Qué puedes notar"
       title="Síntomas de la perimenopausia"

@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Qué es la perimenopausia',
   description: 'Descubre qué es la perimenopausia, cómo se manifiesta y qué cambios hormonales pueden aparecer antes de la menopausia.',
-  alternates: { canonical: '/perimenopausia/que-es' },
-}
+  path: '/perimenopausia/que-es',
+  type: 'article',
+})
 
 export default function PerimenopausiaQueEsPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/que-es"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Qué es' }]}
       eyebrow="Etapa de transición"
       title="Qué es la perimenopausia"

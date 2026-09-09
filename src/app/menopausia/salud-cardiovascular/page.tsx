@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Salud cardiovascular y menopausia',
   description: 'Cómo puede relacionarse la menopausia con la salud del corazón y la salud cardiovascular.',
-  alternates: { canonical: '/menopausia/salud-cardiovascular' },
-}
+  path: '/menopausia/salud-cardiovascular',
+  type: 'article',
+})
 
 export default function MenopausiaSaludCardiovascularPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/salud-cardiovascular"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Salud cardiovascular' }]}
       eyebrow="Corazón y bienestar"
       title="Salud cardiovascular y menopausia"

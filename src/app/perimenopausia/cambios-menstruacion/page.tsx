@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Cambios en la menstruación durante la perimenopausia',
   description: 'Entiende cómo cambian los ciclos durante la perimenopausia: frecuencia, duración, flujo y cuándo consultar.',
-  alternates: { canonical: '/perimenopausia/cambios-menstruacion' },
-}
+  path: '/perimenopausia/cambios-menstruacion',
+  type: 'article',
+})
 
 export default function PerimenopausiaCambiosMenstruacionPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/cambios-menstruacion"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Cambios en la menstruación' }]}
       eyebrow="Ciclo y hormonales"
       title="Cambios en la menstruación durante la perimenopausia"

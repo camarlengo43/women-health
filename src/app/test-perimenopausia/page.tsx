@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { PerimenopauseTest } from '@/components/tools/PerimenopauseTest'
 import { ToolEducation } from '@/components/tools/ToolEducation'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
-  title: 'Test orientativo de perimenopausia',
-  description: 'Explora síntomas frecuentes y recibe un resultado informativo sobre la perimenopausia sin diagnosticar.',
-  alternates: { canonical: '/test-perimenopausia' },
-}
+export const metadata = buildPageMetadata({
+  title: 'Test orientativo de perimenopausia: síntomas y señales',
+  description:
+    'Explora síntomas frecuentes de la perimenopausia (regla irregular, sofocos, insomnio) y recibe una lectura orientativa, sin diagnóstico ni registro.',
+  path: '/test-perimenopausia',
+})
 
 export default function PerimenopauseTestPage() {
   return (
@@ -37,6 +38,10 @@ export default function PerimenopauseTestPage() {
           'El resultado no indica gravedad ni necesidad de tratamiento.',
         ]}
         faq={[
+          {
+            question: '¿Cómo saber si estoy en perimenopausia?',
+            answer: 'Los primeros indicios suelen ser cambios en la regularidad de la regla, sueño más fragmentado, sofocos ocasionales o cambios de humor. Este test te ayuda a ordenar esas señales, pero solo un profesional con tu historia clínica puede valorar si corresponden a perimenopausia u otra causa.',
+          },
           {
             question: '¿Un resultado alto significa que estoy en perimenopausia?',
             answer: 'No necesariamente. Indica que describes varias señales compatibles, pero la valoración requiere contexto clínico: edad, patrón menstrual, historial y, a veces, analíticas.',

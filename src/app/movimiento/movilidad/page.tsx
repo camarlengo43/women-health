@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Movilidad y bienestar',
   description: 'Qué aporta la movilidad para la postura, la flexibilidad y la sensación corporal en distintos momentos de la vida.',
-  alternates: { canonical: '/movimiento/movilidad' },
-}
+  path: '/movimiento/movilidad',
+  type: 'article',
+})
 
 export default function MovimientoMovilidadPage() {
   return (
     <InfoPageTemplate
+      canonical="/movimiento/movilidad"
       breadcrumbItems={[{ label: 'Movimiento', href: '/movimiento' }, { label: 'Movilidad' }]}
       eyebrow="Bienestar funcional"
       title="Movilidad y bienestar"

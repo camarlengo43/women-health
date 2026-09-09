@@ -1,20 +1,18 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getPosts } from '@/services'
 import { getAllCategories } from '@/config'
 import { InfiniteArticleGrid } from '@/features/blog'
 import { Breadcrumbs } from '@/components/layout'
 import { ScrollReveal } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 import { Search } from 'lucide-react'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Artículos y Guías sobre Salud Femenina',
   description:
     'Explora nuestra biblioteca de artículos sobre salud menstrual, perimenopausia, menopausia, embarazo y bienestar femenino respaldados por evidencia científica.',
-  alternates: {
-    canonical: '/blog',
-  },
-}
+  path: '/blog',
+})
 
 export default async function BlogPage() {
   const posts = await getPosts()

@@ -26,10 +26,25 @@ export async function generateMetadata({
   const { slug } = await params
   const term = getGlossaryTerm(slug)
   if (!term) return {}
+  const path = `/glosario/${term.slug}`
+  const title = `${term.term}: significado`
   return {
-    title: `${term.term}: significado`,
+    title,
     description: term.short,
-    alternates: { canonical: `/glosario/${term.slug}` },
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'article',
+      locale: siteConfig.locale,
+      url: path,
+      siteName: siteConfig.name,
+      title,
+      description: term.short,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: term.short,
+    },
   }
 }
 

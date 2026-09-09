@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '¿Es normal tener ciclos irregulares?',
   description: 'Puede ser normal tener ciclos más irregulares en la perimenopausia, con cambios hormonales, estrés, sueño y otros factores.',
-  alternates: { canonical: '/es-normal/ciclos-irregulares' },
-}
+  path: '/es-normal/ciclos-irregulares',
+  type: 'article',
+})
 
 export default function CiclosIrregularesPage() {
   return (
     <InfoPageTemplate
+      canonical="/es-normal/ciclos-irregulares"
       breadcrumbItems={[{ label: '¿Es normal?', href: '/es-normal' }, { label: 'Ciclos irregulares' }]}
       eyebrow="Duda frecuente"
       title="¿Es normal tener ciclos irregulares?"

@@ -48,7 +48,11 @@ export function SearchInput() {
           }`}
           aria-hidden="true"
         />
+        <label htmlFor="buscador-salud" className="sr-only">
+          Buscar artículos de salud femenina
+        </label>
         <input
+          id="buscador-salud"
           type="search"
           value={query}
           onChange={(e) => handleSearch(e.target.value)}

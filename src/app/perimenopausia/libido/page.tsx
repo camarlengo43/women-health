@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Libido en perimenopausia',
   description:
     'Cambios en el deseo sexual durante la perimenopausia: causas frecuentes, sequedad vaginal y cuándo consultar. Información clara y respetuosa.',
-  alternates: { canonical: '/perimenopausia/libido' },
-}
+  path: '/perimenopausia/libido',
+  type: 'article',
+})
 
 export default function LibidoPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/libido"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Libido' }]}
       eyebrow="Salud sexual"
       title="Libido en perimenopausia"

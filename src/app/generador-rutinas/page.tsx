@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { RoutineGenerator } from '@/components/tools/RoutineGenerator'
 import { ToolEducation } from '@/components/tools/ToolEducation'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
-  title: 'Generador de rutinas',
-  description: 'Genera una rutina orientativa según tu objetivo, nivel y disponibilidad para moverte mejor.',
-  alternates: { canonical: '/generador-rutinas' },
-}
+export const metadata = buildPageMetadata({
+  title: 'Generador de rutinas de ejercicio para mujeres',
+  description:
+    'Genera una rutina orientativa según tu objetivo (fuerza, cardio, movilidad), nivel y disponibilidad. Propuesta general en tu navegador, sin registro.',
+  path: '/generador-rutinas',
+})
 
 export default function GeneradorRutinasPage() {
   return (

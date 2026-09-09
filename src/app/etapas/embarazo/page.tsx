@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Embarazo por trimestres',
   description:
     'Cambios por trimestres, seguimiento profesional y calculadoras orientativas de semanas y fecha de parto.',
-  alternates: { canonical: '/etapas/embarazo' },
-}
+  path: '/etapas/embarazo',
+  type: 'article',
+})
 
 export default function EmbarazoEtapaPage() {
   return (
     <InfoPageTemplate
+      canonical="/etapas/embarazo"
       breadcrumbItems={[{ label: 'Etapas', href: '/etapas' }, { label: 'Embarazo' }]}
       eyebrow="Etapa de la vida"
       title="Embarazo por trimestres"

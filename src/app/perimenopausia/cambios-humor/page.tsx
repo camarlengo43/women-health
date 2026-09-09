@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Cambios de humor en perimenopausia',
   description:
     'Irritabilidad, altibajos o ansiedad en perimenopausia: qué puede influir, qué observar y cuándo pedir apoyo profesional.',
-  alternates: { canonical: '/perimenopausia/cambios-humor' },
-}
+  path: '/perimenopausia/cambios-humor',
+  type: 'article',
+})
 
 export default function CambiosHumorPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/cambios-humor"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Cambios de humor' }]}
       eyebrow="Bienestar emocional"
       title="Cambios de humor en perimenopausia"

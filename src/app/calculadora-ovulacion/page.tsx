@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { OvulationCalculator } from '@/components/tools/OvulationCalculator'
 import { ToolEducation } from '@/components/tools/ToolEducation'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
-  title: 'Calculadora de ovulación',
-  description: 'Estima de forma orientativa la ventana de fertilidad y la ovulación a partir del ciclo menstrual.',
-  alternates: { canonical: '/calculadora-ovulacion' },
-}
+export const metadata = buildPageMetadata({
+  title: 'Calculadora de ovulación y ventana fértil',
+  description:
+    'Estima de forma orientativa tu ovulación y tu ventana fértil a partir del ciclo menstrual. Cálculo en tu navegador, sin registro ni almacenamiento.',
+  path: '/calculadora-ovulacion',
+})
 
 export default function CalculadoraOvulacionPage() {
   return (
@@ -40,6 +41,10 @@ export default function CalculadoraOvulacionPage() {
           {
             question: '¿La ventana fértil es exacta?',
             answer: 'No. Es una estimación basada en promedios. La ovulación puede variar varios días y los espermatozoides pueden sobrevivir varios días, por eso se habla de ventana y no de un día exacto.',
+          },
+          {
+            question: '¿Qué días incluye la ventana fértil?',
+            answer: 'En ciclos regulares de unas 4 semanas, suele situarse alrededor de los 5 días previos a la ovulación estimada más el día posterior. Es una referencia de calendario para entender el ciclo, no una confirmación de fertilidad en un ciclo concreto.',
           },
           {
             question: '¿Puedo usarla para evitar un embarazo?',

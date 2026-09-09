@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Equipo',
   description: 'La base editorial y de diseño de VidaMujer: rigor, claridad y enfoque de salud femenina.',
-  alternates: { canonical: '/equipo' },
-}
+  path: '/equipo',
+})
 
 export default function EquipoPage() {
   return (

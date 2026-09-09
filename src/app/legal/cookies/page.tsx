@@ -1,15 +1,13 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { siteConfig } from '@/config'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Política de Cookies',
   description:
     'Información sobre el uso de cookies y tecnologías similares en VidaMujer conforme a la normativa europea.',
-  alternates: {
-    canonical: '/legal/cookies',
-  },
-}
+  path: '/legal/cookies',
+})
 
 export default function CookiesPage() {
   return (

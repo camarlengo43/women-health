@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Edad reproductiva y ciclo menstrual',
   description:
     'Ciclos regulares, registro del ciclo, fertilidad orientativa y hábitos que apoyan la salud hormonal en la edad reproductiva.',
-  alternates: { canonical: '/etapas/edad-reproductiva' },
-}
+  path: '/etapas/edad-reproductiva',
+  type: 'article',
+})
 
 export default function EdadReproductivaPage() {
   return (
     <InfoPageTemplate
+      canonical="/etapas/edad-reproductiva"
       breadcrumbItems={[{ label: 'Etapas', href: '/etapas' }, { label: 'Edad reproductiva' }]}
       eyebrow="Etapa de la vida"
       title="Edad reproductiva y ciclo menstrual"

@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Recuperación después del parto vaginal',
   description:
     'Recuperación tras parto vaginal: suelo pélvico, molestias perineales frecuentes, puntos o desgarros, movimiento progresivo y cuándo consultar. Información general orientativa.',
-  alternates: { canonical: '/etapas/posparto/parto-vaginal' },
-}
+  path: '/etapas/posparto/parto-vaginal',
+  type: 'article',
+})
 
 export default function PartoVaginalPage() {
   return (

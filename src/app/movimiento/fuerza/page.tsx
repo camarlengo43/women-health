@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Fuerza y salud femenina',
   description: 'Descubre cómo la fuerza puede apoyar la salud ósea, la movilidad y el bienestar durante distintas etapas de la vida.',
-  alternates: { canonical: '/movimiento/fuerza' },
-}
+  path: '/movimiento/fuerza',
+  type: 'article',
+})
 
 export default function MovimientoFuerzaPage() {
   return (
     <InfoPageTemplate
+      canonical="/movimiento/fuerza"
       breadcrumbItems={[{ label: 'Movimiento', href: '/movimiento' }, { label: 'Fuerza' }]}
       eyebrow="Ejercicio funcional"
       title="Fuerza y salud femenina"

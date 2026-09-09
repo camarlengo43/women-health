@@ -1,17 +1,19 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate, RelatedArticles, RelatedTools } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '¿Es normal tener sangrado abundante?',
   description:
     'Respuesta clara sobre sangrado menstrual abundante: qué observar, causas frecuentes y cuándo consultar con un profesional.',
-  alternates: { canonical: '/es-normal/sangrado-abundante' },
-}
+  path: '/es-normal/sangrado-abundante',
+  type: 'article',
+})
 
 export default function SangradoAbundantePage() {
   return (
     <>
       <InfoPageTemplate
+        canonical="/es-normal/sangrado-abundante"
         breadcrumbItems={[{ label: '¿Es normal?', href: '/es-normal' }, { label: 'Sangrado abundante' }]}
         eyebrow="Duda frecuente"
         title="¿Es normal tener sangrado abundante?"

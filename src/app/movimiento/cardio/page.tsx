@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Cardio y salud cardiovascular',
   description: 'Revisa cómo el cardio puede apoyar la salud cardiovascular, la energía y la resistencia en distintas etapas de la vida.',
-  alternates: { canonical: '/movimiento/cardio' },
-}
+  path: '/movimiento/cardio',
+  type: 'article',
+})
 
 export default function MovimientoCardioPage() {
   return (
     <InfoPageTemplate
+      canonical="/movimiento/cardio"
       breadcrumbItems={[{ label: 'Movimiento', href: '/movimiento' }, { label: 'Cardio' }]}
       eyebrow="Salud cardiovascular"
       title="Cardio y salud cardiovascular"

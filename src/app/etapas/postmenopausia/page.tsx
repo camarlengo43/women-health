@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Postmenopausia y salud a largo plazo',
   description:
     'Mantener músculo, huesos, corazón y autonomía tras la menopausia con hábitos sostenibles y seguimiento regular.',
-  alternates: { canonical: '/etapas/postmenopausia' },
-}
+  path: '/etapas/postmenopausia',
+  type: 'article',
+})
 
 export default function PostmenopausiaPage() {
   return (
     <InfoPageTemplate
+      canonical="/etapas/postmenopausia"
       breadcrumbItems={[{ label: 'Etapas', href: '/etapas' }, { label: 'Postmenopausia' }]}
       eyebrow="Etapa de la vida"
       title="Postmenopausia y salud a largo plazo"

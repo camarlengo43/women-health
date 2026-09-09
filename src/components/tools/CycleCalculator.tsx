@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { calcCycleEstimate, parseDateOnly } from '@/lib/health-calculations'
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('es-ES', {
@@ -8,15 +9,6 @@ function formatDate(date: Date) {
     month: 'short',
     year: 'numeric',
   })
-}
-
-function parseDateOnly(value: string): Date | null {
-  if (!value) return null
-  const [y, m, d] = value.split('-').map(Number)
-  if (!y || !m || !d) return null
-  const date = new Date(y, m - 1, d)
-  if (Number.isNaN(date.getTime())) return null
-  return date
 }
 
 /**
@@ -40,28 +32,17 @@ export function CycleCalculator() {
   const isValid = lastDate !== null && !isFuture
 
   const result = useMemo(() => {
-    if (!isValid || !lastDate) return null
-    const nextPeriodDate = new Date(lastDate)
-    nextPeriodDate.setDate(lastDate.getDate() + cycleLength)
-
-    const ovulationDate = new Date(lastDate)
-    ovulationDate.setDate(lastDate.getDate() + cycleLength - 14)
-
-    const fertileStart = new Date(ovulationDate)
-    fertileStart.setDate(ovulationDate.getDate() - 5)
-
-    const fertileEnd = new Date(ovulationDate)
-    fertileEnd.setDate(ovulationDate.getDate() + 1)
-
+    const estimate = calcCycleEstimate(lastPeriod, cycleLength, today)
+    if (!estimate) return null
     return {
-      nextPeriodDate,
-      ovulationDate,
-      fertileStart,
-      fertileEnd,
+      nextPeriodDate: estimate.nextPeriodDate,
+      ovulationDate: estimate.ovulationDate,
+      fertileStart: estimate.fertileStart,
+      fertileEnd: estimate.fertileEnd,
       cycleAverage: cycleLength,
       periodAverage: periodLength,
     }
-  }, [cycleLength, lastDate, periodLength, isValid])
+  }, [cycleLength, lastPeriod, periodLength, today])
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">

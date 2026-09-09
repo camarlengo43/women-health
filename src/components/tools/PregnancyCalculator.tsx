@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { calcPregnancyEstimate, parseDateOnly } from '@/lib/health-calculations'
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('es-ES', {
@@ -8,15 +9,6 @@ function formatDate(date: Date) {
     month: 'short',
     year: 'numeric',
   })
-}
-
-function parseDateOnly(value: string): Date | null {
-  if (!value) return null
-  const [y, m, d] = value.split('-').map(Number)
-  if (!y || !m || !d) return null
-  const date = new Date(y, m - 1, d)
-  if (Number.isNaN(date.getTime())) return null
-  return date
 }
 
 /**
@@ -38,18 +30,10 @@ export function PregnancyCalculator() {
   const isFuture = lmp !== null && lmp.getTime() > today.getTime()
   const isValid = lmp !== null && !isFuture
 
-  const result = useMemo(() => {
-    if (!isValid || !lmp) return null
-    const gestationStart = new Date(lmp)
-    const dueDate = new Date(lmp)
-    dueDate.setDate(lmp.getDate() + 280)
-
-    const diffDays = Math.floor((today.getTime() - gestationStart.getTime()) / (1000 * 60 * 60 * 24))
-    const weeks = Math.max(0, Math.floor(diffDays / 7))
-    const days = Math.max(0, diffDays % 7)
-
-    return { dueDate, weeks, days }
-  }, [lmp, today, isValid])
+  const result = useMemo(
+    () => calcPregnancyEstimate(lastPeriod, today),
+    [lastPeriod, today],
+  )
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">

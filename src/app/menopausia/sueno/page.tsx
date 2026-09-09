@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Sueño y menopausia',
   description: 'Cómo puede afectar la menopausia al sueño y qué señales pueden ser útiles observar.',
-  alternates: { canonical: '/menopausia/sueno' },
-}
+  path: '/menopausia/sueno',
+  type: 'article',
+})
 
 export default function MenopausiaSuenoPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/sueno"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Sueño' }]}
       eyebrow="Descanso y salud"
       title="Sueño y menopausia"

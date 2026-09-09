@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Aumento de peso en perimenopausia',
   description:
     'Por qué puede cambiar el peso en perimenopausia y qué hábitos realistas ayudan: fuerza, movimiento, descanso y alimentación flexible.',
-  alternates: { canonical: '/perimenopausia/aumento-peso' },
-}
+  path: '/perimenopausia/aumento-peso',
+  type: 'article',
+})
 
 export default function AumentoPesoPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/aumento-peso"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Aumento de peso' }]}
       eyebrow="Cambios corporales"
       title="Aumento de peso en perimenopausia"

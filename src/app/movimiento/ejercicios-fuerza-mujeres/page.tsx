@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Ejercicios de fuerza para mujeres',
   description: 'Guía base de fuerza para mujeres: básicos, técnica, progresión y cómo empezar sin gimnasio obligatorio.',
-  alternates: { canonical: '/movimiento/ejercicios-fuerza-mujeres' },
-}
+  path: '/movimiento/ejercicios-fuerza-mujeres',
+  type: 'article',
+})
 
 export default function EjerciciosFuerzaMujeresPage() {
   return (

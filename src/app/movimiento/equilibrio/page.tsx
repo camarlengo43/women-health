@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Equilibrio y estabilidad',
   description: 'Revisa por qué el equilibrio y la estabilidad son importantes para la salud, la movilidad y el bienestar en distintas etapas.',
-  alternates: { canonical: '/movimiento/equilibrio' },
-}
+  path: '/movimiento/equilibrio',
+  type: 'article',
+})
 
 export default function MovimientoEquilibrioPage() {
   return (
     <InfoPageTemplate
+      canonical="/movimiento/equilibrio"
       breadcrumbItems={[{ label: 'Movimiento', href: '/movimiento' }, { label: 'Equilibrio' }]}
       eyebrow="Estabilidad y control"
       title="Equilibrio y estabilidad"

@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Salud ósea y ejercicio',
   description: 'Descubre cómo el ejercicio puede apoyar la salud ósea, la fuerza muscular y el bienestar en distintas etapas.',
-  alternates: { canonical: '/movimiento/salud-osea' },
-}
+  path: '/movimiento/salud-osea',
+  type: 'article',
+})
 
 export default function MovimientoSaludOseaPage() {
   return (
     <InfoPageTemplate
+      canonical="/movimiento/salud-osea"
       breadcrumbItems={[{ label: 'Movimiento', href: '/movimiento' }, { label: 'Salud ósea' }]}
       eyebrow="Huesos y movilidad"
       title="Salud ósea y ejercicio"

@@ -1,15 +1,13 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { siteConfig } from '@/config'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Política de Privacidad',
   description:
     'Información sobre cómo VidaMujer protege y trata los datos personales de acuerdo con el RGPD y la LOPDGDD.',
-  alternates: {
-    canonical: '/legal/privacidad',
-  },
-}
+  path: '/legal/privacidad',
+})
 
 export default function PrivacyPage() {
   return (
@@ -44,17 +42,18 @@ export default function PrivacyPage() {
 
         <h2>2. Datos que recabamos</h2>
         <ul>
-          <li><strong>Datos de suscripción al boletín (Newsletter):</strong> Dirección de correo electrónico cuando la usuaria se suscribe voluntariamente a nuestras publicaciones.</li>
+          <li><strong>Datos de suscripción al boletín (Newsletter):</strong> actualmente el boletín está marcado como «próximamente» y no recogemos direcciones de correo electrónico. Cuando el canal esté disponible, solo trataremos el email que la usuaria facilite voluntariamente.</li>
           <li><strong>Datos técnicos y de navegación:</strong> Dirección IP anonimizada, tipo de navegador y páginas visitadas con fines exclusivamente estadísticos agregados, sin vincular a identidades personales.</li>
         </ul>
 
         <h2>2.1. Herramientas de salud (calculadoras, test y generador de rutinas)</h2>
         <p>
           Las fechas, respuestas y opciones que introduces en las calculadoras, el test orientativo y el
-          generador de rutinas <strong>se procesan exclusivamente en tu navegador</strong>. No se almacenan
-          en tu dispositivo (no usamos localStorage ni cookies para estos datos), no se envían a nuestros
-          servidores y no se comparten con terceros. Al recargar la página, los campos vuelven a su estado
-          inicial vacío. Por eso afirmamos que tus datos de salud se quedan en tu dispositivo.
+          generador de rutinas <strong>se procesan exclusivamente en la memoria temporal de tu navegador</strong> mientras
+          utilizas la herramienta. No se guardan en tu dispositivo (no usamos localStorage ni cookies para estos datos),
+          no se envían a nuestros servidores y no se comparten con terceros. Al recargar o abandonar la página, los campos
+          vuelven a su estado inicial vacío y los datos desaparecen. Por eso afirmamos que tus datos de salud no salen de tu
+          dispositivo.
         </p>
         <p>
           La medición de visitas, cuando está activa, es a nivel de página (qué páginas se visitan) y nunca

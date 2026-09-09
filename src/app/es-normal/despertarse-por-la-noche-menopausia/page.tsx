@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '¿Es normal despertarse por la noche en la menopausia?',
   description: 'El sueño fragmentado y los despertares nocturnos pueden ser frecuentes en la menopausia y la perimenopausia.',
-  alternates: { canonical: '/es-normal/despertarse-por-la-noche-menopausia' },
-}
+  path: '/es-normal/despertarse-por-la-noche-menopausia',
+  type: 'article',
+})
 
 export default function DespertarsePorLaNochePage() {
   return (
     <InfoPageTemplate
+      canonical="/es-normal/despertarse-por-la-noche-menopausia"
       breadcrumbItems={[{ label: '¿Es normal?', href: '/es-normal' }, { label: 'Despertarse por la noche' }]}
       eyebrow="Duda frecuente"
       title="¿Es normal despertarse por la noche en la menopausia?"

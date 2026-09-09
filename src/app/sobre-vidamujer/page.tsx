@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Sobre VidaMujer',
   description: 'Conoce la misión, la metodología editorial y la visión de VidaMujer como plataforma de salud femenina.',
-  alternates: { canonical: '/sobre-vidamujer' },
-}
+  path: '/sobre-vidamujer',
+})
 
 export default function SobreVidaMujerPage() {
   return (

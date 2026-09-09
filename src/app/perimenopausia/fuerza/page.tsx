@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Fuerza en perimenopausia',
   description:
     'Por qué la fuerza es clave en perimenopausia: músculo, huesos, energía y cómo empezar 2-3 días por semana de forma segura.',
-  alternates: { canonical: '/perimenopausia/fuerza' },
-}
+  path: '/perimenopausia/fuerza',
+  type: 'article',
+})
 
 export default function FuerzaPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/fuerza"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Fuerza' }]}
       eyebrow="Movimiento"
       title="Fuerza en perimenopausia"

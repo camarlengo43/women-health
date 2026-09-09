@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Menopausia: etapa de la vida',
   description: 'Qué es la menopausia como etapa, qué cambios pueden acompañarla y qué recursos ayudan a vivirla con más información.',
-  alternates: { canonical: '/etapas/menopausia' },
-}
+  path: '/etapas/menopausia',
+  type: 'article',
+})
 
 export default function EtapaMenopausiaPage() {
   return (

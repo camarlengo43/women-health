@@ -1,15 +1,13 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 import { Shield, BookOpen, Heart, Lock, Sparkles } from 'lucide-react'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Sobre el Proyecto y Metodología Editorial',
   description:
     'Conoce los principios, la metodología científica y el compromiso de rigor y privacidad que guían a VidaMujer como portal de salud femenina.',
-  alternates: {
-    canonical: '/sobre-el-proyecto',
-  },
-}
+  path: '/sobre-el-proyecto',
+})
 
 export default function AboutPage() {
   return (

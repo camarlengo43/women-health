@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { PregnancyCalculator } from '@/components/tools/PregnancyCalculator'
 import { ToolEducation } from '@/components/tools/ToolEducation'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
-  title: 'Calculadora de embarazo',
-  description: 'Calcula de forma orientativa la semana de embarazo y la fecha estimada de parto.',
-  alternates: { canonical: '/calculadora-semanas-embarazo' },
-}
+export const metadata = buildPageMetadata({
+  title: 'Calculadora de semanas de embarazo: ¿de cuántas semanas estoy?',
+  description:
+    'Calcula de forma orientativa cuántas semanas de embarazo tienes y tu fecha probable de parto desde la última regla. Sin registro, en tu navegador.',
+  path: '/calculadora-semanas-embarazo',
+})
 
 export default function CalculadoraEmbarazoPage() {
   return (
@@ -36,6 +37,10 @@ export default function CalculadoraEmbarazoPage() {
           'No valora la salud del embarazo ni sustituye ningún control.',
         ]}
         faq={[
+          {
+            question: '¿Cómo se calculan las semanas de embarazo?',
+            answer: 'Por convención clínica se cuentan desde el primer día de tu última regla, no desde la concepción: se suman 280 días (40 semanas) para estimar la fecha probable de parto y se calculan las semanas y días transcurridos hasta hoy. La ecografía del primer trimestre suele afinar esta datación.',
+          },
           {
             question: '¿Por qué se cuenta desde la última regla y no desde la concepción?',
             answer: 'Por convención clínica: la fecha de la última regla es un dato conocido, mientras que la concepción rara vez se conoce con exactitud. Por eso las 40 semanas incluyen unas dos semanas previas a la concepción.',

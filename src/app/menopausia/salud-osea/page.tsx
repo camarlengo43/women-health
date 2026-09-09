@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Salud ósea en la menopausia',
   description: 'Qué papel juega la salud ósea durante la menopausia y cómo puede apoyar el ejercicio y la prevención.',
-  alternates: { canonical: '/menopausia/salud-osea' },
-}
+  path: '/menopausia/salud-osea',
+  type: 'article',
+})
 
 export default function MenopausiaSaludOseaPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/salud-osea"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Salud ósea' }]}
       eyebrow="Huesos y fuerza"
       title="Salud ósea en la menopausia"

@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Ejercicio en la menopausia',
   description: 'Cómo apoyar la fuerza, la salud ósea y el bienestar mediante ejercicio en la menopausia.',
-  alternates: { canonical: '/menopausia/ejercicio' },
-}
+  path: '/menopausia/ejercicio',
+  type: 'article',
+})
 
 export default function MenopausiaEjercicioPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/ejercicio"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Ejercicio' }]}
       eyebrow="Movimiento y salud"
       title="Ejercicio en la menopausia"

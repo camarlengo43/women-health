@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Fuentes médicas',
   description: 'Organismos, guías y fuentes de referencia que sustentan la información publicada en VidaMujer.',
-  alternates: { canonical: '/fuentes-medicas' },
-}
+  path: '/fuentes-medicas',
+})
 
 const sources = [
   'Organización Mundial de la Salud (OMS)',

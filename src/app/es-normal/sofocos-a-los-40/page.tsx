@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '¿Es normal tener sofocos a los 40?',
   description: 'Los sofocos a los 40 pueden ser una señal frecuente de la perimenopausia y los cambios hormonales asociados.',
-  alternates: { canonical: '/es-normal/sofocos-a-los-40' },
-}
+  path: '/es-normal/sofocos-a-los-40',
+  type: 'article',
+})
 
 export default function SofocosPage() {
   return (
     <InfoPageTemplate
+      canonical="/es-normal/sofocos-a-los-40"
       breadcrumbItems={[{ label: '¿Es normal?', href: '/es-normal' }, { label: 'Sofocos a los 40' }]}
       eyebrow="Duda frecuente"
       title="¿Es normal tener sofocos a los 40?"

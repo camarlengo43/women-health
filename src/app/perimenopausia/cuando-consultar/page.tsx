@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Cuándo consultar en la perimenopausia',
   description: 'Cómo saber cuándo conviene hablar con un profesional durante la perimenopausia y qué síntomas merecen valoración.',
-  alternates: { canonical: '/perimenopausia/cuando-consultar' },
-}
+  path: '/perimenopausia/cuando-consultar',
+  type: 'article',
+})
 
 export default function PerimenopausiaCuandoConsultarPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/cuando-consultar"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Cuándo consultar' }]}
       eyebrow="Valoración y apoyo"
       title="Cuándo consultar durante la perimenopausia"

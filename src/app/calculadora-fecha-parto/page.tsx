@@ -1,17 +1,17 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { PregnancyCalculator } from '@/components/tools/PregnancyCalculator'
 import { ToolEducation } from '@/components/tools/ToolEducation'
 import { JsonLd } from '@/components/shared'
 import { generateBreadcrumbJsonLd } from '@/lib/seo'
+import { buildPageMetadata } from '@/lib/page-seo'
 import { siteConfig } from '@/config'
 
-export const metadata: Metadata = {
-  title: 'Calculadora de fecha probable de parto',
+export const metadata = buildPageMetadata({
+  title: 'Calculadora de fecha probable de parto (FPP)',
   description:
-    'Estima tu fecha probable de parto a partir de la última regla. Herramienta orientativa que funciona en tu navegador, sin registro.',
-  alternates: { canonical: '/calculadora-fecha-parto' },
-}
+    'Estima tu fecha probable de parto a partir de la última regla con la regla de Naegele. Herramienta orientativa en tu navegador, sin registro.',
+  path: '/calculadora-fecha-parto',
+})
 
 export default function FechaPartoPage() {
   const url = `${siteConfig.url}/calculadora-fecha-parto`

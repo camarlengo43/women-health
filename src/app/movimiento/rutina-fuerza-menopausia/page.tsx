@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Rutina de fuerza en la menopausia',
   description: 'Ejemplo práctico de sesión de fuerza en la menopausia: calentamiento, bloque principal y vuelta a la calma.',
-  alternates: { canonical: '/movimiento/rutina-fuerza-menopausia' },
-}
+  path: '/movimiento/rutina-fuerza-menopausia',
+  type: 'article',
+})
 
 export default function RutinaFuerzaMenopausiaPage() {
   return (

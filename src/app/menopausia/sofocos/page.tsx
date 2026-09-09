@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Sofocos durante la menopausia',
   description: 'Qué son los sofocos durante la menopausia y qué factores pueden influir en su intensidad.',
-  alternates: { canonical: '/menopausia/sofocos' },
-}
+  path: '/menopausia/sofocos',
+  type: 'article',
+})
 
 export default function MenopausiaSofocosPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/sofocos"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Sofocos' }]}
       eyebrow="Síntomas frecuentes"
       title="Sofocos durante la menopausia"

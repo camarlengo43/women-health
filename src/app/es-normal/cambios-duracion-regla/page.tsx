@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '¿Es normal que cambie la duración de la regla?',
   description: 'Por qué la regla puede durar más o menos días según la etapa, qué observar y cuándo consultar.',
-  alternates: { canonical: '/es-normal/cambios-duracion-regla' },
-}
+  path: '/es-normal/cambios-duracion-regla',
+  type: 'article',
+})
 
 export default function CambiosDuracionReglaPage() {
   return (

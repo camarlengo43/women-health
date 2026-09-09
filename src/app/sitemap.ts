@@ -69,7 +69,7 @@ const HUB_PAGES = [
   '/equipo',
   '/politica-editorial',
   '/fuentes-medicas',
-  '/contacto',
+  // Nota: /contacto se declara una sola vez en staticPages (evita duplicados).
 ]
 
 const GLOSSARY_PAGES = [
@@ -112,12 +112,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${siteConfig.url}/buscar`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
-    {
+      // Nota: /buscar es noindex (robots + metadata) y no debe ir al sitemap.
       url: `${siteConfig.url}/sobre-el-proyecto`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

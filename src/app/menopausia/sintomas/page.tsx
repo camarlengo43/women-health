@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Síntomas de la menopausia',
   description: 'Qué síntomas pueden aparecer en la menopausia y cómo entenderlos con más claridad.',
-  alternates: { canonical: '/menopausia/sintomas' },
-}
+  path: '/menopausia/sintomas',
+  type: 'article',
+})
 
 export default function MenopausiaSintomasPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/sintomas"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Síntomas' }]}
       eyebrow="Qué puede aparecer"
       title="Síntomas de la menopausia"

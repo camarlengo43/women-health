@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '¿Es normal que la regla venga cada 24 días?',
   description: 'Busca entender si una regla cada 24 días es normal, cómo puede variar y cuándo merece la pena revisarlo.',
-  alternates: { canonical: '/es-normal/regla-cada-24-dias' },
-}
+  path: '/es-normal/regla-cada-24-dias',
+  type: 'article',
+})
 
 export default function ReglaCada24DiasPage() {
   return (
     <InfoPageTemplate
+      canonical="/es-normal/regla-cada-24-dias"
       breadcrumbItems={[{ label: '¿Es normal?', href: '/es-normal' }, { label: 'Regla cada 24 días' }]}
       eyebrow="Duda frecuente"
       title="¿Es normal que la regla venga cada 24 días?"

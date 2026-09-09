@@ -12,13 +12,14 @@ const questions = [
 
 export function PerimenopauseTest() {
   const [answers, setAnswers] = useState<Record<number, boolean>>({})
+  // La usuaria aún no ha interactuado: no se muestra ningún resultado.
+  const [hasInteracted, setHasInteracted] = useState(false)
 
   const checkedIndexes = useMemo(
     () => questions.map((_, index) => index).filter((index) => answers[index] === true),
     [answers],
   )
   const score = checkedIndexes.length
-  const answeredCount = score
 
   const result = useMemo(() => {
     if (score === 0) {
@@ -37,6 +38,7 @@ export function PerimenopauseTest() {
   }, [score])
 
   const toggleAnswer = (index: number) => {
+    setHasInteracted(true)
     setAnswers((current) => ({
       ...current,
       [index]: !current[index],
@@ -67,18 +69,18 @@ export function PerimenopauseTest() {
 
       <div className="rounded-2xl border border-border bg-muted/30 p-5" aria-live="polite" aria-atomic="true">
         <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Resultado orientativo</p>
-        {answeredCount === 0 ? (
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Marca las afirmaciones que describan lo que has notado y verás aquí una
-            lectura orientativa. Tus respuestas no se guardan ni se envían a ningún servidor.
-          </p>
-        ) : (
+        {hasInteracted && score > 0 ? (
           <>
             <p className="mt-3 text-lg font-semibold text-foreground">{result}</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Este test es informativo y no diagnostica perimenopausia ni ninguna otra condición. Si notas síntomas persistentes, consulta a un profesional sanitario.
             </p>
           </>
+        ) : (
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Marca las afirmaciones que describan lo que has notado y verás aquí una
+            lectura orientativa. Tus respuestas no se guardan ni se envían a ningún servidor.
+          </p>
         )}
       </div>
     </div>

@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Insomnio y sueño en la perimenopausia',
   description: 'Entiende por qué puede aparecer el insomnio en la perimenopausia y qué factores suelen influir en el sueño.',
-  alternates: { canonical: '/perimenopausia/insomnio' },
-}
+  path: '/perimenopausia/insomnio',
+  type: 'article',
+})
 
 export default function InsomnioPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/insomnio"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Insomnio' }]}
       eyebrow="Sueño y bienestar"
       title="Insomnio y cambios de sueño"

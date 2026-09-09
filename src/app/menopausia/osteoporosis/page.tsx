@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Osteoporosis y menopausia',
   description: 'Qué es la osteoporosis y por qué puede ser especialmente relevante durante la menopausia.',
-  alternates: { canonical: '/menopausia/osteoporosis' },
-}
+  path: '/menopausia/osteoporosis',
+  type: 'article',
+})
 
 export default function MenopausiaOsteoporosisPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/osteoporosis"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Osteoporosis' }]}
       eyebrow="Salud ósea"
       title="Osteoporosis y menopausia"

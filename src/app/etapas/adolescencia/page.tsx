@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Adolescencia y primeros ciclos',
   description:
     'Primeros ciclos irregulares, dolor menstrual y señales que merecen consulta en la adolescencia. Información clara y orientativa.',
-  alternates: { canonical: '/etapas/adolescencia' },
-}
+  path: '/etapas/adolescencia',
+  type: 'article',
+})
 
 export default function AdolescenciaPage() {
   return (
     <InfoPageTemplate
+      canonical="/etapas/adolescencia"
       breadcrumbItems={[{ label: 'Etapas', href: '/etapas' }, { label: 'Adolescencia' }]}
       eyebrow="Etapa de la vida"
       title="Adolescencia y primeros ciclos"

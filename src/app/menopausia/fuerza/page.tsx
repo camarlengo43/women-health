@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Fuerza en la menopausia',
   description: 'Cómo puede ayudar el entrenamiento de fuerza durante la menopausia.',
-  alternates: { canonical: '/menopausia/fuerza' },
-}
+  path: '/menopausia/fuerza',
+  type: 'article',
+})
 
 export default function MenopausiaFuerzaPage() {
   return (
     <InfoPageTemplate
+      canonical="/menopausia/fuerza"
       breadcrumbItems={[{ label: 'Menopausia', href: '/menopausia' }, { label: 'Fuerza' }]}
       eyebrow="Movimiento funcional"
       title="Fuerza en la menopausia"

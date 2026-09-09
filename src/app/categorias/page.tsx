@@ -1,17 +1,15 @@
-import type { Metadata } from 'next'
 import { getAllCategories } from '@/config'
 import { getPosts } from '@/services'
 import { CategoryCard } from '@/features/categories'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Categorías y Temas de Salud Femenina',
   description:
     'Explora nuestras cinco áreas especializadas en salud de la mujer: salud menstrual, perimenopausia, menopausia, embarazo y bienestar.',
-  alternates: {
-    canonical: '/categorias',
-  },
-}
+  path: '/categorias',
+})
 
 export default async function CategoriesPage() {
   const categories = getAllCategories()

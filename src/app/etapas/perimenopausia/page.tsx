@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Perimenopausia: etapa de transición',
   description: 'Qué es la perimenopausia como etapa de la vida, qué cambios pueden aparecer y qué recursos ayudan a entenderla.',
-  alternates: { canonical: '/etapas/perimenopausia' },
-}
+  path: '/etapas/perimenopausia',
+  type: 'article',
+})
 
 export default function EtapaPerimenopausiaPage() {
   return (

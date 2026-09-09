@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Alimentación en perimenopausia',
   description:
     'Ideas realistas de alimentación en perimenopausia: proteína, fibra, calcio y hábitos flexibles sin dietas estrictas.',
-  alternates: { canonical: '/perimenopausia/alimentacion' },
-}
+  path: '/perimenopausia/alimentacion',
+  type: 'article',
+})
 
 export default function AlimentacionPage() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/alimentacion"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'Alimentación' }]}
       eyebrow="Hábitos"
       title="Alimentación en perimenopausia"

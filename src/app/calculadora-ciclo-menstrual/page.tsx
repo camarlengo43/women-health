@@ -1,13 +1,14 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { CycleCalculator } from '@/components/tools/CycleCalculator'
 import { ToolEducation } from '@/components/tools/ToolEducation'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
-  title: 'Calculadora del ciclo menstrual',
-  description: 'Calcula de forma orientativa tu próxima regla, la ovulación y la ventana fértil sin almacenar datos.',
-  alternates: { canonical: '/calculadora-ciclo-menstrual' },
-}
+export const metadata = buildPageMetadata({
+  title: 'Calculadora del ciclo menstrual: próxima regla y ovulación',
+  description:
+    'Calcula de forma orientativa tu próxima regla, la ovulación y la ventana fértil a partir de la última menstruación. Funciona en tu navegador, sin guardar datos.',
+  path: '/calculadora-ciclo-menstrual',
+})
 
 export default function CalculadoraCicloPage() {
   return (
@@ -40,6 +41,10 @@ export default function CalculadoraCicloPage() {
           {
             question: '¿Qué duración de ciclo debo introducir?',
             answer: 'La media de tus últimos 3-6 ciclos: cuenta desde el primer día de sangrado de un ciclo hasta el día anterior al siguiente sangrado. El rango habitual en adultas está entre 21 y 35 días.',
+          },
+          {
+            question: '¿Cómo puedo saber cuándo me bajará la regla si mi ciclo es irregular?',
+            answer: 'Con ciclos irregulares ninguna calculadora puede predecir la fecha con precisión: la estimación usa tu media, pero la ovulación real puede adelantarse o retrasarse. Anota cada regla durante 2-3 meses para conocer tu rango y consulta si los ciclos son persistentemente menores de 21 días o mayores de 35-40 días.',
           },
           {
             question: '¿Por qué el resultado cambia si cambio los datos?',

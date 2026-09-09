@@ -1,15 +1,13 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 import { Mail, MessageSquare, AlertCircle } from 'lucide-react'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Contacto y Sugerencias Editoriales',
   description:
     'Ponte en contacto con el equipo de VidaMujer para sugerencias de contenido, colaboraciones divulgativas o consultas institucionales.',
-  alternates: {
-    canonical: '/contacto',
-  },
-}
+  path: '/contacto',
+})
 
 export default function ContactPage() {
   return (

@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Suelo pélvico',
   description:
     'Qué es el suelo pélvico, por qué importa en cada etapa y hábitos básicos de cuidado. Información orientativa y práctica.',
-  alternates: { canonical: '/movimiento/suelo-pelvico' },
-}
+  path: '/movimiento/suelo-pelvico',
+  type: 'article',
+})
 
 export default function SueloPelvicoPage() {
   return (
     <InfoPageTemplate
+      canonical="/movimiento/suelo-pelvico"
       breadcrumbItems={[{ label: 'Movimiento', href: '/movimiento' }, { label: 'Suelo pélvico' }]}
       eyebrow="Movimiento"
       title="Suelo pélvico"

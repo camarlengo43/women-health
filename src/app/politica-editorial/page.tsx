@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Política editorial',
   description: 'Cómo seleccionamos fuentes, revisamos contenido y actualizamos la información en VidaMujer.',
-  alternates: { canonical: '/politica-editorial' },
-}
+  path: '/politica-editorial',
+})
 
 export default function PoliticaEditorialPage() {
   return (

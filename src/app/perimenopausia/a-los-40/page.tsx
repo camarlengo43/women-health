@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import { InfoPageTemplate } from '@/components/shared'
+import { buildPageMetadata } from '@/lib/page-seo'
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'Perimenopausia a los 40',
   description:
     'Qué cambios pueden aparecer alrededor de los 40: ciclos, sofocos, sueño y cuándo consultar. Información orientativa basada en evidencia.',
-  alternates: { canonical: '/perimenopausia/a-los-40' },
-}
+  path: '/perimenopausia/a-los-40',
+  type: 'article',
+})
 
 export default function PeriALos40Page() {
   return (
     <InfoPageTemplate
+      canonical="/perimenopausia/a-los-40"
       breadcrumbItems={[{ label: 'Perimenopausia', href: '/perimenopausia' }, { label: 'A los 40' }]}
       eyebrow="Etapa de transición"
       title="Perimenopausia a los 40"
