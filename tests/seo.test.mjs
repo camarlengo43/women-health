@@ -1,11 +1,11 @@
 /**
- * Tests SEO / E-E-A-T (análisis estático).
+ * SEO / E-E-A-T tests (static analysis).
  *
- * - Sitemap: solo URLs públicas, canónicas e indexables (sin /buscar,
- *   sin duplicados, con las páginas de posparto).
- * - Metadata: cada página indexable con title/description/canonical y
+ * - Sitemap: only public, canonical, indexable URLs (no /buscar,
+ *   no duplicates, including the postpartum pages).
+ * - Metadata: each indexable page with title/description/canonical and
  *   Open Graph + Twitter.
- * - JSON-LD: sin reseñas, ratings ni profesionales inventados.
+ * - JSON-LD: no reviews, ratings, or invented professionals.
  */
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
@@ -78,7 +78,7 @@ describe('metadata por página', () => {
       const src = read(page)
       const definesMetadata =
         src.includes('export const metadata') || src.includes('generateMetadata')
-      if (!definesMetadata) return // p. ej. páginas que heredan del layout
+      if (!definesMetadata) return // e.g. pages inheriting the layout defaults
       const hasCanonical = src.includes('canonical') || src.includes('buildPageMetadata')
       assert.ok(hasCanonical, `${page} debe declarar canonical`)
     })
@@ -87,7 +87,7 @@ describe('metadata por página', () => {
   it('todas las páginas con metadata tienen Open Graph + Twitter', () => {
     const missing = []
     for (const page of PAGES) {
-      if (page === 'src/app/buscar/page.tsx') continue // noindex: hereda defaults del layout
+      if (page === 'src/app/buscar/page.tsx') continue // noindex: inherits layout defaults
       const src = read(page)
       const definesMetadata =
         src.includes('export const metadata') || src.includes('generateMetadata')

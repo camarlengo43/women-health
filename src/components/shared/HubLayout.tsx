@@ -13,9 +13,9 @@ export interface HubItem {
 }
 
 /**
- * Landing de categoría SEO: cada tarjeta es un enlace real
- * a una página hija indexable. El hub ofrece la visión general;
- * el contenido detallado vive en las páginas hijas.
+ * SEO category landing: each card is a real link
+ * to an indexable child page. The hub gives the overview;
+ * detailed content lives on the child pages.
  */
 export function HubLayout({
   eyebrow,

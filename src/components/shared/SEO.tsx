@@ -1,9 +1,9 @@
 /**
- * @deprecated No usar en App Router. Las páginas usan `export const metadata`
- * (title, description, canonical, openGraph, twitter) y los componentes
- * `JsonLd` + `generate*JsonLd` de `@/lib/seo` para datos estructurados.
- * Este archivo se conserva como stub para no romper imports históricos
- * y será eliminado. No renderiza nada.
+ * @deprecated Do not use in App Router. Pages use `export const metadata`
+ * (title, description, canonical, openGraph, twitter) and the
+ * `JsonLd` + `generate*JsonLd` helpers from `@/lib/seo` for structured data.
+ * This file is kept as a stub to avoid breaking historical imports
+ * and will be removed. It renders nothing.
  */
 export function SEO(args: {
   title: string

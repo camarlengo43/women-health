@@ -1,11 +1,11 @@
 /**
- * Lógica pura de las herramientas de salud (sin React, sin E/S).
+ * Pure logic for the health tools (no React, no I/O).
  *
- * Todo cálculo de VidaMujer ocurre en memoria del navegador con estas
- * funciones. No persisten, no envían datos y nunca devuelven
- * `NaN`, `Invalid Date`, `undefined` ni `null` visibles: ante cualquier
- * entrada inválida devuelven `null` y la interfaz muestra un mensaje
- * comprensible.
+ * Every VidaMujer calculation runs in browser memory through these
+ * functions. They never persist or send data, and never surface
+ * `NaN`, `Invalid Date`, `undefined` or `null`: on any invalid
+ * input they return `null` and the UI shows an understandable
+ * message.
  */
 
 export interface CycleEstimate {
@@ -24,9 +24,9 @@ export interface PregnancyEstimate {
 export type PerimenopauseBand = 'none' | 'some' | 'several' | 'many'
 
 /**
- * Rangos válidos ya definidos por la aplicación. No inventar otros:
- * - Ciclo: 21–45 días (usado por `calcCycleEstimate`).
- * - Regla: 2–10 días (usado en las calculadoras de ciclo).
+ * Valid ranges already defined by the app. Do not invent others:
+ * - Cycle: 21–45 days (used by `calcCycleEstimate`).
+ * - Period: 2–10 days (used in the cycle calculators).
  */
 export const MIN_CYCLE_LENGTH = 21
 export const MAX_CYCLE_LENGTH = 45
@@ -36,26 +36,26 @@ export const MAX_PERIOD_LENGTH = 10
 export type NumericFieldStatus = 'empty' | 'valid' | 'invalid'
 
 /**
- * Interpreta el texto crudo de un campo numérico (escritura manual,
- * pegado o selección desde el selector) sin bloquear la edición.
- * - `""` (vacío o solo espacios) → `null` (estado vacío: no calcular).
- * - Texto convertible a número finito → el número (la validez del rango
- *   se comprueba aparte, para poder mostrar un error claro).
- * - Texto no numérico (`"abc"`, `"12a"`, `Infinity`, …) → `null`.
- * Nunca devuelve `NaN`: el cálculo recibe solo números finitos o `null`.
+ * Parses the raw text of a numeric field (manual typing,
+ * pasting, or selection from the picker) without blocking editing.
+ * - `""` (empty or whitespace only) → `null` (empty state: do not calculate).
+ * - Text convertible to a finite number → that number (range validity
+ *   is checked separately, so a clear error can be shown).
+ * - Non-numeric text (`"abc"`, `"12a"`, `Infinity`, …) → `null`.
+ * Never returns `NaN`: calculations only receive finite numbers or `null`.
  */
 export function parseNumericInput(raw: string): number | null {
   if (typeof raw !== 'string') return null
   const trimmed = raw.trim()
   if (trimmed === '') return null
-  // Acepta "28", " 28 ", "28.0". Rechaza "", "abc", "12a", "Infinity".
+  // Accepts "28", " 28 ", "28.0". Rejects "", "abc", "12a", "Infinity".
   if (!/^[+-]?(\d+(\.\d+)?|\.\d+)$/.test(trimmed)) return null
   const value = Number(trimmed)
   if (!Number.isFinite(value)) return null
   return value
 }
 
-/** Clasifica el texto crudo de un campo numérico genérico. */
+/** Classifies the raw text of a generic numeric field. */
 export function getNumericFieldStatus(raw: string): NumericFieldStatus {
   if (typeof raw !== 'string' || raw.trim() === '') return 'empty'
   return parseNumericInput(raw) === null ? 'invalid' : 'valid'
@@ -65,17 +65,17 @@ function validateInRange(value: number | null, min: number, max: number): boolea
   return typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max
 }
 
-/** Validación centralizada: duración del ciclo en días (21–45). */
+/** Centralized validation: cycle length in days (21–45). */
 export function validateCycleLength(value: number | null): boolean {
   return validateInRange(value, MIN_CYCLE_LENGTH, MAX_CYCLE_LENGTH)
 }
 
-/** Validación centralizada: duración de la regla en días (2–10). */
+/** Centralized validation: period length in days (2–10). */
 export function validatePeriodLength(value: number | null): boolean {
   return validateInRange(value, MIN_PERIOD_LENGTH, MAX_PERIOD_LENGTH)
 }
 
-/** Mensaje de error en español para el campo de ciclo, o `null` si es válido/vacío. */
+/** Spanish error message for the cycle field, or `null` when valid/empty. */
 export function getCycleLengthError(raw: string): string | null {
   if (raw.trim() === '') return null
   const value = parseNumericInput(raw)
@@ -86,7 +86,7 @@ export function getCycleLengthError(raw: string): string | null {
   return null
 }
 
-/** Mensaje de error en español para el campo de regla, o `null` si es válido/vacío. */
+/** Spanish error message for the period field, or `null` when valid/empty. */
 export function getPeriodLengthError(raw: string): string | null {
   if (raw.trim() === '') return null
   const value = parseNumericInput(raw)
@@ -97,7 +97,7 @@ export function getPeriodLengthError(raw: string): string | null {
   return null
 }
 
-/** Convierte `YYYY-MM-DD` en fecha local o `null` si no es válida. */
+/** Converts `YYYY-MM-DD` to a local date, or `null` when invalid. */
 export function parseDateOnly(value: string): Date | null {
   if (!value || typeof value !== 'string') return null
   const parts = value.split('-').map(Number)
@@ -106,7 +106,7 @@ export function parseDateOnly(value: string): Date | null {
   if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) return null
   if (y < 1900 || y > 2100 || m < 1 || m > 12 || d < 1 || d > 31) return null
   const date = new Date(y, m - 1, d)
-  // Rechaza desbordes como 2026-02-30 (Date los normaliza a marzo).
+  // Rejects overflows like 2026-02-30 (Date normalizes them to March).
   if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
     return null
   }
@@ -125,9 +125,9 @@ function addDays(date: Date, days: number): Date {
 }
 
 /**
- * Estimación del ciclo menstrual (método de calendario).
- * Devuelve `null` sin datos válidos: fecha vacía/inválida/futura o
- * duración fuera del rango 21–45 días.
+ * Menstrual cycle estimate (calendar method).
+ * Returns `null` without valid data: empty/invalid/future date or
+ * length outside the 21–45 day range.
  */
 export function calcCycleEstimate(
   lastPeriod: string,
@@ -150,8 +150,8 @@ export function calcCycleEstimate(
 }
 
 /**
- * Estimación de ovulación y ventana fértil (método de calendario).
- * Mismas garantías que `calcCycleEstimate`.
+ * Ovulation and fertile-window estimate (calendar method).
+ * Same guarantees as `calcCycleEstimate`.
  */
 export function calcOvulationEstimate(
   lastPeriod: string,
@@ -168,8 +168,8 @@ export function calcOvulationEstimate(
 }
 
 /**
- * Estimación de embarazo por regla de Naegele (FUR + 280 días).
- * Devuelve `null` sin fecha válida o con fecha futura.
+ * Pregnancy estimate via Naegele's rule (LMP + 280 days).
+ * Returns `null` without a valid date or with a future date.
  */
 export function calcPregnancyEstimate(
   lastPeriod: string,
@@ -189,8 +189,8 @@ export function calcPregnancyEstimate(
 }
 
 /**
- * Banda orientativa del test de perimenopausia según nº de señales.
- * No diagnostica: solo resume cuántas señales frecuentes se marcaron.
+ * Advisory perimenopause-test band based on the number of signs.
+ * Does not diagnose: it only summarizes how many common signs were checked.
  */
 export function scorePerimenopause(answers: Record<number, boolean>): {
   score: number

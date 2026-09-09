@@ -21,17 +21,21 @@ function formatDate(date: Date) {
 }
 
 /**
- * Calculadora de ovulación.
- * - Estado inicial vacío: sin resultados hasta que la usuaria introduce
- *   datos válidos y pulsa «Calcular».
- * - Campo numérico con introducción manual + selector: escribir, borrar,
- *   pegar o elegir actualizan el mismo estado en texto.
- * Todo se calcula en el navegador, sin almacenar ni enviar datos.
+ * Ovulation calculator.
+ * - Empty initial state: no results until the user enters
+ *   valid data and presses "Calculate".
+ * - Numeric field with manual entry + picker: typing, clearing,
+ *   pasting, or picking update the same text state.
+ * Everything is computed in the browser, without storing or sending data.
  */
 export function OvulationCalculator() {
   const [lastPeriod, setLastPeriod] = useState('')
   const [cycleLengthRaw, setCycleLengthRaw] = useState('')
   const [submitted, setSubmitted] = useState(false)
+
+  // Any change after calculating invalidates the previous result:
+  // the user must press "Calculate" again. The initial state is
+  // empty (result = null) until the first explicit calculation.
 
   const lastDate = useMemo(() => parseDateOnly(lastPeriod), [lastPeriod])
   const today = useMemo(() => {
@@ -71,7 +75,10 @@ export function OvulationCalculator() {
               type="date"
               value={lastPeriod}
               max={today.toISOString().slice(0, 10)}
-              onChange={(event) => setLastPeriod(event.target.value)}
+              onChange={(event) => {
+                setSubmitted(false)
+                setLastPeriod(event.target.value)
+              }}
               aria-describedby="ovulation-last-period-error"
               aria-invalid={showErrors && !isDateValid}
               className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none focus:border-accent"
@@ -89,7 +96,10 @@ export function OvulationCalculator() {
             id="ovulation-cycle-length"
             label="Duración media del ciclo (días)"
             value={cycleLengthRaw}
-            onChange={setCycleLengthRaw}
+            onChange={(value) => {
+              setSubmitted(false)
+              setCycleLengthRaw(value)
+            }}
             min={MIN_CYCLE_LENGTH}
             max={MAX_CYCLE_LENGTH}
             placeholder="Ej.: 28"

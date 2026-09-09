@@ -7,9 +7,9 @@ export interface ToolSource {
 }
 
 /**
- * Parte educativa bajo cada herramienta: cómo funciona, qué significa
- * el resultado, limitaciones, FAQs, cuándo consultar, fuentes y
- * contenido relacionado. Arquitectura común para las 6 herramientas.
+ * Educational section below each tool: how it works, what the
+ * result means, limitations, FAQs, when to consult, sources, and
+ * related content. Shared structure for all 6 tools.
  */
 export function ToolEducation({
   howItWorks,

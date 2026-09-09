@@ -44,7 +44,7 @@ export default function CalculadoraCicloPage() {
           },
           {
             question: '¿Cómo puedo saber cuándo me bajará la regla si mi ciclo es irregular?',
-            answer: 'Con ciclos irregulares ninguna calculadora puede predecir la fecha con precisión: la estimación usa tu media, pero la ovulación real puede adelantarse o retrasarse. Anota cada regla durante 2-3 meses para conocer tu rango y consulta si los ciclos son persistentemente menores de 21 días o mayores de 35-40 días.',
+            answer: 'Con ciclos irregulares ninguna calculadora puede predecir la fecha con precisión: la estimación usa tu media, pero la ovulación real puede adelantarse o retrasarse. Los ciclos pueden variar entre personas y a lo largo del tiempo. Anota cada regla durante 2-3 meses para conocer tu rango y, si tus ciclos son persistentemente muy cortos, muy largos o han cambiado de forma significativa, consulta con un profesional sanitario.',
           },
           {
             question: '¿Por qué el resultado cambia si cambio los datos?',
@@ -53,7 +53,7 @@ export default function CalculadoraCicloPage() {
         ]}
         whenToConsult={[
           'Sangrado que dura más de 7 días de forma repetida.',
-          'Ciclos persistentemente menores de 21 días o mayores de 35-40 días.',
+          'Ciclos persistentemente muy cortos, muy largos o que han cambiado de forma significativa respecto a tu patrón previo.',
           'Dolor intenso, mareos o fatiga marcada con la regla.',
         ]}
         sources={[

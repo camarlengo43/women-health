@@ -30,7 +30,7 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Contenido */}
+          {/* Content */}
           <div>
             <h3 className="text-sm font-semibold text-background tracking-wide uppercase mb-4">
               Contenido
@@ -49,7 +49,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Proyecto */}
+          {/* Project */}
           <div>
             <h3 className="text-sm font-semibold text-background tracking-wide uppercase mb-4">
               Proyecto

@@ -14,14 +14,14 @@ interface NumericComboFieldProps {
 }
 
 /**
- * Campo numérico con introducción manual + selector.
+ * Numeric field with manual entry + picker.
  *
- * - La usuaria puede escribir, borrar, pegar o elegir un valor de la lista.
- * - Escritura manual y selector actualizan el mismo estado (`value`).
- * - No bloquea la edición: acepta vacío e inválidos como texto y delega
- *   la validación a la lógica de la aplicación (`getCycleLengthError`, …).
- * - Accesible: `min`/`max`/`step`/`inputMode`, `aria-invalid` y error con
- *   `role="alert"`. La validación real ocurre en JS, no solo en HTML.
+ * - The user can type, clear, paste, or pick a value from the list.
+ * - Manual typing and the picker update the same state (`value`).
+ * - Never blocks editing: accepts empty and invalid input as text and
+ *   delegates validation to the app logic (`getCycleLengthError`, …).
+ * - Accessible: `min`/`max`/`step`/`inputMode`, `aria-invalid`, and error with
+ *   `role="alert"`. Real validation happens in JS, not just in HTML.
  */
 export function NumericComboField({
   id,

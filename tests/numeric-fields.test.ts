@@ -17,9 +17,10 @@ import {
 const day = (y: number, m: number, d: number) => new Date(y, m - 1, d)
 
 /**
- * Tests obligatorios: campos numéricos con input manual + selector.
- * Ambas vías escriben el mismo estado en texto; la validación centralizada
- * decide si se puede calcular. Nunca se calcula con valores inválidos ni NaN.
+ * Required tests: numeric fields with manual input + picker.
+ * Both paths write the same text state; centralized validation
+ * decides whether calculation is allowed. Never calculates with
+ * invalid values or NaN.
  */
 describe('entrada manual: valores válidos', () => {
   it('28 → válido (ciclo)', () => {
@@ -76,12 +77,12 @@ describe('campo vacío: no mostrar resultado', () => {
     assert.equal(getNumericFieldStatus(''), 'empty')
     assert.equal(parseNumericInput(''), null)
     assert.equal(validateCycleLength(parseNumericInput('')), false)
-    assert.equal(getCycleLengthError(''), null) // vacío no es error de rango: es "falta dato"
+    assert.equal(getCycleLengthError(''), null) // empty is not a range error: it means "missing data"
     assert.equal(calcCycleEstimate('', 28, day(2026, 1, 10)), null)
   })
 
   it('estado inicial vacío no genera resultado aunque haya fecha', () => {
-    // Simula useState("") inicial: sin número válido no hay cálculo.
+    // Simulates initial useState(""): no calculation without a valid number.
     const cycleRaw = ''
     const cycleValue = parseNumericInput(cycleRaw)
     assert.equal(cycleValue, null)
@@ -91,7 +92,7 @@ describe('campo vacío: no mostrar resultado', () => {
 
 describe('pegado de valores', () => {
   it('"28" pegado → válido', () => {
-    // Pegar dispara onChange con el texto completo: mismo camino que escribir.
+    // Pasting fires onChange with the full text: same path as typing.
     const pasted = '28'
     assert.equal(parseNumericInput(pasted), 28)
     assert.equal(validateCycleLength(parseNumericInput(pasted)), true)
@@ -127,8 +128,8 @@ describe('texto no numérico: rechazar, nunca NaN', () => {
 
 describe('selector: mismo estado que escritura manual', () => {
   it('elegir "28" en el selector equivale a escribir "28"', () => {
-    const fromSelector = '28' // <option value="28"> del datalist
-    const typedManually = '28' // tecleado en el input
+    const fromSelector = '28' // <option value="28"> from the datalist
+    const typedManually = '28' // typed into the input
     assert.equal(parseNumericInput(fromSelector), parseNumericInput(typedManually))
     assert.equal(validateCycleLength(parseNumericInput(fromSelector)), true)
   })

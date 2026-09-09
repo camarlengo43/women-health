@@ -10,14 +10,14 @@ export function JsonLd({ data }: { data: object }) {
 }
 
 /**
- * Analytics opcional y aislado de los datos de salud.
+ * Optional analytics, isolated from health data.
  *
- * - Solo se carga si `NEXT_PUBLIC_GA_ID` está configurado; en caso
- *   contrario no se inserta ningún script de terceros.
- * - Es medición a nivel de página vista. Las herramientas (calculadoras,
- *   test, generador, selector de posparto) NUNCA envían eventos con
- *   valores introducidos, respuestas, síntomas, resultados, fechas
- *   médicas ni tipo de parto. No existe ningún `tool_*` event con datos.
+ * - Only loads when `NEXT_PUBLIC_GA_ID` is set; otherwise
+ *   no third-party script is injected.
+ * - Page-view level measurement only. The tools (calculators,
+ *   test, generator, postpartum selector) NEVER send events with
+ *   entered values, answers, symptoms, results, medical
+ *   dates, or birth type. There is no `tool_*` event with data.
  */
 export function Analytics() {
   const gaId = siteConfig.analytics.gaId

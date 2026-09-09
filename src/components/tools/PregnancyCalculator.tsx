@@ -12,16 +12,19 @@ function formatDate(date: Date) {
 }
 
 /**
- * Calculadora de embarazo / fecha probable de parto (regla de Naegele:
- * FUR + 280 días).
- * - Estado inicial vacío: sin resultados hasta que la usuaria introduce
- *   una fecha válida y pulsa «Calcular». Esta herramienta no tiene campos
- *   numéricos: solo fecha de última regla.
- * Todo se calcula en el navegador, sin almacenar ni enviar datos.
+ * Pregnancy / due-date calculator (Naegele's rule:
+ * LMP + 280 days).
+ * - Empty initial state: no results until the user enters
+ *   a valid date and presses "Calculate". This tool has no
+ *   numeric fields: only the last-period date.
+ * Everything is computed in the browser, without storing or sending data.
  */
 export function PregnancyCalculator() {
   const [lastPeriod, setLastPeriod] = useState('')
   const [submitted, setSubmitted] = useState(false)
+
+  // Any change after calculating invalidates the previous result:
+  // the user must press "Calculate" again.
 
   const lmp = useMemo(() => parseDateOnly(lastPeriod), [lastPeriod])
   const today = useMemo(() => {
@@ -56,7 +59,10 @@ export function PregnancyCalculator() {
               type="date"
               value={lastPeriod}
               max={today.toISOString().slice(0, 10)}
-              onChange={(event) => setLastPeriod(event.target.value)}
+              onChange={(event) => {
+                setSubmitted(false)
+                setLastPeriod(event.target.value)
+              }}
               aria-describedby="pregnancy-last-period-error"
               aria-invalid={showErrors && !isValid}
               className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none focus:border-accent"

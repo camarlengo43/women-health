@@ -25,20 +25,35 @@ function formatDate(date: Date) {
 }
 
 /**
- * Calculadora del ciclo menstrual.
- * - Estado inicial vacío: ningún campo numérico trae valor predeterminado
- *   y no se muestra ningún resultado hasta que la usuaria introduce datos
- *   válidos y pulsa «Calcular».
- * - Campos numéricos con introducción manual + selector (datalist): escribir,
- *   borrar, pegar o elegir actualizan el mismo estado en texto.
- * - Validación centralizada en `@/lib/health-calculations`, no solo en HTML.
- * Todo se calcula en el navegador, sin almacenar ni enviar datos.
+ * Menstrual cycle calculator.
+ * - Empty initial state: no numeric field has a default value
+ *   and no result is shown until the user enters valid
+ *   data and presses "Calculate".
+ * - Numeric fields with manual entry + picker (datalist): typing,
+ *   clearing, pasting, or picking update the same text state.
+ * - Centralized validation in `@/lib/health-calculations`, not just in HTML.
+ * Everything is computed in the browser, without storing or sending data.
  */
 export function CycleCalculator() {
   const [lastPeriod, setLastPeriod] = useState('')
   const [cycleLengthRaw, setCycleLengthRaw] = useState('')
   const [periodLengthRaw, setPeriodLengthRaw] = useState('')
   const [submitted, setSubmitted] = useState(false)
+
+  // Any change after calculating invalidates the previous result:
+  // the user must press "Calculate" again.
+  const handleLastPeriodChange = (value: string) => {
+    setSubmitted(false)
+    setLastPeriod(value)
+  }
+  const handleCycleChange = (value: string) => {
+    setSubmitted(false)
+    setCycleLengthRaw(value)
+  }
+  const handlePeriodChange = (value: string) => {
+    setSubmitted(false)
+    setPeriodLengthRaw(value)
+  }
 
   const lastDate = useMemo(() => parseDateOnly(lastPeriod), [lastPeriod])
   const today = useMemo(() => {
@@ -91,7 +106,7 @@ export function CycleCalculator() {
               type="date"
               value={lastPeriod}
               max={today.toISOString().slice(0, 10)}
-              onChange={(e) => setLastPeriod(e.target.value)}
+              onChange={(e) => handleLastPeriodChange(e.target.value)}
               aria-describedby="lastPeriod-error"
               aria-invalid={showErrors && !isDateValid}
               className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none ring-0 transition focus:border-accent"
@@ -109,7 +124,7 @@ export function CycleCalculator() {
             id="cycleLength"
             label="Duración media del ciclo (días)"
             value={cycleLengthRaw}
-            onChange={setCycleLengthRaw}
+            onChange={handleCycleChange}
             min={MIN_CYCLE_LENGTH}
             max={MAX_CYCLE_LENGTH}
             placeholder="Ej.: 28"
@@ -121,7 +136,7 @@ export function CycleCalculator() {
             id="periodLength"
             label="Duración media de la regla (días)"
             value={periodLengthRaw}
-            onChange={setPeriodLengthRaw}
+            onChange={handlePeriodChange}
             min={MIN_PERIOD_LENGTH}
             max={MAX_PERIOD_LENGTH}
             placeholder="Ej.: 5"

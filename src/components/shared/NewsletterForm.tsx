@@ -6,12 +6,13 @@ interface NewsletterFormProps {
 }
 
 /**
- * Boletín (próximamente).
+ * Newsletter (coming soon).
  *
- * No hay backend de suscripción en esta fase y no se recoge ningún email:
- * este bloque es solo un aviso honesto del canal futuro. Cuando exista un
- * proveedor real (p. ej. Brevo/Resend con doble opt-in), este componente
- * se sustituirá por el formulario definitivo. No simula suscripciones.
+ * There is no subscription backend in this phase and no email is
+ * collected: this block is just an honest notice about the future channel.
+ * Once a real provider exists (e.g. Brevo/Resend with double opt-in),
+ * this component will be replaced by the final form. It does not
+ * simulate subscriptions.
  */
 export function NewsletterForm({ variant = 'default', className = '' }: NewsletterFormProps) {
   return (

@@ -8,19 +8,19 @@ import { cn } from '@/lib/utils'
 export interface ExpandableCardItem {
   title: string
   description?: string
-  /** Contenido que se despliega en la misma pantalla (sin navegar) */
+  /** Content revealed inline (no navigation) */
   content?: string
-  /** Puntos clave visibles al expandir */
+  /** Key points visible on expand */
   points?: string[]
-  /** Enlace detalle SEO opcional (secundario, no obliga a navegar) */
+  /** Optional SEO detail link (secondary, no forced navigation) */
   href?: string
   hrefLabel?: string
 }
 
 /**
- * Acordeón accesible genérico (uso puntual dentro de contenidos).
- * Los hubs de categoría usan navegación real con HubLayout;
- * este componente no sustituye a las páginas de detalle.
+ * Generic accessible accordion (occasional use inside content).
+ * Category hubs use real navigation with HubLayout;
+ * this component does not replace detail pages.
  */
 export function ExpandableCard({ item }: { item: ExpandableCardItem }) {
   const [open, setOpen] = useState(false)
@@ -93,7 +93,7 @@ export function ExpandableCard({ item }: { item: ExpandableCardItem }) {
         </div>
       )}
 
-      {/* Sin contenido expandible: mantener enlace clásico como fallback */}
+      {/* No expandable content: keep classic link as fallback */}
       {!hasExpandable && item.href && (
         <Link
           href={item.href}

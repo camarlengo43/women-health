@@ -1,10 +1,10 @@
 /**
- * Tests de privacidad (análisis estático del código fuente).
+ * Privacy tests (static source-code analysis).
  *
- * Garantizan que las promesas "los datos no salen de tu dispositivo" y
- * "no se guardan" sean técnicamente ciertas:
- * - Las herramientas solo usan estado en memoria (useState).
- * - Ningún dato de salud se persiste (storage/cookies) ni se transmite
+ * They ensure the promises "data never leaves your device" and
+ * "nothing is stored" are technically true:
+ * - Tools only use in-memory state (useState).
+ * - No health data is persisted (storage/cookies) or transmitted
  *   (fetch/analytics/beacons).
  */
 import { describe, it } from 'node:test'
@@ -32,8 +32,8 @@ const TOOL_FILES = [
   'src/components/shared/NewsletterForm.tsx',
 ]
 
-// Elimina comentarios (incl. garantías documentadas como "NO localStorage")
-// para auditar solo código ejecutable.
+// Strips comments (incl. documented guarantees like "NO localStorage")
+// to audit executable code only.
 const stripComments = (src) =>
   src
     .replace(/\/\*[\s\S]*?\*\//g, '')
@@ -120,8 +120,8 @@ describe('privacidad: posparto y analytics globales', () => {
     assert.ok(src.includes('if (!gaId) return null'), 'sin GA_ID no hay tracking')
     assert.ok(src.includes('anonymize_ip'), 'IP anonimizada')
     assert.ok(
-      src.includes('NUNCA envían eventos'),
-      'documenta que las herramientas no envían eventos',
+      src.includes('NEVER send events'),
+      'documents that the tools send no events',
     )
   })
 

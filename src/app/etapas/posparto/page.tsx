@@ -68,9 +68,9 @@ export default function PospartoPage() {
             </div>
           </header>
 
-          {/* Selector + contenido común + contextual + movimiento + cuándo consultar + fuentes.
-              Todo el estado vive en memoria del navegador (useState): no se almacena,
-              no se envía, no se usa para analytics. */}
+          {/* Selector + shared + contextual + movement content + when-to-consult + sources.
+              All state lives in browser memory (useState): not stored,
+              not sent, not used for analytics. */}
           <PospartoInteractive />
 
           <div className="mt-6">

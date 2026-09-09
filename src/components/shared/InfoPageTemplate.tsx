@@ -20,11 +20,11 @@ export interface InfoPageSource {
 }
 
 /**
- * Plantilla reutilizable de página-artículo SEO (YMYL salud).
- * Soporta: breadcrumb + JSON-LD (Article + BreadcrumbList), categoría,
- * H1, entradilla, fechas, autor editorial, índice, puntos clave,
- * contenido H2, FAQ, fuentes, disclaimer, relacionados y herramientas.
- * Todos los bloques salvo el contenido base son opcionales.
+ * Reusable SEO article-page template (health YMYL).
+ * Supports: breadcrumb + JSON-LD (Article + BreadcrumbList), category,
+ * H1, excerpt, dates, editorial author, index, key points,
+ * H2 content, FAQ, sources, disclaimer, related links, and tools.
+ * Every block except the base content is optional.
  */
 export function InfoPageTemplate({
   breadcrumbItems,

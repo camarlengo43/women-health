@@ -21,7 +21,7 @@ describe('parseDateOnly', () => {
   it('rechaza vacío, formato roto y fechas imposibles', () => {
     assert.equal(parseDateOnly(''), null)
     assert.equal(parseDateOnly('no-fecha'), null)
-    assert.equal(parseDateOnly('2026-02-30'), null) // desborde de febrero
+    assert.equal(parseDateOnly('2026-02-30'), null) // February overflow
     assert.equal(parseDateOnly('2026-13-01'), null)
     assert.equal(parseDateOnly('2026-00-10'), null)
   })

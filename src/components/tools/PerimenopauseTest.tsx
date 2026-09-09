@@ -12,7 +12,7 @@ const questions = [
 
 export function PerimenopauseTest() {
   const [answers, setAnswers] = useState<Record<number, boolean>>({})
-  // La usuaria aún no ha interactuado: no se muestra ningún resultado.
+  // The user has not interacted yet: no result is shown.
   const [hasInteracted, setHasInteracted] = useState(false)
 
   const checkedIndexes = useMemo(

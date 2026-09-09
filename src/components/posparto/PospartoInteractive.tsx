@@ -4,18 +4,18 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 /**
- * Selector contextual de posparto según tipo de parto.
+ * Contextual postpartum selector by birth type.
  *
- * GARANTÍAS DE PRIVACIDAD (requisito funcional):
- * - Solo `useState` en memoria (estado local del navegador).
+ * PRIVACY GUARANTEES (functional requirement):
+ * - Only in-memory `useState` (local browser state).
  * - NO localStorage, NO sessionStorage, NO cookies.
  * - NO URL params, NO fetch/API, NO analytics.
- * - El dato desaparece al refrescar o abandonar la página.
+ * - The value disappears on refresh or when leaving the page.
  *
- * GARANTÍAS MÉDICAS:
- * - No diagnostica, no prescribe, no personaliza.
- * - Solo alterna bloques de contenido general ya publicados.
- * - El contenido completo general siempre está accesible sin elegir nada.
+ * MEDICAL GUARANTEES:
+ * - Does not diagnose, prescribe, or personalize.
+ * - Only toggles blocks of already-published general content.
+ * - The full general content is always accessible without choosing anything.
  */
 
 type BirthType = 'vaginal' | 'cesarea' | 'sin-indicar' | null
@@ -60,7 +60,7 @@ function SectionCard({
 }
 
 export function PospartoInteractive() {
-  // Estado efímero: vive solo en memoria durante esta visita.
+  // Ephemeral state: lives only in memory during this visit.
   const [birthType, setBirthType] = useState<BirthType>(null)
 
   const showVaginal = birthType === 'vaginal'
@@ -68,7 +68,7 @@ export function PospartoInteractive() {
 
   return (
     <div>
-      {/* ---------- 1. SELECCIÓN OPCIONAL ---------- */}
+      {/* ---------- 1. OPTIONAL SELECTION ---------- */}
       <section
         aria-labelledby="tipo-parto-titulo"
         className="mb-8 rounded-2xl border border-border bg-muted/40 p-6"
@@ -124,7 +124,7 @@ export function PospartoInteractive() {
         </p>
       </section>
 
-      {/* ---------- 2. CONTENIDO COMÚN (siempre visible) ---------- */}
+      {/* ---------- 2. SHARED CONTENT (always visible) ---------- */}
       <div className="space-y-6" aria-label="Contenido común del posparto">
         <SectionCard
           title="Recuperación general"
@@ -153,7 +153,7 @@ export function PospartoInteractive() {
         />
       </div>
 
-      {/* ---------- 3. CONTENIDO CONTEXTUAL ---------- */}
+      {/* ---------- 3. CONTEXTUAL CONTENT ---------- */}
       <div className="mt-6" aria-live="polite" aria-atomic="false" aria-label="Contenido contextual según tipo de parto">
         {showVaginal && (
           <div className="space-y-6">
@@ -240,7 +240,7 @@ export function PospartoInteractive() {
         )}
       </div>
 
-      {/* ---------- 4. MOVIMIENTO Y EJERCICIO (adaptado al contexto) ---------- */}
+      {/* ---------- 4. MOVEMENT & EXERCISE (context-adapted) ---------- */}
       <div className="mt-6 space-y-6" aria-label="Movimiento y recuperación">
         {showVaginal && (
           <>
@@ -284,7 +284,7 @@ export function PospartoInteractive() {
         )}
       </div>
 
-      {/* ---------- 5. CUÁNDO CONSULTAR + FUENTES ---------- */}
+      {/* ---------- 5. WHEN TO CONSULT + SOURCES ---------- */}
       <div className="mt-6 space-y-6">
         <SectionCard
           accent
