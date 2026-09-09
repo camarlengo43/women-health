@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/buscar',
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {

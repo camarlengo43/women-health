@@ -18,9 +18,9 @@ export interface ExpandableCardItem {
 }
 
 /**
- * Tarjeta homogénea expandible.
- * Mismo diseño en todos los hubs. El contenido se despliega
- * en la misma pantalla; el href es solo un detalle opcional.
+ * Acordeón accesible genérico (uso puntual dentro de contenidos).
+ * Los hubs de categoría usan navegación real con HubLayout;
+ * este componente no sustituye a las páginas de detalle.
  */
 export function ExpandableCard({ item }: { item: ExpandableCardItem }) {
   const [open, setOpen] = useState(false)

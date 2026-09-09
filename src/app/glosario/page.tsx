@@ -13,13 +13,11 @@ export default function GlosarioPage() {
     <HubLayout
       eyebrow="Educación y lenguaje claro"
       title="Glosario"
-      intro="Términos clave para entender mejor conceptos de salud hormonal, ciclo menstrual, perimenopausia y menopausia. Despliega cada ficha aquí mismo."
+      intro="Términos clave para entender mejor conceptos de salud hormonal, ciclo menstrual, perimenopausia y menopausia. Elige una ficha para ver su explicación completa."
       items={glossaryTerms.map((t) => ({
         title: t.term,
         description: t.short,
-        content: t.body,
         href: `/glosario/${t.slug}`,
-        hrefLabel: 'Ver ficha →',
       }))}
       breadcrumbLabel="Glosario"
     />

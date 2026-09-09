@@ -48,6 +48,19 @@ export default function PrivacyPage() {
           <li><strong>Datos técnicos y de navegación:</strong> Dirección IP anonimizada, tipo de navegador y páginas visitadas con fines exclusivamente estadísticos agregados, sin vincular a identidades personales.</li>
         </ul>
 
+        <h2>2.1. Herramientas de salud (calculadoras, test y generador de rutinas)</h2>
+        <p>
+          Las fechas, respuestas y opciones que introduces en las calculadoras, el test orientativo y el
+          generador de rutinas <strong>se procesan exclusivamente en tu navegador</strong>. No se almacenan
+          en tu dispositivo (no usamos localStorage ni cookies para estos datos), no se envían a nuestros
+          servidores y no se comparten con terceros. Al recargar la página, los campos vuelven a su estado
+          inicial vacío. Por eso afirmamos que tus datos de salud se quedan en tu dispositivo.
+        </p>
+        <p>
+          La medición de visitas, cuando está activa, es a nivel de página (qué páginas se visitan) y nunca
+          recoge el contenido que introduces en las herramientas.
+        </p>
+
         <h2>3. Finalidad y Base Jurídica</h2>
         <p>
           La base legal para el envío de nuestro boletín informativo es el <strong>consentimiento expreso</strong> otorgado por la persona interesada al marcar la casilla de aceptación y enviar el formulario. La base para el análisis técnico básico es el <strong>interés legítimo</strong> en mantener la seguridad y el correcto funcionamiento del portal.

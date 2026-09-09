@@ -18,6 +18,11 @@ export function PerimenopauseTest() {
     [answers],
   )
 
+  const answeredCount = useMemo(
+    () => questions.filter((_, index) => index in answers).length,
+    [answers],
+  )
+
   const result = useMemo(() => {
     if (score === 0) {
       return 'Todavía no hay señales claras en tus respuestas, pero los síntomas pueden aparecer de forma gradual.'
@@ -60,12 +65,21 @@ export function PerimenopauseTest() {
         ))}
       </div>
 
-      <div className="rounded-2xl border border-border bg-muted/30 p-5">
+      <div className="rounded-2xl border border-border bg-muted/30 p-5" aria-live="polite" aria-atomic="true">
         <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Resultado orientativo</p>
-        <p className="mt-3 text-lg font-semibold text-foreground">{result}</p>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Este test es informativo y no diagnostica perimenopausia ni ninguna otra condición. Si notas síntomas persistentes, consulta a un profesional sanitario.
-        </p>
+        {answeredCount === 0 ? (
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Marca las afirmaciones que describan lo que has notado y verás aquí una
+            lectura orientativa. Tus respuestas no se guardan ni se envían a ningún servidor.
+          </p>
+        ) : (
+          <>
+            <p className="mt-3 text-lg font-semibold text-foreground">{result}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Este test es informativo y no diagnostica perimenopausia ni ninguna otra condición. Si notas síntomas persistentes, consulta a un profesional sanitario.
+            </p>
+          </>
+        )}
       </div>
     </div>
   )

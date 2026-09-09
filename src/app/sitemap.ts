@@ -8,6 +8,8 @@ const HUB_PAGES = [
   '/etapas/edad-reproductiva',
   '/etapas/embarazo',
   '/etapas/posparto',
+  '/etapas/perimenopausia',
+  '/etapas/menopausia',
   '/etapas/postmenopausia',
   '/salud',
   '/herramientas',
@@ -19,6 +21,7 @@ const HUB_PAGES = [
   '/generador-rutinas',
   '/es-normal',
   '/es-normal/regla-cada-24-dias',
+  '/es-normal/cambios-duracion-regla',
   '/es-normal/ciclos-irregulares',
   '/es-normal/sofocos-a-los-40',
   '/es-normal/despertarse-por-la-noche-menopausia',
@@ -30,11 +33,10 @@ const HUB_PAGES = [
   '/movimiento/equilibrio',
   '/movimiento/salud-osea',
   '/movimiento/suelo-pelvico',
-  '/ejercicio-perimenopausia',
-  '/ejercicio-menopausia',
-  '/ejercicios-fuerza-mujeres',
-  '/ejercicios-salud-osea',
-  '/rutina-fuerza-menopausia',
+  '/movimiento/ejercicio-perimenopausia',
+  '/movimiento/ejercicio-menopausia',
+  '/movimiento/ejercicios-fuerza-mujeres',
+  '/movimiento/rutina-fuerza-menopausia',
   '/perimenopausia',
   '/perimenopausia/que-es',
   '/perimenopausia/sintomas',
@@ -66,6 +68,22 @@ const HUB_PAGES = [
   '/politica-editorial',
   '/fuentes-medicas',
   '/contacto',
+]
+
+const GLOSSARY_PAGES = [
+  '/glosario/estrogeno',
+  '/glosario/progesterona',
+  '/glosario/fsh',
+  '/glosario/lh',
+  '/glosario/ovulacion',
+  '/glosario/perimenopausia',
+  '/glosario/menopausia',
+  '/glosario/amenorrea',
+  '/glosario/dismenorrea',
+  '/glosario/sop',
+  '/glosario/endometriosis',
+  '/glosario/ths',
+  '/glosario/osteoporosis',
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -129,7 +147,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  const hubPages: MetadataRoute.Sitemap = HUB_PAGES.map((path) => ({
+  const hubPages: MetadataRoute.Sitemap = [...HUB_PAGES, ...GLOSSARY_PAGES].map((path) => ({
     url: `${siteConfig.url}${path}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

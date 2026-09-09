@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { PregnancyCalculator } from '@/components/tools/PregnancyCalculator'
-import { RelatedArticles, RelatedTools } from '@/components/shared'
+import { ToolEducation } from '@/components/tools/ToolEducation'
 import { JsonLd } from '@/components/shared'
 import { generateBreadcrumbJsonLd } from '@/lib/seo'
 import { siteConfig } from '@/config'
@@ -52,34 +52,38 @@ export default function FechaPartoPage() {
 
       <PregnancyCalculator />
 
-      <section className="mt-12 grid gap-6 md:grid-cols-2" aria-label="Información adicional">
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <h2 className="mb-2 text-xl font-semibold">Cómo funciona</h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            Se suma una estimación de 280 días al primer día de la última menstruación. Si
-            tu ciclo es irregular o no recuerdas la fecha exacta, la estimación es menos
-            precisa y la ecografía del primer trimestre suele ser la referencia clínica.
-          </p>
-        </div>
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <h2 className="mb-2 text-xl font-semibold">Cuándo consultar</h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            Ante sangrado, dolor intenso, ausencia de movimientos percibidos en etapas
-            avanzadas o cualquier duda, consulta con tu profesional sanitario de referencia.
-          </p>
-        </div>
-      </section>
-
-      <RelatedTools
-        items={[
+      <ToolEducation
+        howItWorks="Se suma una estimación de 280 días al primer día de la última menstruación (regla de Naegele). Si tu ciclo es irregular o no recuerdas la fecha exacta, la estimación es menos precisa y la ecografía del primer trimestre suele ser la referencia clínica."
+        whatItMeans="Obtienes una fecha de referencia para organizar controles y preparativos. La mayoría de los partos ocurren en las dos semanas anteriores o posteriores a esta fecha, no exactamente ese día."
+        limitations={[
+          'Asume un ciclo medio de 28 días; con ciclos más largos o cortos, conviene ajustar con un profesional.',
+          'No contempla embarazos múltiples ni situaciones clínicas particulares.',
+          'No sustituye la datación por ecografía ni el seguimiento sanitario.',
+        ]}
+        faq={[
+          {
+            question: '¿Qué tan fiable es la fecha estimada?',
+            answer: 'Es una referencia útil, no una predicción exacta. Solo una minoría de bebés nace justo ese día; el rango de término abarca varias semanas.',
+          },
+          {
+            question: '¿Y si mis ciclos son irregulares?',
+            answer: 'La estimación por fecha de regla es menos fiable. La ecografía precoz permite datar el embarazo con mayor precisión: consúltalo con tu profesional.',
+          },
+        ]}
+        whenToConsult={[
+          'Sangrado, dolor intenso o pérdida de líquido.',
+          'Dudas sobre datación o sobre síntomas en cualquier momento.',
+        ]}
+        sources={[
+          { label: 'Sociedad Española de Ginecología y Obstetricia (SEGO)', href: 'https://sego.es/' },
+        ]}
+        related={[
+          { title: 'Embarazo por etapas', href: '/etapas/embarazo', description: 'Cambios por trimestres y señales.' },
+          { title: 'Posparto', href: '/etapas/posparto', description: 'Recuperación, descanso y apoyo.' },
+        ]}
+        relatedTools={[
           { title: 'Calculadora de semanas de embarazo', href: '/calculadora-semanas-embarazo' },
           { title: 'Calculadora del ciclo', href: '/calculadora-ciclo-menstrual' },
-        ]}
-      />
-      <RelatedArticles
-        items={[
-          { title: 'Embarazo: guías por etapa', href: '/categoria/embarazo' },
-          { title: '¿Es normal tener ciclos irregulares?', href: '/es-normal/ciclos-irregulares' },
         ]}
       />
     </div>

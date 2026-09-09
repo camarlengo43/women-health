@@ -1,22 +1,35 @@
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { Breadcrumbs } from '@/components/layout'
-import { ExpandableGrid, type ExpandableCardItem } from './ExpandableCard'
+import { RelatedArticles, RelatedTools, type RelatedLink } from './Related'
 
-export interface HubItem extends ExpandableCardItem {
+export interface HubItem {
+  title: string
+  description?: string
   href: string
 }
 
+/**
+ * Landing de categoría SEO: cada tarjeta es un enlace real
+ * a una página hija indexable. El hub ofrece la visión general;
+ * el contenido detallado vive en las páginas hijas.
+ */
 export function HubLayout({
   eyebrow,
   title,
   intro,
   items,
   breadcrumbLabel,
+  relatedTools,
+  relatedArticles,
 }: {
   eyebrow: string
   title: string
   intro: string
   items: HubItem[]
   breadcrumbLabel: string
+  relatedTools?: RelatedLink[]
+  relatedArticles?: RelatedLink[]
 }) {
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 lg:px-8">
@@ -24,17 +37,41 @@ export function HubLayout({
         <Breadcrumbs items={[{ label: breadcrumbLabel }]} />
       </div>
 
-      <header className="mb-6 max-w-3xl">
+      <header className="mb-10 max-w-3xl">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">{eyebrow}</p>
         <h1 className="text-4xl font-semibold text-foreground sm:text-5xl">{title}</h1>
         <p className="mt-4 text-lg text-muted-foreground">{intro}</p>
       </header>
 
-      <p className="mb-8 text-sm text-muted-foreground">
-        Toca cada tarjeta para desplegar la información aquí mismo, sin cambiar de pantalla.
-      </p>
+      <div className="grid items-stretch gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="group flex h-full flex-col rounded-2xl border border-border bg-card p-5 shadow-card transition hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <span className="block text-xl font-semibold text-foreground group-hover:text-accent">
+              {item.title}
+            </span>
+            {item.description && (
+              <span className="mt-1 block flex-1 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </span>
+            )}
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent">
+              Leer guía
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            </span>
+          </Link>
+        ))}
+      </div>
 
-      <ExpandableGrid items={items} />
+      {relatedTools && relatedTools.length > 0 && (
+        <RelatedTools items={relatedTools} />
+      )}
+      {relatedArticles && relatedArticles.length > 0 && (
+        <RelatedArticles items={relatedArticles} />
+      )}
     </div>
   )
 }

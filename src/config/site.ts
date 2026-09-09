@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'VidaMujer',
   description:
     'Información rigurosa y accesible sobre salud femenina: ciclo menstrual, perimenopausia, menopausia, embarazo y bienestar.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://vidamujerr.vercel.app',
   locale: 'es_ES',
   language: 'es',
   creator: 'VidaMujer',

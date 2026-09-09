@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Activity, HeartPulse, Sparkles, Calculator } from 'lucide-react'
 import { Breadcrumbs } from '@/components/layout'
-import { siteConfig } from '@/config'
 
 export const metadata: Metadata = {
   title: 'Herramientas gratuitas',

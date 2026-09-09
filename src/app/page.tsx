@@ -5,34 +5,32 @@ import {
   CheckCircle2,
   HeartPulse,
   Lock,
-  Search,
   Shield,
   ShieldCheck,
   Sparkles,
   Stethoscope,
   Activity,
 } from 'lucide-react'
-import { getFeaturedPosts, getLatestPosts } from '@/services'
-import { getAllCategories } from '@/config'
+import { getFeaturedPosts } from '@/services'
 import { ArticleCard } from '@/features/blog'
 import { NewsletterForm, JsonLd, ScrollReveal } from '@/components/shared'
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '@/lib/seo'
 
 const stageCards = [
-  { label: 'Adolescencia', href: '/categoria/salud-menstrual', tone: 'bg-[#F3EDF1]' },
-  { label: 'Edad reproductiva', href: '/categoria/salud-menstrual', tone: 'bg-[#FBF3EB]' },
-  { label: 'Embarazo', href: '/categoria/embarazo', tone: 'bg-[#EFF3ED]' },
-  { label: 'Posparto', href: '/categoria/bienestar', tone: 'bg-[#EBF4F4]' },
-  { label: 'Perimenopausia', href: '/perimenopausia', tone: 'bg-[#F9F0EB]' },
-  { label: 'Menopausia', href: '/categoria/menopausia', tone: 'bg-[#F3EDF1]' },
-  { label: 'Postmenopausia', href: '/categoria/menopausia', tone: 'bg-[#EEF4F1]' },
+  { label: 'Adolescencia', href: '/etapas/adolescencia', tone: 'bg-[#F3EDF1]' },
+  { label: 'Edad reproductiva', href: '/etapas/edad-reproductiva', tone: 'bg-[#FBF3EB]' },
+  { label: 'Embarazo', href: '/etapas/embarazo', tone: 'bg-[#EFF3ED]' },
+  { label: 'Posparto', href: '/etapas/posparto', tone: 'bg-[#EBF4F4]' },
+  { label: 'Perimenopausia', href: '/etapas/perimenopausia', tone: 'bg-[#F9F0EB]' },
+  { label: 'Menopausia', href: '/etapas/menopausia', tone: 'bg-[#F3EDF1]' },
+  { label: 'Postmenopausia', href: '/etapas/postmenopausia', tone: 'bg-[#EEF4F1]' },
 ]
 
 const questionCards = [
   { title: '¿Es normal tener ciclos irregulares?', href: '/es-normal/ciclos-irregulares' },
   { title: '¿Es normal tener sofocos a los 40?', href: '/es-normal/sofocos-a-los-40' },
   { title: '¿Es normal despertarse por la noche?', href: '/es-normal/despertarse-por-la-noche-menopausia' },
-  { title: '¿Cuándo consultar por sangrado abundante?', href: '/perimenopausia/cuando-consultar' },
+  { title: '¿Cuándo consultar por sangrado abundante?', href: '/es-normal/sangrado-abundante' },
 ]
 
 const toolCards = [
@@ -45,8 +43,6 @@ const toolCards = [
 
 export default async function HomePage() {
   const featuredPosts = await getFeaturedPosts()
-  const latestPosts = await getLatestPosts(6)
-  const categories = getAllCategories()
 
   return (
     <>
@@ -80,7 +76,7 @@ export default async function HomePage() {
 
             <div className="mb-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
-                href="/perimenopausia"
+                href="/etapas"
                 className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition hover:bg-accent/90"
               >
                 Explorar mi etapa <ArrowRight className="ml-2 h-4 w-4" />
@@ -123,7 +119,7 @@ export default async function HomePage() {
             {[
               { title: 'Mi ciclo', href: '/categoria/salud-menstrual', icon: '◌' },
               { title: 'Perimenopausia', href: '/perimenopausia', icon: '☼' },
-              { title: 'Menopausia', href: '/categoria/menopausia', icon: '☾' },
+              { title: 'Menopausia', href: '/menopausia', icon: '☾' },
               { title: 'Embarazo', href: '/categoria/embarazo', icon: '✦' },
               { title: 'Síntomas', href: '/es-normal', icon: '◎' },
               { title: 'Movimiento', href: '/movimiento', icon: '↗' },
@@ -226,17 +222,17 @@ export default async function HomePage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              { title: 'Fuerza', text: 'Preservar masa muscular y fuerza funcional.' },
-              { title: 'Cardio', text: 'Mantener salud cardiovascular y energía.' },
-              { title: 'Salud ósea', text: 'Apoyar huesos y movilidad a lo largo de la vida.' },
+              { title: 'Fuerza', text: 'Preservar masa muscular y fuerza funcional.', href: '/movimiento/fuerza' },
+              { title: 'Cardio', text: 'Mantener salud cardiovascular y energía.', href: '/movimiento/cardio' },
+              { title: 'Salud ósea', text: 'Apoyar huesos y movilidad a lo largo de la vida.', href: '/movimiento/salud-osea' },
             ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-border bg-card p-5 shadow-card">
+              <Link key={item.title} href={item.href} className="rounded-2xl border border-border bg-card p-5 shadow-card transition hover:-translate-y-1 hover:border-accent/40 hover:shadow-md">
                 <div className="mb-4 inline-flex rounded-lg bg-muted p-2 text-accent">
                   <Activity className="h-5 w-5" />
                 </div>
                 <h3 className="mb-2 text-xl font-semibold text-foreground">{item.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

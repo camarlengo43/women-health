@@ -31,7 +31,7 @@ export default function MenopausiaFuerzaPage() {
           list: ['Dolor persistente', 'Objetivos específicos', 'Dudas sobre intensidad'],
         },
       ]}
-      cta={{ label: 'Ver rutina de fuerza', href: '/rutina-fuerza-menopausia' }}
+      cta={{ label: 'Ver rutina de fuerza', href: '/movimiento/rutina-fuerza-menopausia' }}
     />
   )
 }

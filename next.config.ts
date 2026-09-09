@@ -25,6 +25,32 @@ const nextConfig: NextConfig = {
         destination: '/menopausia',
         permanent: false,
       },
+      // Consolidación SEO: guías antiguas de nivel superior -> URLs canónicas bajo /movimiento
+      {
+        source: '/ejercicio-perimenopausia',
+        destination: '/movimiento/ejercicio-perimenopausia',
+        permanent: true,
+      },
+      {
+        source: '/ejercicio-menopausia',
+        destination: '/movimiento/ejercicio-menopausia',
+        permanent: true,
+      },
+      {
+        source: '/ejercicios-fuerza-mujeres',
+        destination: '/movimiento/ejercicios-fuerza-mujeres',
+        permanent: true,
+      },
+      {
+        source: '/rutina-fuerza-menopausia',
+        destination: '/movimiento/rutina-fuerza-menopausia',
+        permanent: true,
+      },
+      {
+        source: '/ejercicios-salud-osea',
+        destination: '/movimiento/salud-osea',
+        permanent: true,
+      },
     ]
   },
 };

@@ -31,7 +31,7 @@ export default function MenopausiaSaludOseaPage() {
           list: ['Fracturas previas', 'Dolor óseo persistente', 'Dudas sobre prevención'],
         },
       ]}
-      cta={{ label: 'Ver ejercicio en la menopausia', href: '/ejercicio-menopausia' }}
+      cta={{ label: 'Ver ejercicio en la menopausia', href: '/movimiento/ejercicio-menopausia' }}
     />
   )
 }

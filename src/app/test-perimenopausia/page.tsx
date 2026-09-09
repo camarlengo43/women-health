@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/layout'
 import { PerimenopauseTest } from '@/components/tools/PerimenopauseTest'
+import { ToolEducation } from '@/components/tools/ToolEducation'
 
 export const metadata: Metadata = {
   title: 'Test orientativo de perimenopausia',
@@ -25,6 +26,46 @@ export default function PerimenopauseTestPage() {
       </div>
 
       <PerimenopauseTest />
+
+      <ToolEducation
+        howItWorks="Marcas las afirmaciones que describan lo que has notado (cambios en la regla, sueño, sofocos, ánimo, sequedad). Según el número de señales, obtienes una lectura orientativa. Nada se guarda: al recargar, el test vuelve a empezar vacío."
+        whatItMeans="El resultado resume cuántas señales frecuentes has marcado. Un número mayor sugiere que tus experiencias encajan con las descritas en la transición menopáusica, pero solo un profesional puede valorar tu caso con tu historia clínica."
+        limitations={[
+          'No es un test diagnóstico ni mide hormonas.',
+          'Los mismos síntomas pueden tener otras causas (tiroides, estrés, otros cuadros).',
+          'No contempla tu edad, tu historial ni tu medicación.',
+          'El resultado no indica gravedad ni necesidad de tratamiento.',
+        ]}
+        faq={[
+          {
+            question: '¿Un resultado alto significa que estoy en perimenopausia?',
+            answer: 'No necesariamente. Indica que describes varias señales compatibles, pero la valoración requiere contexto clínico: edad, patrón menstrual, historial y, a veces, analíticas.',
+          },
+          {
+            question: '¿Se guardan mis respuestas?',
+            answer: 'No. El test funciona en tu navegador, no usa cuentas ni almacenamiento, y al recargar la página vuelve a su estado inicial vacío.',
+          },
+        ]}
+        whenToConsult={[
+          'Sangrado muy abundante o prolongado, o manchados entre reglas.',
+          'Síntomas que interfieren con tu sueño, tu trabajo o tu vida diaria.',
+          'Dudas persistentes sobre si lo que notas entra en esta etapa.',
+        ]}
+        sources={[
+          { label: 'The Menopause Society', href: 'https://menopause.org/' },
+          { label: 'Sociedad Española de Ginecología y Obstetricia (SEGO)', href: 'https://sego.es/' },
+        ]}
+        related={[
+          { title: 'Qué es la perimenopausia', href: '/perimenopausia/que-es', description: 'La etapa explicada en detalle.' },
+          { title: 'Primeros síntomas', href: '/perimenopausia/primeros-sintomas', description: 'Señales iniciales frecuentes.' },
+          { title: 'Cuándo consultar', href: '/perimenopausia/cuando-consultar', description: 'Señales que merecen valoración.' },
+          { title: '¿Es normal tener sofocos a los 40?', href: '/es-normal/sofocos-a-los-40', description: 'Señal temprana frecuente.' },
+        ]}
+        relatedTools={[
+          { title: 'Calculadora del ciclo menstrual', href: '/calculadora-ciclo-menstrual' },
+          { title: 'Generador de rutinas', href: '/generador-rutinas' },
+        ]}
+      />
     </div>
   )
 }
