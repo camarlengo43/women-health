@@ -23,6 +23,80 @@ export interface PregnancyEstimate {
 
 export type PerimenopauseBand = 'none' | 'some' | 'several' | 'many'
 
+/**
+ * Rangos válidos ya definidos por la aplicación. No inventar otros:
+ * - Ciclo: 21–45 días (usado por `calcCycleEstimate`).
+ * - Regla: 2–10 días (usado en las calculadoras de ciclo).
+ */
+export const MIN_CYCLE_LENGTH = 21
+export const MAX_CYCLE_LENGTH = 45
+export const MIN_PERIOD_LENGTH = 2
+export const MAX_PERIOD_LENGTH = 10
+
+export type NumericFieldStatus = 'empty' | 'valid' | 'invalid'
+
+/**
+ * Interpreta el texto crudo de un campo numérico (escritura manual,
+ * pegado o selección desde el selector) sin bloquear la edición.
+ * - `""` (vacío o solo espacios) → `null` (estado vacío: no calcular).
+ * - Texto convertible a número finito → el número (la validez del rango
+ *   se comprueba aparte, para poder mostrar un error claro).
+ * - Texto no numérico (`"abc"`, `"12a"`, `Infinity`, …) → `null`.
+ * Nunca devuelve `NaN`: el cálculo recibe solo números finitos o `null`.
+ */
+export function parseNumericInput(raw: string): number | null {
+  if (typeof raw !== 'string') return null
+  const trimmed = raw.trim()
+  if (trimmed === '') return null
+  // Acepta "28", " 28 ", "28.0". Rechaza "", "abc", "12a", "Infinity".
+  if (!/^[+-]?(\d+(\.\d+)?|\.\d+)$/.test(trimmed)) return null
+  const value = Number(trimmed)
+  if (!Number.isFinite(value)) return null
+  return value
+}
+
+/** Clasifica el texto crudo de un campo numérico genérico. */
+export function getNumericFieldStatus(raw: string): NumericFieldStatus {
+  if (typeof raw !== 'string' || raw.trim() === '') return 'empty'
+  return parseNumericInput(raw) === null ? 'invalid' : 'valid'
+}
+
+function validateInRange(value: number | null, min: number, max: number): boolean {
+  return typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max
+}
+
+/** Validación centralizada: duración del ciclo en días (21–45). */
+export function validateCycleLength(value: number | null): boolean {
+  return validateInRange(value, MIN_CYCLE_LENGTH, MAX_CYCLE_LENGTH)
+}
+
+/** Validación centralizada: duración de la regla en días (2–10). */
+export function validatePeriodLength(value: number | null): boolean {
+  return validateInRange(value, MIN_PERIOD_LENGTH, MAX_PERIOD_LENGTH)
+}
+
+/** Mensaje de error en español para el campo de ciclo, o `null` si es válido/vacío. */
+export function getCycleLengthError(raw: string): string | null {
+  if (raw.trim() === '') return null
+  const value = parseNumericInput(raw)
+  if (value === null) return 'Introduce un número válido (por ejemplo, 28).'
+  if (!validateCycleLength(value)) {
+    return `Introduce un valor entre ${MIN_CYCLE_LENGTH} y ${MAX_CYCLE_LENGTH} días.`
+  }
+  return null
+}
+
+/** Mensaje de error en español para el campo de regla, o `null` si es válido/vacío. */
+export function getPeriodLengthError(raw: string): string | null {
+  if (raw.trim() === '') return null
+  const value = parseNumericInput(raw)
+  if (value === null) return 'Introduce un número válido (por ejemplo, 5).'
+  if (!validatePeriodLength(value)) {
+    return `Introduce un valor entre ${MIN_PERIOD_LENGTH} y ${MAX_PERIOD_LENGTH} días.`
+  }
+  return null
+}
+
 /** Convierte `YYYY-MM-DD` en fecha local o `null` si no es válida. */
 export function parseDateOnly(value: string): Date | null {
   if (!value || typeof value !== 'string') return null
@@ -62,7 +136,7 @@ export function calcCycleEstimate(
 ): CycleEstimate | null {
   const lastDate = parseDateOnly(lastPeriod)
   if (!lastDate) return null
-  if (!Number.isFinite(cycleLength) || cycleLength < 21 || cycleLength > 45) return null
+  if (!validateCycleLength(cycleLength)) return null
   if (lastDate.getTime() > today.getTime()) return null
 
   const nextPeriodDate = addDays(lastDate, cycleLength)

@@ -1,7 +1,20 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { calcCycleEstimate, parseDateOnly } from '@/lib/health-calculations'
+import {
+  MAX_CYCLE_LENGTH,
+  MAX_PERIOD_LENGTH,
+  MIN_CYCLE_LENGTH,
+  MIN_PERIOD_LENGTH,
+  calcCycleEstimate,
+  getCycleLengthError,
+  getPeriodLengthError,
+  parseDateOnly,
+  parseNumericInput,
+  validateCycleLength,
+  validatePeriodLength,
+} from '@/lib/health-calculations'
+import { NumericComboField } from './NumericComboField'
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('es-ES', {
@@ -13,15 +26,19 @@ function formatDate(date: Date) {
 
 /**
  * Calculadora del ciclo menstrual.
- * Estado inicial vacío: no muestra resultados hasta que la usuaria
- * introduce una fecha válida. No almacena ni envía ningún dato:
- * todo se calcula en el navegador.
+ * - Estado inicial vacío: ningún campo numérico trae valor predeterminado
+ *   y no se muestra ningún resultado hasta que la usuaria introduce datos
+ *   válidos y pulsa «Calcular».
+ * - Campos numéricos con introducción manual + selector (datalist): escribir,
+ *   borrar, pegar o elegir actualizan el mismo estado en texto.
+ * - Validación centralizada en `@/lib/health-calculations`, no solo en HTML.
+ * Todo se calcula en el navegador, sin almacenar ni enviar datos.
  */
 export function CycleCalculator() {
   const [lastPeriod, setLastPeriod] = useState('')
-  const [cycleLength, setCycleLength] = useState(28)
-  const [periodLength, setPeriodLength] = useState(5)
-  const [touched, setTouched] = useState(false)
+  const [cycleLengthRaw, setCycleLengthRaw] = useState('')
+  const [periodLengthRaw, setPeriodLengthRaw] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
   const lastDate = useMemo(() => parseDateOnly(lastPeriod), [lastPeriod])
   const today = useMemo(() => {
@@ -29,20 +46,31 @@ export function CycleCalculator() {
     return new Date(now.getFullYear(), now.getMonth(), now.getDate())
   }, [])
   const isFuture = lastDate !== null && lastDate.getTime() > today.getTime()
-  const isValid = lastDate !== null && !isFuture
+  const isDateValid = lastDate !== null && !isFuture
+
+  const cycleValue = parseNumericInput(cycleLengthRaw)
+  const periodValue = parseNumericInput(periodLengthRaw)
+  const isCycleValid = validateCycleLength(cycleValue)
+  const isPeriodValid = validatePeriodLength(periodValue)
+  const isValid = isDateValid && isCycleValid && isPeriodValid
+
+  const cycleError = getCycleLengthError(cycleLengthRaw)
+  const periodError = getPeriodLengthError(periodLengthRaw)
+  const showErrors = submitted
 
   const result = useMemo(() => {
-    const estimate = calcCycleEstimate(lastPeriod, cycleLength, today)
+    if (!submitted || !isValid) return null
+    const estimate = calcCycleEstimate(lastPeriod, cycleValue as number, today)
     if (!estimate) return null
     return {
       nextPeriodDate: estimate.nextPeriodDate,
       ovulationDate: estimate.ovulationDate,
       fertileStart: estimate.fertileStart,
       fertileEnd: estimate.fertileEnd,
-      cycleAverage: cycleLength,
-      periodAverage: periodLength,
+      cycleAverage: cycleValue as number,
+      periodAverage: periodValue as number,
     }
-  }, [cycleLength, lastPeriod, periodLength, today])
+  }, [submitted, isValid, lastPeriod, cycleValue, periodValue, today])
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -50,7 +78,7 @@ export function CycleCalculator() {
         className="rounded-2xl border border-border bg-card p-6 shadow-card"
         onSubmit={(e) => {
           e.preventDefault()
-          setTouched(true)
+          setSubmitted(true)
         }}
       >
         <div className="space-y-5">
@@ -64,12 +92,11 @@ export function CycleCalculator() {
               value={lastPeriod}
               max={today.toISOString().slice(0, 10)}
               onChange={(e) => setLastPeriod(e.target.value)}
-              onBlur={() => setTouched(true)}
               aria-describedby="lastPeriod-error"
-              aria-invalid={touched && !isValid}
+              aria-invalid={showErrors && !isDateValid}
               className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none ring-0 transition focus:border-accent"
             />
-            {touched && !isValid && (
+            {showErrors && !isDateValid && (
               <p id="lastPeriod-error" role="alert" className="mt-2 text-xs text-red-600">
                 {lastDate === null
                   ? 'Introduce la fecha de inicio de tu última regla para ver la estimación.'
@@ -78,41 +105,36 @@ export function CycleCalculator() {
             )}
           </div>
 
-          <div>
-            <label htmlFor="cycleLength" className="mb-2 block text-sm font-medium text-foreground">
-              Duración media del ciclo (días)
-            </label>
-            <input
-              id="cycleLength"
-              type="number"
-              min={21}
-              max={45}
-              value={cycleLength}
-              onChange={(e) => {
-                const v = Number(e.target.value)
-                if (!Number.isNaN(v)) setCycleLength(Math.min(45, Math.max(21, v)))
-              }}
-              className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none ring-0 transition focus:border-accent"
-            />
-          </div>
+          <NumericComboField
+            id="cycleLength"
+            label="Duración media del ciclo (días)"
+            value={cycleLengthRaw}
+            onChange={setCycleLengthRaw}
+            min={MIN_CYCLE_LENGTH}
+            max={MAX_CYCLE_LENGTH}
+            placeholder="Ej.: 28"
+            hint={`Entre ${MIN_CYCLE_LENGTH} y ${MAX_CYCLE_LENGTH} días. Puedes escribir el valor, pegarlo o elegirlo en la lista.`}
+            error={showErrors ? cycleError : null}
+          />
 
-          <div>
-            <label htmlFor="periodLength" className="mb-2 block text-sm font-medium text-foreground">
-              Duración media de la regla (días)
-            </label>
-            <input
-              id="periodLength"
-              type="number"
-              min={2}
-              max={10}
-              value={periodLength}
-              onChange={(e) => {
-                const v = Number(e.target.value)
-                if (!Number.isNaN(v)) setPeriodLength(Math.min(10, Math.max(2, v)))
-              }}
-              className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none ring-0 transition focus:border-accent"
-            />
-          </div>
+          <NumericComboField
+            id="periodLength"
+            label="Duración media de la regla (días)"
+            value={periodLengthRaw}
+            onChange={setPeriodLengthRaw}
+            min={MIN_PERIOD_LENGTH}
+            max={MAX_PERIOD_LENGTH}
+            placeholder="Ej.: 5"
+            hint={`Entre ${MIN_PERIOD_LENGTH} y ${MAX_PERIOD_LENGTH} días. Puedes escribir el valor, pegarlo o elegirlo en la lista.`}
+            error={showErrors ? periodError : null}
+          />
+
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            Calcular estimación
+          </button>
         </div>
       </form>
 
@@ -141,8 +163,9 @@ export function CycleCalculator() {
         ) : (
           <div className="rounded-xl bg-card p-4">
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Todavía no hay resultados. Introduce la fecha de inicio de tu última regla y
-              verás aquí la estimación. Tus datos no se guardan ni se envían a ningún servidor.
+              {showErrors && !isValid
+                ? 'Revisa los datos marcados: hay valores vacíos o fuera del rango válido y no se puede calcular.'
+                : 'Todavía no hay resultados. Introduce la fecha de inicio de tu última regla y las duraciones, y pulsa «Calcular estimación». Tus datos no se guardan ni se envían a ningún servidor.'}
             </p>
           </div>
         )}

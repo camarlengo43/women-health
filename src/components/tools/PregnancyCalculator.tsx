@@ -14,13 +14,14 @@ function formatDate(date: Date) {
 /**
  * Calculadora de embarazo / fecha probable de parto (regla de Naegele:
  * FUR + 280 días).
- * Estado inicial vacío: sin resultados hasta que la usuaria introduce
- * una fecha válida. Todo se calcula en el navegador, sin almacenar
- * ni enviar datos.
+ * - Estado inicial vacío: sin resultados hasta que la usuaria introduce
+ *   una fecha válida y pulsa «Calcular». Esta herramienta no tiene campos
+ *   numéricos: solo fecha de última regla.
+ * Todo se calcula en el navegador, sin almacenar ni enviar datos.
  */
 export function PregnancyCalculator() {
   const [lastPeriod, setLastPeriod] = useState('')
-  const [touched, setTouched] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
   const lmp = useMemo(() => parseDateOnly(lastPeriod), [lastPeriod])
   const today = useMemo(() => {
@@ -29,11 +30,12 @@ export function PregnancyCalculator() {
   }, [])
   const isFuture = lmp !== null && lmp.getTime() > today.getTime()
   const isValid = lmp !== null && !isFuture
+  const showErrors = submitted
 
-  const result = useMemo(
-    () => calcPregnancyEstimate(lastPeriod, today),
-    [lastPeriod, today],
-  )
+  const result = useMemo(() => {
+    if (!submitted || !isValid) return null
+    return calcPregnancyEstimate(lastPeriod, today)
+  }, [submitted, isValid, lastPeriod, today])
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -41,30 +43,40 @@ export function PregnancyCalculator() {
         className="rounded-2xl border border-border bg-card p-6 shadow-card"
         onSubmit={(e) => {
           e.preventDefault()
-          setTouched(true)
+          setSubmitted(true)
         }}
       >
-        <label htmlFor="pregnancy-last-period" className="mb-2 block text-sm font-medium text-foreground">
-          Fecha de inicio de la última regla
-        </label>
-        <input
-          id="pregnancy-last-period"
-          type="date"
-          value={lastPeriod}
-          max={today.toISOString().slice(0, 10)}
-          onChange={(event) => setLastPeriod(event.target.value)}
-          onBlur={() => setTouched(true)}
-          aria-describedby="pregnancy-last-period-error"
-          aria-invalid={touched && !isValid}
-          className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none focus:border-accent"
-        />
-        {touched && !isValid && (
-          <p id="pregnancy-last-period-error" role="alert" className="mt-2 text-xs text-red-600">
-            {lmp === null
-              ? 'Introduce la fecha de inicio de tu última regla para ver la estimación.'
-              : 'La fecha no puede ser futura. Revisa el dato introducido.'}
-          </p>
-        )}
+        <div className="space-y-5">
+          <div>
+            <label htmlFor="pregnancy-last-period" className="mb-2 block text-sm font-medium text-foreground">
+              Fecha de inicio de la última regla
+            </label>
+            <input
+              id="pregnancy-last-period"
+              type="date"
+              value={lastPeriod}
+              max={today.toISOString().slice(0, 10)}
+              onChange={(event) => setLastPeriod(event.target.value)}
+              aria-describedby="pregnancy-last-period-error"
+              aria-invalid={showErrors && !isValid}
+              className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-foreground outline-none focus:border-accent"
+            />
+            {showErrors && !isValid && (
+              <p id="pregnancy-last-period-error" role="alert" className="mt-2 text-xs text-red-600">
+                {lmp === null
+                  ? 'Introduce la fecha de inicio de tu última regla para ver la estimación.'
+                  : 'La fecha no puede ser futura. Revisa el dato introducido.'}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            Calcular estimación
+          </button>
+        </div>
       </form>
 
       <aside className="rounded-2xl border border-border bg-muted/40 p-6" aria-live="polite" aria-atomic="true">
@@ -83,8 +95,9 @@ export function PregnancyCalculator() {
         ) : (
           <div className="rounded-xl bg-card p-4">
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Todavía no hay resultados. Introduce la fecha de inicio de tu última regla y
-              verás aquí la estimación. Tus datos no se guardan ni se envían a ningún servidor.
+              {showErrors && !isValid
+                ? 'Revisa la fecha marcada: está vacía o no es válida y no se puede calcular.'
+                : 'Todavía no hay resultados. Introduce la fecha de inicio de tu última regla y pulsa «Calcular estimación». Tus datos no se guardan ni se envían a ningún servidor.'}
             </p>
           </div>
         )}
