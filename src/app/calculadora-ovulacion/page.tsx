@@ -67,6 +67,7 @@ export default function CalculadoraOvulacionPage() {
         relatedTools={[
           { title: 'Calculadora del ciclo menstrual', href: '/calculadora-ciclo-menstrual' },
           { title: 'Calculadora de embarazo', href: '/calculadora-semanas-embarazo' },
+          { title: 'Plantillas de seguimiento para imprimir', href: '/plantillas-seguimiento' },
         ]}
       />
     </div>

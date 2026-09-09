@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import {
   MAX_CYCLE_LENGTH,
   MAX_PERIOD_LENGTH,
@@ -14,6 +15,9 @@ import {
   validateCycleLength,
   validatePeriodLength,
 } from '@/lib/health-calculations'
+import { buildCycleReportData, PDF_FILENAMES } from '@/lib/pdf/report-data'
+import { PdfDownloadButton } from '@/components/pdf/PdfDownloadButton'
+import { siteConfig } from '@/config'
 import { NumericComboField } from './NumericComboField'
 
 function formatDate(date: Date) {
@@ -181,6 +185,39 @@ export function CycleCalculator() {
               {showErrors && !isValid
                 ? 'Revisa los datos marcados: hay valores vacíos o fuera del rango válido y no se puede calcular.'
                 : 'Todavía no hay resultados. Introduce la fecha de inicio de tu última regla y las duraciones, y pulsa «Calcular estimación». Tus datos no se guardan ni se envían a ningún servidor.'}
+            </p>
+          </div>
+        )}
+
+        {result && (
+          <div className="mt-5 space-y-3">
+            <PdfDownloadButton
+              label="Descargar resultado en PDF"
+              fileName={PDF_FILENAMES.cycleResult}
+              loadDocument={async () => {
+                const { CycleResultDoc } = await import('@/components/pdf/templates/ResultDocuments')
+                const data = buildCycleReportData({
+                  lastPeriod: lastDate as Date,
+                  cycleLength: cycleValue as number,
+                  periodLength: periodValue as number,
+                  nextPeriodDate: result.nextPeriodDate,
+                  ovulationDate: result.ovulationDate,
+                  fertileStart: result.fertileStart,
+                  fertileEnd: result.fertileEnd,
+                  site: {
+                    name: siteConfig.name,
+                    url: siteConfig.url,
+                    disclaimer: siteConfig.medicalDisclaimer,
+                  },
+                })
+                return <CycleResultDoc data={data} />
+              }}
+            />
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              ¿Quieres llevar un seguimiento?{' '}
+              <Link href="/plantillas-seguimiento" className="font-medium text-accent hover:underline underline-offset-4">
+                Descarga nuestra plantilla gratuita
+              </Link>
             </p>
           </div>
         )}

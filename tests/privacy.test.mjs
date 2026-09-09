@@ -28,6 +28,8 @@ function listFiles(dir, ext) {
 
 const TOOL_FILES = [
   ...listFiles('src/components/tools', '.tsx'),
+  ...listFiles('src/components/pdf', '.tsx'),
+  ...listFiles('src/lib/pdf', '.ts'),
   ...listFiles('src/components/posparto', '.tsx'),
   'src/components/shared/NewsletterForm.tsx',
 ]
@@ -78,6 +80,22 @@ describe('privacidad: herramientas sin persistencia ni transmisión', () => {
       assert.ok(!src.includes('router.replace'), `${file} no debe navegar con datos`)
       assert.ok(!src.includes('URLSearchParams'), `${file} no debe construir URLs con datos`)
     }
+  })
+})
+
+describe('privacidad: PDFs generados en el cliente sin backend', () => {
+  it('el botón de descarga genera un Blob local y no envía datos', () => {
+    const src = stripComments(read('src/components/pdf/PdfDownloadButton.tsx'))
+    assert.ok(src.includes('toBlob()'), 'el PDF se genera como Blob en memoria')
+    assert.ok(src.includes('createObjectURL'), 'descarga local sin subir datos')
+    assert.ok(src.includes("import('@react-pdf/renderer')"), 'librería cargada solo en cliente bajo demanda')
+    assert.ok(!src.includes('fetch('), 'sin llamadas de red para generar el PDF')
+  })
+
+  it('las plantillas vacías no contienen datos de usuaria', () => {
+    const src = read('src/components/pdf/templates/BlankTemplates.tsx')
+    assert.ok(!src.includes('localStorage'), 'sin lectura de almacenamiento')
+    assert.ok(!src.includes('useState'), 'documento estático, sin estado con datos')
   })
 })
 

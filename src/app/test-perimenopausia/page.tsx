@@ -69,6 +69,7 @@ export default function PerimenopauseTestPage() {
         relatedTools={[
           { title: 'Calculadora del ciclo menstrual', href: '/calculadora-ciclo-menstrual' },
           { title: 'Generador de rutinas', href: '/generador-rutinas' },
+          { title: 'Plantillas de seguimiento para imprimir', href: '/plantillas-seguimiento' },
         ]}
       />
     </div>

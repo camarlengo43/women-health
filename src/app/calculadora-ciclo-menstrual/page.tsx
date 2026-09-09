@@ -68,6 +68,7 @@ export default function CalculadoraCicloPage() {
         relatedTools={[
           { title: 'Calculadora de ovulación', href: '/calculadora-ovulacion' },
           { title: 'Test orientativo de perimenopausia', href: '/test-perimenopausia' },
+          { title: 'Plantillas de seguimiento para imprimir', href: '/plantillas-seguimiento' },
         ]}
       />
     </div>

@@ -1,7 +1,11 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { buildRoutineReportData, PDF_FILENAMES } from '@/lib/pdf/report-data'
+import { PdfDownloadButton } from '@/components/pdf/PdfDownloadButton'
+import { siteConfig } from '@/config'
 import {
   GOAL_LABELS,
   buildRoutine,
@@ -181,6 +185,38 @@ export function RoutineGenerator() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-6 space-y-3">
+          <PdfDownloadButton
+            label="Descargar rutina en PDF"
+            fileName={PDF_FILENAMES.routineResult}
+            loadDocument={async () => {
+              const { RoutineResultDoc } = await import('@/components/pdf/templates/ResultDocuments')
+              const data = buildRoutineReportData({
+                title: routine.title,
+                summary: routine.summary,
+                daySummaries: routine.days.map(
+                  (day) => `${day.day} (${day.focus}): ${day.exercises.map((ex) => ex.name).join('; ')}`,
+                ),
+                warmup: routine.warmup,
+                cooldown: routine.cooldown,
+                progression: routine.progression,
+                site: {
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  disclaimer: siteConfig.medicalDisclaimer,
+                },
+              })
+              return <RoutineResultDoc data={data} />
+            }}
+          />
+          <p className="text-xs leading-relaxed text-muted-foreground">
+            ¿Quieres llevar un seguimiento?{' '}
+            <Link href="/plantillas-seguimiento" className="font-medium text-accent hover:underline underline-offset-4">
+              Descarga nuestra plantilla gratuita
+            </Link>
+          </p>
+        </div>
 
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
           Propuesta general orientativa. No sustituye una valoración profesional ni constituye una prescripción individual.

@@ -1,6 +1,10 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { buildPerimenopauseReportData, PDF_FILENAMES, perimenopauseBandMessage } from '@/lib/pdf/report-data'
+import { PdfDownloadButton } from '@/components/pdf/PdfDownloadButton'
+import { siteConfig } from '@/config'
 
 const questions = [
   'He notado cambios en la regularidad de la regla.',
@@ -21,21 +25,7 @@ export function PerimenopauseTest() {
   )
   const score = checkedIndexes.length
 
-  const result = useMemo(() => {
-    if (score === 0) {
-      return 'Todavía no hay señales claras en tus respuestas, pero los síntomas pueden aparecer de forma gradual.'
-    }
-
-    if (score <= 2) {
-      return 'Tus respuestas muestran algunos cambios que pueden aparecer durante la transición menopáusica.'
-    }
-
-    if (score <= 4) {
-      return 'Tus respuestas indican varios síntomas que suelen aparecer con frecuencia durante la perimenopausia.'
-    }
-
-    return 'Tus respuestas reflejan varios indicios compatibles con la perimenopausia, aunque solo un profesional puede valorar tu caso.'
-  }, [score])
+  const result = useMemo(() => perimenopauseBandMessage(score), [score])
 
   const toggleAnswer = (index: number) => {
     setHasInteracted(true)
@@ -75,6 +65,32 @@ export function PerimenopauseTest() {
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Este test es informativo y no diagnostica perimenopausia ni ninguna otra condición. Si notas síntomas persistentes, consulta a un profesional sanitario.
             </p>
+            <div className="mt-4 space-y-3">
+              <PdfDownloadButton
+                label="Descargar resultado en PDF"
+                fileName={PDF_FILENAMES.perimenopauseResult}
+                loadDocument={async () => {
+                  const { PerimenopauseResultDoc } = await import('@/components/pdf/templates/ResultDocuments')
+                  const checkedLabels = questions.filter((_, index) => answers[index] === true)
+                  const data = buildPerimenopauseReportData({
+                    checkedLabels,
+                    totalQuestions: questions.length,
+                    site: {
+                      name: siteConfig.name,
+                      url: siteConfig.url,
+                      disclaimer: siteConfig.medicalDisclaimer,
+                    },
+                  })
+                  return <PerimenopauseResultDoc data={data} />
+                }}
+              />
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                ¿Quieres llevar un seguimiento?{' '}
+                <Link href="/plantillas-seguimiento" className="font-medium text-accent hover:underline underline-offset-4">
+                  Descarga nuestra plantilla gratuita
+                </Link>
+              </p>
+            </div>
           </>
         ) : (
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

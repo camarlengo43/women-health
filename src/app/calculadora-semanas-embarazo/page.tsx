@@ -67,6 +67,7 @@ export default function CalculadoraEmbarazoPage() {
         relatedTools={[
           { title: 'Calculadora de fecha probable de parto', href: '/calculadora-fecha-parto' },
           { title: 'Calculadora del ciclo menstrual', href: '/calculadora-ciclo-menstrual' },
+          { title: 'Plantillas de seguimiento para imprimir', href: '/plantillas-seguimiento' },
         ]}
       />
     </div>

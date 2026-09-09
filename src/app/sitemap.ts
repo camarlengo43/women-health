@@ -21,6 +21,7 @@ const HUB_PAGES = [
   '/calculadora-fecha-parto',
   '/test-perimenopausia',
   '/generador-rutinas',
+  '/plantillas-seguimiento',
   '/es-normal',
   '/es-normal/regla-cada-24-dias',
   '/es-normal/cambios-duracion-regla',

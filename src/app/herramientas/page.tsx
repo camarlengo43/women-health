@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Activity, HeartPulse, Sparkles, Calculator } from 'lucide-react'
+import { ArrowRight, Activity, HeartPulse, Sparkles, Calculator, Printer } from 'lucide-react'
 import { Breadcrumbs } from '@/components/layout'
 import { JsonLd } from '@/components/shared'
 import { siteConfig } from '@/config'
@@ -59,6 +59,12 @@ const tools = [
     href: '/generador-rutinas',
     description: 'Crea una rutina sencilla según objetivo, nivel y disponibilidad.',
     icon: Activity,
+  },
+  {
+    title: 'Plantillas de seguimiento',
+    href: '/plantillas-seguimiento',
+    description: 'Registro del ciclo, calendario menstrual, diarios de síntomas y pack imprimible en PDF.',
+    icon: Printer,
   },
 ]
 

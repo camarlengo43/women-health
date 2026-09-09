@@ -64,6 +64,7 @@ export const mainNavItems: NavItem[] = [
       { label: 'Fecha probable de parto', href: '/calculadora-fecha-parto' },
       { label: 'Test perimenopausia', href: '/test-perimenopausia' },
       { label: 'Generador de rutinas', href: '/generador-rutinas' },
+      { label: 'Plantillas de seguimiento', href: '/plantillas-seguimiento' },
     ],
   },
   {
@@ -87,6 +88,7 @@ export const footerNavItems = {
     { label: 'Glosario', href: '/glosario' },
     { label: 'Embarazo', href: '/categoria/embarazo' },
     { label: 'Herramientas', href: '/herramientas' },
+    { label: 'Plantillas de seguimiento', href: '/plantillas-seguimiento' },
     { label: 'Movimiento', href: '/movimiento' },
   ],
   proyecto: [

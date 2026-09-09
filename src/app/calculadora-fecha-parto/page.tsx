@@ -50,7 +50,7 @@ export default function FechaPartoPage() {
         profesional del embarazo.
       </div>
 
-      <PregnancyCalculator />
+      <PregnancyCalculator documentTitle="Calculadora de fecha probable de parto" />
 
       <ToolEducation
         howItWorks="Se suma una estimación de 280 días al primer día de la última menstruación (regla de Naegele). Si tu ciclo es irregular o no recuerdas la fecha exacta, la estimación es menos precisa y la ecografía del primer trimestre suele ser la referencia clínica."
@@ -84,6 +84,7 @@ export default function FechaPartoPage() {
         relatedTools={[
           { title: 'Calculadora de semanas de embarazo', href: '/calculadora-semanas-embarazo' },
           { title: 'Calculadora del ciclo', href: '/calculadora-ciclo-menstrual' },
+          { title: 'Plantillas de seguimiento para imprimir', href: '/plantillas-seguimiento' },
         ]}
       />
     </div>

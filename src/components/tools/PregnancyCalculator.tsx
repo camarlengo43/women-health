@@ -1,7 +1,11 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { calcPregnancyEstimate, parseDateOnly } from '@/lib/health-calculations'
+import { buildPregnancyReportData, PDF_FILENAMES } from '@/lib/pdf/report-data'
+import { PdfDownloadButton } from '@/components/pdf/PdfDownloadButton'
+import { siteConfig } from '@/config'
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('es-ES', {
@@ -19,7 +23,12 @@ function formatDate(date: Date) {
  *   numeric fields: only the last-period date.
  * Everything is computed in the browser, without storing or sending data.
  */
-export function PregnancyCalculator() {
+export function PregnancyCalculator({
+  documentTitle = 'Calculadora de embarazo',
+}: {
+  /** Lets the two pages sharing this calculator title their own PDF. */
+  documentTitle?: 'Calculadora de embarazo' | 'Calculadora de fecha probable de parto'
+}) {
   const [lastPeriod, setLastPeriod] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
@@ -104,6 +113,41 @@ export function PregnancyCalculator() {
               {showErrors && !isValid
                 ? 'Revisa la fecha marcada: está vacía o no es válida y no se puede calcular.'
                 : 'Todavía no hay resultados. Introduce la fecha de inicio de tu última regla y pulsa «Calcular estimación». Tus datos no se guardan ni se envían a ningún servidor.'}
+            </p>
+          </div>
+        )}
+
+        {result && (
+          <div className="mt-5 space-y-3">
+            <PdfDownloadButton
+              label="Descargar resultado en PDF"
+              fileName={
+                documentTitle === 'Calculadora de fecha probable de parto'
+                  ? PDF_FILENAMES.dueDateResult
+                  : PDF_FILENAMES.pregnancyResult
+              }
+              loadDocument={async () => {
+                const { PregnancyResultDoc } = await import('@/components/pdf/templates/ResultDocuments')
+                const data = buildPregnancyReportData({
+                  toolName: documentTitle,
+                  lastPeriod: lmp as Date,
+                  weeks: result.weeks,
+                  days: result.days,
+                  dueDate: result.dueDate,
+                  site: {
+                    name: siteConfig.name,
+                    url: siteConfig.url,
+                    disclaimer: siteConfig.medicalDisclaimer,
+                  },
+                })
+                return <PregnancyResultDoc data={data} />
+              }}
+            />
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              ¿Quieres llevar un seguimiento?{' '}
+              <Link href="/plantillas-seguimiento" className="font-medium text-accent hover:underline underline-offset-4">
+                Descarga nuestra plantilla gratuita
+              </Link>
             </p>
           </div>
         )}

@@ -63,6 +63,7 @@ export default function GeneradorRutinasPage() {
         ]}
         relatedTools={[
           { title: 'Test orientativo de perimenopausia', href: '/test-perimenopausia' },
+          { title: 'Plantillas de seguimiento para imprimir', href: '/plantillas-seguimiento' },
         ]}
       />
     </div>
