@@ -1,10 +1,47 @@
 import Link from 'next/link'
-import { ArrowRight, Search, BookOpen, Shield, Heart, Lock, CheckCircle2, ShieldCheck, Stethoscope } from 'lucide-react'
+import {
+  ArrowRight,
+  BookOpen,
+  CheckCircle2,
+  HeartPulse,
+  Lock,
+  Search,
+  Shield,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  Activity,
+} from 'lucide-react'
 import { getFeaturedPosts, getLatestPosts } from '@/services'
 import { getAllCategories } from '@/config'
 import { ArticleCard } from '@/features/blog'
 import { NewsletterForm, JsonLd, ScrollReveal } from '@/components/shared'
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '@/lib/seo'
+
+const stageCards = [
+  { label: 'Adolescencia', href: '/categoria/salud-menstrual', tone: 'bg-[#F3EDF1]' },
+  { label: 'Edad reproductiva', href: '/categoria/salud-menstrual', tone: 'bg-[#FBF3EB]' },
+  { label: 'Embarazo', href: '/categoria/embarazo', tone: 'bg-[#EFF3ED]' },
+  { label: 'Posparto', href: '/categoria/bienestar', tone: 'bg-[#EBF4F4]' },
+  { label: 'Perimenopausia', href: '/perimenopausia', tone: 'bg-[#F9F0EB]' },
+  { label: 'Menopausia', href: '/categoria/menopausia', tone: 'bg-[#F3EDF1]' },
+  { label: 'Postmenopausia', href: '/categoria/menopausia', tone: 'bg-[#EEF4F1]' },
+]
+
+const questionCards = [
+  { title: '¿Es normal tener ciclos irregulares?', href: '/es-normal/ciclos-irregulares' },
+  { title: '¿Es normal tener sofocos a los 40?', href: '/es-normal/sofocos-a-los-40' },
+  { title: '¿Es normal despertarse por la noche?', href: '/es-normal/despertarse-por-la-noche-menopausia' },
+  { title: '¿Cuándo consultar por sangrado abundante?', href: '/perimenopausia/cuando-consultar' },
+]
+
+const toolCards = [
+  { title: 'Calculadora del ciclo', text: 'Comprende tus fases y estima una ventana útil de seguimiento.', href: '/calculadora-ciclo-menstrual' },
+  { title: 'Calculadora de ovulación', text: 'Estima una ventana fértil orientativa con una base práctica.', href: '/calculadora-ovulacion' },
+  { title: 'Test orientativo de perimenopausia', text: 'Explora síntomas frecuentes y mira patrones orientativos.', href: '/test-perimenopausia' },
+  { title: 'Calculadora de embarazo', text: 'Estima semanas y una fecha orientativa del parto.', href: '/calculadora-semanas-embarazo' },
+  { title: 'Generador de rutinas', text: 'Crea una rutina práctica según tu objetivo, nivel y disponibilidad.', href: '/generador-rutinas' },
+]
 
 export default async function HomePage() {
   const featuredPosts = await getFeaturedPosts()
@@ -16,8 +53,7 @@ export default async function HomePage() {
       <JsonLd data={generateWebSiteJsonLd()} />
       <JsonLd data={generateOrganizationJsonLd()} />
 
-      {/* ========== HERO ========== */}
-      <section className="relative overflow-hidden bg-muted/60 border-b border-border/60">
+      <section className="relative overflow-hidden border-b border-border/60 bg-muted/60">
         <div className="absolute inset-0 opacity-40">
           <div
             className="absolute inset-0"
@@ -27,94 +63,104 @@ export default async function HomePage() {
             }}
           />
         </div>
-        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card/80 backdrop-blur-xs border border-border text-xs font-semibold uppercase tracking-wider text-accent mb-6 shadow-xs">
-              <Stethoscope className="w-3.5 h-3.5 text-accent" />
-              <span>Salud femenina basada en evidencia médica</span>
+        <div className="relative mx-auto max-w-[1280px] px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent shadow-xs backdrop-blur-xs">
+              <Stethoscope className="h-3.5 w-3.5 text-accent" />
+              <span>Salud femenina basada en evidencia</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-family-heading)] text-foreground tracking-tight leading-[1.15] mb-6">
-              Información médica clara para entender tu cuerpo en cada etapa
+            <h1 className="mb-6 text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Entiende tu cuerpo en cada etapa de tu vida
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
-              Guías y artículos rigurosos sobre ciclo menstrual, perimenopausia, menopausia, fertilidad y bienestar hormonal. Sin tabúes, con referencias científicas.
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground leading-relaxed sm:text-xl">
+              Información basada en evidencia, herramientas gratuitas y recursos prácticos para cuidar tu salud femenina con más claridad y confianza.
             </p>
 
-            {/* Search Bar */}
-            <div className="max-w-lg mx-auto mb-8">
+            <div className="mb-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
-                href="/buscar"
-                className="flex items-center justify-between gap-3 px-5 py-3.5 bg-card rounded-2xl border border-border shadow-card hover:shadow-md hover:border-accent/40 transition-all text-muted-foreground text-sm group"
-                role="search"
+                href="/perimenopausia"
+                className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition hover:bg-accent/90"
               >
-                <div className="flex items-center gap-3">
-                  <Search className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" aria-hidden="true" />
-                  <span>Buscar síntomas, etapas, dudas hormonales…</span>
-                </div>
-                <span className="hidden sm:inline-block text-xs font-medium px-2 py-0.5 rounded bg-muted text-muted-foreground">
-                  Buscar ↵
-                </span>
+                Explorar mi etapa <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/herramientas"
+                className="inline-flex items-center justify-center rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition hover:border-accent/40 hover:bg-muted"
+              >
+                Ver herramientas
               </Link>
             </div>
 
-            {/* Trust Endorsements Badges */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5 font-medium text-foreground/80">
-                <CheckCircle2 className="w-3.5 h-3.5 text-accent-sage" /> Fuentes OMS, SEGO, AEEM y NICE
+                <CheckCircle2 className="h-3.5 w-3.5 text-accent-sage" /> Fuentes médicas verificadas
               </span>
               <span className="hidden sm:inline text-border">•</span>
               <span className="inline-flex items-center gap-1.5 font-medium text-foreground/80">
-                <ShieldCheck className="w-3.5 h-3.5 text-accent-warm" /> Revisión biomédica rigurosa
+                <ShieldCheck className="h-3.5 w-3.5 text-accent-warm" /> Información clara y útil
               </span>
               <span className="hidden sm:inline text-border">•</span>
               <span className="inline-flex items-center gap-1.5 font-medium text-foreground/80">
-                <Lock className="w-3.5 h-3.5 text-accent" /> Sin patrocinios comerciales
+                <Lock className="h-3.5 w-3.5 text-accent" /> Tus datos se quedan en tu dispositivo
               </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ========== TOPICS ========== */}
       <section className="py-16 lg:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-semibold font-[family-name:var(--font-family-heading)] text-foreground mb-3">
-                Explora por temas
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Cinco áreas fundamentales de la salud femenina, explicadas de forma clara y accesible.
-              </p>
+            <div className="mb-10 text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">¿Qué quieres consultar?</p>
+              <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Haz tu consulta por tema</h2>
             </div>
           </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {categories.map((cat, idx) => (
-              <ScrollReveal key={cat.slug} delay={idx * 60}>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: 'Mi ciclo', href: '/categoria/salud-menstrual', icon: '◌' },
+              { title: 'Perimenopausia', href: '/perimenopausia', icon: '☼' },
+              { title: 'Menopausia', href: '/categoria/menopausia', icon: '☾' },
+              { title: 'Embarazo', href: '/categoria/embarazo', icon: '✦' },
+              { title: 'Síntomas', href: '/es-normal', icon: '◎' },
+              { title: 'Movimiento', href: '/movimiento', icon: '↗' },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="group rounded-2xl border border-border bg-card p-5 text-left shadow-card transition hover:-translate-y-1 hover:border-accent/40 hover:shadow-md"
+              >
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-xl text-accent">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-muted/50 py-16 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mb-10 text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Etapas de la vida</p>
+              <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Explora tu etapa</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {stageCards.map((card, index) => (
+              <ScrollReveal key={card.label} delay={index * 60}>
                 <Link
-                  href={`/categoria/${cat.slug}`}
-                  className="group p-6 rounded-xl border border-border bg-card hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 block h-full"
+                  href={card.href}
+                  className={`block rounded-2xl border border-border p-5 transition hover:-translate-y-1 hover:border-accent/40 ${card.tone}`}
                 >
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: `color-mix(in srgb, ${cat.color} 15%, transparent)` }}
-                  >
-                    <span className="text-lg" style={{ color: cat.color }} aria-hidden="true">
-                      {cat.icon === 'heart-pulse' && '♡'}
-                      {cat.icon === 'sun-medium' && '☀'}
-                      {cat.icon === 'moon' && '☽'}
-                      {cat.icon === 'baby' && '❋'}
-                      {cat.icon === 'leaf' && '🌿'}
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-1.5 font-[family-name:var(--font-family-heading)]">
-                    {cat.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-                    {cat.excerpt}
-                  </p>
+                  <div className="mb-4 h-11 w-11 rounded-xl bg-white/70" />
+                  <h3 className="text-xl font-semibold text-foreground">{card.label}</h3>
                 </Link>
               </ScrollReveal>
             ))}
@@ -122,137 +168,138 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ========== FEATURED ARTICLES ========== */}
-      {featuredPosts.length > 0 && (
-        <section className="py-16 lg:py-20 bg-muted/50">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal>
-              <div className="flex items-end justify-between mb-10">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-semibold font-[family-name:var(--font-family-heading)] text-foreground mb-2">
-                    Artículos destacados
-                  </h2>
-                  <p className="text-muted-foreground">
-                    Los contenidos más relevantes para empezar a informarte.
-                  </p>
+      <section className="py-16 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mb-10 flex items-end justify-between gap-3">
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Herramientas gratuitas</p>
+                <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Te ayudamos a interpretarlo mejor</h2>
+              </div>
+              <Link href="/herramientas" className="hidden items-center gap-1 text-sm font-medium text-accent sm:inline-flex">
+                Ver todas las herramientas <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {toolCards.map((tool) => (
+              <Link key={tool.title} href={tool.href} className="rounded-2xl border border-border bg-card p-5 shadow-card transition hover:-translate-y-1 hover:border-accent/40">
+                <div className="mb-4 inline-flex rounded-lg bg-muted p-2 text-accent">
+                  <HeartPulse className="h-5 w-5" />
                 </div>
-                <Link
-                  href="/blog"
-                  className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-                >
-                  Ver todos <ArrowRight className="w-4 h-4" />
+                <h3 className="mb-2 text-xl font-semibold text-foreground">{tool.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{tool.text}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-muted/60 py-16 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mb-10 text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">¿Es normal?</p>
+              <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Preguntas frecuentes que merecen respuesta clara</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {questionCards.map((item) => (
+              <Link key={item.title} href={item.href} className="rounded-2xl border border-border bg-card p-5 transition hover:border-accent/40 hover:shadow-md">
+                <p className="text-base font-medium leading-relaxed text-foreground">{item.title}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mb-10 text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Movimiento</p>
+              <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Muévete según tu etapa</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              { title: 'Fuerza', text: 'Preservar masa muscular y fuerza funcional.' },
+              { title: 'Cardio', text: 'Mantener salud cardiovascular y energía.' },
+              { title: 'Salud ósea', text: 'Apoyar huesos y movilidad a lo largo de la vida.' },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-border bg-card p-5 shadow-card">
+                <div className="mb-4 inline-flex rounded-lg bg-muted p-2 text-accent">
+                  <Activity className="h-5 w-5" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold text-foreground">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-muted/50 py-16 lg:py-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="mb-12 text-center">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Confianza</p>
+              <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Cómo cuidamos la información</h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              { icon: BookOpen, title: 'Fuentes médicas', text: 'Priorizamos guías y sociedades de referencia.' },
+              { icon: Shield, title: 'Metodología editorial', text: 'Se revisa el rigor, claridad y actualización del contenido.' },
+              { icon: Sparkles, title: 'Actualización', text: 'Se corrigen y revisan los textos cuando la evidencia cambia.' },
+              { icon: Lock, title: 'Privacidad', text: 'Sin almacenamiento de síntomas ni datos sensibles.' },
+            ].map(({ icon: Icon, title, text }) => (
+              <div key={title} className="rounded-2xl border border-border bg-card p-6 text-center">
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="mb-2 text-xl font-semibold text-foreground">{title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {featuredPosts.length > 0 && (
+        <section className="py-16 lg:py-20">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="mb-10 flex items-end justify-between">
+                <div>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Contenido destacado</p>
+                  <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">Artículos que ayudan a orientar</h2>
+                </div>
+                <Link href="/blog" className="hidden items-center gap-1 text-sm font-medium text-accent sm:inline-flex">
+                  Ver todos <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {featuredPosts.slice(0, 3).map((post, idx) => (
-                <ScrollReveal key={post.slug} delay={idx * 100}>
+
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {featuredPosts.slice(0, 3).map((post, index) => (
+                <ScrollReveal key={post.slug} delay={index * 100}>
                   <ArticleCard post={post} variant="featured" />
                 </ScrollReveal>
               ))}
-            </div>
-            <div className="mt-8 text-center sm:hidden">
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-              >
-                Ver todos los artículos <ArrowRight className="w-4 h-4" />
-              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* ========== LATEST ARTICLES ========== */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pb-16 lg:pb-20">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-semibold font-[family-name:var(--font-family-heading)] text-foreground mb-2">
-                  Últimos artículos
-                </h2>
-                <p className="text-muted-foreground">
-                  Contenido actualizado sobre salud femenina.
-                </p>
-              </div>
-              <Link
-                href="/blog"
-                className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-              >
-                Ver todos <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {latestPosts.map((post, idx) => (
-              <ScrollReveal key={post.slug} delay={idx * 80}>
-                <ArticleCard post={post} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========== TRUST SECTION ========== */}
-      <section className="py-16 lg:py-20 bg-muted/50">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <h2 className="text-2xl sm:text-3xl font-semibold font-[family-name:var(--font-family-heading)] text-foreground mb-3">
-                Información en la que puedes confiar
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Nuestro compromiso con el rigor y la transparencia.
-              </p>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: BookOpen,
-                title: 'Fuentes contrastadas',
-                text: 'Cada artículo cita fuentes de referencia: OMS, NHS, Mayo Clinic, sociedades médicas y publicaciones científicas.',
-              },
-              {
-                icon: Shield,
-                title: 'Rigor divulgativo',
-                text: 'Explicamos la información de forma clara y comprensible, sin simplificar en exceso ni hacer afirmaciones infundadas.',
-              },
-              {
-                icon: Heart,
-                title: 'Enfoque humano',
-                text: 'Hablamos de salud con cercanía y empatía, sin alarmismos. La información debe empoderar, no asustar.',
-              },
-              {
-                icon: Lock,
-                title: 'Privacidad primero',
-                text: 'No recopilamos datos sensibles ni compartimos información personal. Tu privacidad es una prioridad.',
-              },
-            ].map(({ icon: Icon, title, text }, idx) => (
-              <ScrollReveal key={title} delay={idx * 70}>
-                <div className="text-center p-6 bg-card rounded-xl border border-border h-full">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 mb-4">
-                    <Icon className="w-6 h-6 text-accent" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2 font-[family-name:var(--font-family-heading)]">
-                    {title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {text}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========== NEWSLETTER ========== */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="max-w-xl mx-auto bg-card border border-border rounded-2xl p-8 sm:p-10 shadow-card">
+            <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card p-8 shadow-card sm:p-10">
               <NewsletterForm />
             </div>
           </ScrollReveal>
