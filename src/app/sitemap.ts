@@ -8,6 +8,8 @@ const HUB_PAGES = [
   '/etapas/edad-reproductiva',
   '/etapas/embarazo',
   '/etapas/posparto',
+  '/etapas/posparto/parto-vaginal',
+  '/etapas/posparto/cesarea',
   '/etapas/perimenopausia',
   '/etapas/menopausia',
   '/etapas/postmenopausia',
