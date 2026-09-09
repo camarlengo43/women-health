@@ -10,23 +10,38 @@ export const metadata: Metadata = {
 const items = [
   {
     title: '¿Es normal tener ciclos irregulares?',
-    description: 'También puede variar con la edad, el estrés y los cambios hormonales.',
     href: '/es-normal/ciclos-irregulares',
+    description: 'Varían con edad, estrés y hormonas.',
+    content: 'Sí, dentro de ciertos márgenes. Si se repiten ausencias largas, sangrado muy abundante o dolor intenso, conviene consultar.',
+    points: ['Anota fechas y duración', 'Estrés y etapa influyen', 'Consultar si se repite'],
   },
   {
     title: '¿Es normal tener sofocos a los 40?',
-    description: 'Los sofocos pueden aparecer durante la perimenopausia y suelen asociarse a cambios hormonales.',
     href: '/es-normal/sofocos-a-los-40',
+    description: 'Pueden aparecer en perimenopausia.',
+    content: 'Sí, pueden ser una señal temprana de la transición. Si van con ciclos irregulares o sudor nocturno, encajan con esta etapa.',
+    points: ['Calor + sudor', 'Peor de noche', 'Capas y registro'],
   },
   {
     title: '¿Es normal despertarse por la noche?',
-    description: 'El sueño fragmentado es frecuente en la transición menopáusica y puede tener varias causas.',
     href: '/es-normal/despertarse-por-la-noche-menopausia',
+    description: 'Sueño fragmentado en la transición.',
+    content: 'Sí, es frecuente. Calor nocturno, ansiedad o nicturia pueden despertarte. Horarios y ambiente fresco ayudan.',
+    points: ['Despertares 2-4 am', 'Ambiente fresco', 'Horarios regulares'],
   },
   {
     title: '¿Es normal que cambie la duración de la regla?',
-    description: 'Sí; las fluctuaciones en la duración y la regularidad pueden ser habituales según la etapa.',
     href: '/es-normal/regla-cada-24-dias',
+    description: 'Fluctuaciones según la etapa.',
+    content: 'Sí, la duración y regularidad pueden fluctuar, sobre todo en perimenopausia. Registra para ver el patrón.',
+    points: ['Más corta o larga', 'Manchados posibles', 'Registrar'],
+  },
+  {
+    title: '¿Es normal tener sangrado abundante?',
+    href: '/es-normal/sangrado-abundante',
+    description: 'Cuándo merece consulta.',
+    content: 'Si empapas protección cada hora, dura más de 7 días o hay mareo y fatiga, busca valoración pronto.',
+    points: ['Cada hora = consultar', '>7 días = consultar', 'Mareo/fatiga = consultar'],
   },
 ]
 
@@ -35,7 +50,7 @@ export default function EsNormalPage() {
     <HubLayout
       eyebrow="Información útil"
       title="¿Es normal?"
-      intro="Respuestas sencillas para dudas habituales sobre el ciclo, la perimenopausia, la menopausia y la salud femenina."
+      intro="Respuestas sencillas para dudas habituales. Toca cada pregunta para ver la respuesta aquí mismo."
       items={items}
       breadcrumbLabel="¿Es normal?"
     />

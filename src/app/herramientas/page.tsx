@@ -30,6 +30,12 @@ const tools = [
     icon: HeartPulse,
   },
   {
+    title: 'Calculadora de fecha de parto',
+    href: '/calculadora-fecha-parto',
+    description: 'Calcula la fecha probable de parto desde la última regla.',
+    icon: HeartPulse,
+  },
+  {
     title: 'Test orientativo de perimenopausia',
     href: '/test-perimenopausia',
     description: 'Explora síntomas frecuentes y observa patrones de forma informativa.',

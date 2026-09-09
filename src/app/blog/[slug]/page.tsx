@@ -16,6 +16,7 @@ import {
   MedicalDisclaimer,
   NewsletterForm,
   JsonLd,
+  RelatedTools,
 } from '@/components/shared'
 import { TableOfContents, ArticleCard } from '@/features/blog'
 import { Clock, Calendar, ExternalLink, BookOpen, CheckCircle2, Stethoscope } from 'lucide-react'
@@ -271,6 +272,17 @@ export default async function BlogPostPage({ params }: PostPageProps) {
                   <MedicalDisclaimer />
                 </div>
               )}
+
+              <div className="mt-8">
+                <RelatedTools
+                  items={[
+                    { title: 'Calculadora del ciclo', href: '/calculadora-ciclo-menstrual' },
+                    { title: 'Test orientativo de perimenopausia', href: '/test-perimenopausia' },
+                    { title: 'Generador de rutinas', href: '/generador-rutinas' },
+                    { title: 'Calculadora de embarazo', href: '/calculadora-semanas-embarazo' },
+                  ]}
+                />
+              </div>
 
               {/* Author Box */}
               {post.author && (

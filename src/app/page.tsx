@@ -296,7 +296,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="pb-16 lg:pb-20">
+      <section id="newsletter" className="pb-16 lg:pb-20 scroll-mt-24">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card p-8 shadow-card sm:p-10">

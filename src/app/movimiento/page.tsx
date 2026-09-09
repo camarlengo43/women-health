@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { Breadcrumbs } from '@/components/layout'
+import { HubLayout } from '@/components/shared'
 
 export const metadata: Metadata = {
   title: 'Movimiento y ejercicio',
@@ -9,38 +8,93 @@ export const metadata: Metadata = {
 }
 
 const topics = [
-  { title: 'Fuerza', href: '/movimiento/fuerza' },
-  { title: 'Cardio', href: '/movimiento/cardio' },
-  { title: 'Movilidad', href: '/movimiento/movilidad' },
-  { title: 'Equilibrio', href: '/movimiento/equilibrio' },
-  { title: 'Salud ósea', href: '/movimiento/salud-osea' },
-  { title: 'Ejercicio en perimenopausia', href: '/ejercicio-perimenopausia' },
-  { title: 'Ejercicio en menopausia', href: '/ejercicio-menopausia' },
-  { title: 'Rutina de fuerza', href: '/rutina-fuerza-menopausia' },
+  {
+    title: 'Fuerza',
+    href: '/movimiento/fuerza',
+    description: 'Músculo, huesos y función diaria.',
+    content: 'Dos o tres días de cuerpo completo con sentadilla, empuje, tracción y core. Técnica antes que carga.',
+    points: ['2-3 días por semana', 'Básicos + core', 'Progresión lenta'],
+  },
+  {
+    title: 'Cardio',
+    href: '/movimiento/cardio',
+    description: 'Corazón, energía y ánimo.',
+    content: 'Caminata rápida, bici, baile o natación a intensidad moderada. Mejor repartido en la semana que todo de golpe.',
+    points: ['150 min moderados/semana', 'Repartir en la semana', 'Intensidad conversacional'],
+  },
+  {
+    title: 'Movilidad',
+    href: '/movimiento/movilidad',
+    description: 'Articulaciones y postura.',
+    content: 'Sesiones cortas de cadera, columna y hombros. Ideal como calentamiento o pausa activa diaria.',
+    points: ['5-10 min diarios', 'Cadera y columna', 'Sin dolor'],
+  },
+  {
+    title: 'Equilibrio',
+    href: '/movimiento/equilibrio',
+    description: 'Prevenir caídas y ganar confianza.',
+    content: 'Apoyos monopodales, tandem y superficies estables. Cerca de un apoyo seguro al empezar.',
+    points: ['Unipodal y tandem', 'Cerca de apoyo', 'Progresión simple'],
+  },
+  {
+    title: 'Salud ósea',
+    href: '/movimiento/salud-osea',
+    description: 'Carga e impacto moderado.',
+    content: 'Fuerza progresiva + impacto moderado adaptado (marcha, baile, pequeños saltos si procede) + equilibrio.',
+    points: ['Fuerza + impacto', 'Equilibrio', 'Calcio y vitamina D'],
+  },
+  {
+    title: 'Suelo pélvico',
+    href: '/movimiento/suelo-pelvico',
+    description: 'Base de sostén y continencia.',
+    content: 'Coordinación con respiración, sin empujar en exceso, y progresión suave. Ante pérdidas o dolor, fisioterapia especializada.',
+    points: ['Respiración + coordinación', 'Sin empujar', 'Consultar si hay síntomas'],
+  },
+  {
+    title: 'Ejercicio en perimenopausia',
+    href: '/ejercicio-perimenopausia',
+    description: 'Fuerza, cardio y descanso en transición.',
+    content: 'La combinación fuerza + cardio moderado + movilidad es la que más apoya energía, sueño y huesos.',
+    points: ['Fuerza prioritaria', 'Cardio moderado', 'Descanso'],
+  },
+  {
+    title: 'Ejercicio en menopausia',
+    href: '/ejercicio-menopausia',
+    description: 'Autonomía y salud a largo plazo.',
+    content: 'Mismo enfoque, con más énfasis en equilibrio y carga ósea, siempre adaptado a articulaciones y energía del día.',
+    points: ['Carga ósea', 'Equilibrio', 'Adaptar al día'],
+  },
+  {
+    title: 'Rutina de fuerza',
+    href: '/rutina-fuerza-menopausia',
+    description: 'Ejemplo práctico de sesión.',
+    content: 'Calentamiento + 4-5 básicos + core + vuelta a la calma. Un ejemplo desplegable, no una prescripción individual.',
+    points: ['Calentar 5-10 min', '4-5 básicos', 'Vuelta a la calma'],
+  },
+  {
+    title: 'Fuerza para mujeres',
+    href: '/ejercicios-fuerza-mujeres',
+    description: 'Guía base sin gimnasio obligatorio.',
+    content: 'Mancuernas, bandas o peso corporal sirven. Dos días de cuerpo completo para empezar.',
+    points: ['Material simple', 'Cuerpo completo', '2 días inicio'],
+  },
+  {
+    title: 'Salud ósea en movimiento',
+    href: '/ejercicios-salud-osea',
+    description: 'Qué estímulos necesita el hueso.',
+    content: 'El hueso responde a la carga: fuerza + impacto moderado + equilibrio, más hábitos (proteína, calcio, vitamina D).',
+    points: ['Carga progresiva', 'Impacto adaptado', 'Hábitos'],
+  },
 ]
 
 export default function MovimientoPage() {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mb-8">
-        <Breadcrumbs items={[{ label: 'Movimiento' }]} />
-      </div>
-
-      <header className="mb-10 max-w-3xl">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Movimiento</p>
-        <h1 className="text-4xl font-semibold text-foreground sm:text-5xl">Muévete según tu etapa</h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          El ejercicio puede apoyar la salud ósea, la energía, el sueño y el bienestar general, siempre con una guía realista y adaptada a cada etapa.
-        </p>
-      </header>
-
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {topics.map((topic) => (
-          <Link key={topic.title} href={topic.href} className="rounded-2xl border border-border bg-card p-5 shadow-card transition hover:-translate-y-1 hover:border-accent/40">
-            <h2 className="text-xl font-semibold text-foreground">{topic.title}</h2>
-          </Link>
-        ))}
-      </div>
-    </div>
+    <HubLayout
+      eyebrow="Movimiento"
+      title="Muévete según tu etapa"
+      intro="El ejercicio puede apoyar la salud ósea, la energía, el sueño y el bienestar general. Despliega cada tarjeta sin cambiar de pantalla."
+      items={topics}
+      breadcrumbLabel="Movimiento"
+    />
   )
 }

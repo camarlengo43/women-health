@@ -10,48 +10,66 @@ export const metadata: Metadata = {
 const items = [
   {
     title: 'Síntomas',
-    description: 'Sofocos, sueño, cambios de humor, alteraciones del ciclo y más.',
     href: '/menopausia/sintomas',
+    description: 'Sofocos, sueño, cambios de humor y más.',
+    content: 'La experiencia es muy variable. Los más descritos son sofocos, sudores nocturnos, sueño fragmentado y cambios de ánimo o concentración.',
+    points: ['Sofocos y sudor nocturno', 'Sueño fragmentado', 'Ánimo y concentración'],
   },
   {
     title: 'Sofocos',
-    description: 'Qué son, por qué aparecen y cómo entenderlos con más claridad.',
     href: '/menopausia/sofocos',
+    description: 'Qué son y cómo entenderlos.',
+    content: 'Oleadas de calor que pueden durar minutos, a veces con sudor. Capas de ropa, ventilación y registro de desencadenantes ayudan.',
+    points: ['Oleadas de calor', 'Desencadenantes: calor, alcohol, estrés', 'Capas y ventilación'],
   },
   {
-    title: 'Sueno',
-    description: 'Cómo afecta la menopausia al descanso y qué puede ayudar.',
+    title: 'Sueño',
     href: '/menopausia/sueno',
+    description: 'Cómo afecta al descanso y qué puede ayudar.',
+    content: 'Los despertares por calor o la ansiedad pueden fragmentar el descanso. Horarios regulares y ambiente fresco y oscuro son la base.',
+    points: ['Horarios regulares', 'Ambiente fresco', 'Limitar pantallas de noche'],
   },
   {
     title: 'Ejercicio',
-    description: 'Rutinas de movimiento y salud funcional para esta etapa.',
     href: '/menopausia/ejercicio',
+    description: 'Movimiento y salud funcional para esta etapa.',
+    content: 'Fuerza, caminata o cardio moderado, movilidad y equilibrio: la combinación que más apoya huesos, ánimo y autonomía.',
+    points: ['Fuerza 2-3 días', 'Cardio moderado', 'Equilibrio'],
   },
   {
     title: 'Fuerza',
-    description: 'Entrenamiento de fuerza para ayudarte a mantener masa muscular y calidad de vida.',
     href: '/menopausia/fuerza',
+    description: 'Mantener masa muscular y calidad de vida.',
+    content: 'Con mancuernas, bandas o peso corporal es suficiente para empezar. Prioriza básicos y progresión lenta.',
+    points: ['Sentadilla, empuje, tracción', '2-3 series por ejercicio', 'Progresión lenta'],
   },
   {
     title: 'Salud ósea',
-    description: 'Cómo apoyar huesos, movilidad y prevención a lo largo de la menopausia.',
     href: '/menopausia/salud-osea',
+    description: 'Apoyar huesos y movilidad.',
+    content: 'La caída de estrógenos acelera la pérdida ósea. Carga progresiva, impacto moderado, calcio, vitamina D y valoración médica ayudan.',
+    points: ['Carga + impacto moderado', 'Calcio y vitamina D', 'Valoración médica'],
   },
   {
     title: 'Osteoporosis',
-    description: 'Qué es, qué factores la favorecen y qué puede ayudar a prevenirla.',
     href: '/menopausia/osteoporosis',
+    description: 'Qué es y qué ayuda a prevenirla.',
+    content: 'Pérdida de densidad que aumenta el riesgo de fractura. A menudo no da síntomas hasta una fractura: por eso previene con hábitos y cribado.',
+    points: ['A menudo silenciosa', 'Fuerza y equilibrio', 'Cribado según edad/riesgo'],
   },
   {
     title: 'Aumento de peso',
-    description: 'Cómo entender los cambios metabólicos y qué apoyar con hábitos realistas.',
     href: '/menopausia/aumento-peso',
+    description: 'Cambios metabólicos con hábitos realistas.',
+    content: 'Menos músculo y cambios de descanso influyen más que la “fuerza de voluntad”. Enfoque en proteína, fibra, movimiento y sueño.',
+    points: ['Proteína y fibra', 'Movimiento diario', 'Sueño'],
   },
   {
     title: 'Salud cardiovascular',
-    description: 'Qué relación tiene la menopausia con el corazón y la salud vascular.',
     href: '/menopausia/salud-cardiovascular',
+    description: 'Corazón y salud vascular en esta etapa.',
+    content: 'El riesgo cardiovascular aumenta tras la menopausia. Cardio regular, no fumar, tensión y lípidos controlados son clave.',
+    points: ['Cardio regular', 'Tensión y lípidos', 'No fumar'],
   },
 ]
 
@@ -60,7 +78,7 @@ export default function MenopausiaPage() {
     <HubLayout
       eyebrow="Etapa de vida"
       title="Menopausia"
-      intro="La menopausia es una etapa natural que puede ir acompañada de cambios en el sueño, los sofocos, la salud ósea y la energía. Aquí encontrarás información útil y orientativa para entender mejor lo que puede aparecer."
+      intro="La menopausia es una etapa natural que puede ir acompañada de cambios en el sueño, los sofocos, la salud ósea y la energía. Despliega cada tarjeta aquí mismo."
       items={items}
       breadcrumbLabel="Menopausia"
     />

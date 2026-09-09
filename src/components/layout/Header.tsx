@@ -3,13 +3,17 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X } from 'lucide-react'
+import { Search, Menu, X, ChevronDown } from 'lucide-react'
 import { mainNavItems } from '@/config'
 import { cn } from '@/lib/utils'
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null)
   const pathname = usePathname()
+
+  const isActive = (href: string) =>
+    pathname === href || (href !== '/' && pathname.startsWith(href))
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -18,7 +22,6 @@ export function Header() {
       </a>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-[72px]">
-          {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2 shrink-0"
@@ -37,24 +40,44 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav with dropdowns */}
           <nav
             className="hidden lg:flex items-center gap-1"
             aria-label="Navegación principal"
           >
             {mainNavItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
-                  pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
-                    ? 'text-accent bg-muted'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+              <div key={item.href + item.label} className="relative group">
+                <Link
+                  href={item.href}
+                  className={cn(
+                    'flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
+                    isActive(item.href)
+                      ? 'text-accent bg-muted'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                  )}
+                  aria-haspopup={item.children ? 'true' : undefined}
+                >
+                  {item.label}
+                  {item.children && (
+                    <ChevronDown className="h-3.5 w-3.5 opacity-60 transition-transform group-hover:rotate-180" aria-hidden="true" />
+                  )}
+                </Link>
+                {item.children && (
+                  <div className="invisible absolute left-0 top-full z-50 w-64 translate-y-1 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    <div className="overflow-hidden rounded-xl border border-border bg-card shadow-lg">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label + child.href}
+                          href={child.href}
+                          className="block px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 )}
-              >
-                {item.label}
-              </Link>
+              </div>
             ))}
           </nav>
 
@@ -101,7 +124,7 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu with accordions */}
         {isMobileMenuOpen && (
           <nav
             id="mobile-menu"
@@ -110,19 +133,70 @@ export function Header() {
           >
             <div className="flex flex-col gap-1">
               {mainNavItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={cn(
-                    'px-4 py-3 text-sm font-medium rounded-lg transition-colors',
-                    pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
-                      ? 'text-accent bg-muted'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                <div key={item.href + item.label} className="rounded-lg">
+                  {item.children ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenMobileSection(
+                            openMobileSection === item.label ? null : item.label
+                          )
+                        }
+                        aria-expanded={openMobileSection === item.label}
+                        className={cn(
+                          'flex w-full items-center justify-between px-4 py-3 text-sm font-medium rounded-lg transition-colors',
+                          isActive(item.href)
+                            ? 'text-accent bg-muted'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            'h-4 w-4 transition-transform',
+                            openMobileSection === item.label && 'rotate-180'
+                          )}
+                          aria-hidden="true"
+                        />
+                      </button>
+                      {openMobileSection === item.label && (
+                        <div className="ml-2 mt-1 flex flex-col gap-1 border-l-2 border-border pl-2">
+                          <Link
+                            href={item.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="px-4 py-2 text-sm font-semibold text-foreground rounded-lg hover:bg-muted/60"
+                          >
+                            Ver todo {item.label}
+                          </Link>
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.label + child.href}
+                              href={child.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="px-4 py-2 text-sm text-muted-foreground rounded-lg hover:text-foreground hover:bg-muted/60"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        'block px-4 py-3 text-sm font-medium rounded-lg transition-colors',
+                        isActive(item.href)
+                          ? 'text-accent bg-muted'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                      )}
+                    >
+                      {item.label}
+                    </Link>
                   )}
-                >
-                  {item.label}
-                </Link>
+                </div>
               ))}
               <div className="mt-2 px-4">
                 <Link
